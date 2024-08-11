@@ -8,7 +8,11 @@ import * as T from './types'
 const Grid = (props) => {
   // add link modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openAddLinkModal = () => {
+  const [modalDefaultNode, setModalDefaultNode] = useState({})
+  const openAddLinkModal = (defaultNode?: Node) => {
+    if (defaultNode) {
+      setModalDefaultNode(defaultNode);
+    }
     setIsModalOpen(true);
   };
   const closeModal = () => {
@@ -44,10 +48,9 @@ const Grid = (props) => {
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
-        contentLabel="Add link:"
         appElement={document.getElementById('root')}
     >
-        <AddLinkModal nodes={props.nodes} setNodes={props.setNodes} addLinkToNode={addLinkToNode} closeModal={closeModal}/>
+        <AddLinkModal nodes={props.nodes} setNodes={props.setNodes} addLinkToNode={addLinkToNode} closeModal={closeModal} defaultNode={modalDefaultNode}/>
       </Modal>
       <div
         id="grid"

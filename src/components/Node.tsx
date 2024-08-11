@@ -7,7 +7,7 @@ const Node = (props) => {
   // const emoji = props.node.emoji == "" ? "&#128511;" : props.node.emoji
 
   const openAddLinkModal = () => {
-    props.openAddLinkModal() 
+    props.openAddLinkModal(node) 
   }
 
   const LinkList = (props) => {

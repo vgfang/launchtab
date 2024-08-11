@@ -12,10 +12,15 @@ const AddLinkModal = (props) => {
       keystroke: "asd"
     })
   }
-
+  console.log(props.defaultNode)
   const NodeSelectDropdown = () => {
+    const selectedNode: Node = props.nodes.find(node => props.hasOwnProperty('defaultNode') && node.uuid === props.defaultNode.uuid)
+    let value = ""
+    if (selectedNode !== undefined) {
+      value = selectedNode.uuid;
+    }
     return (
-      <select name="node-select">
+      <select name="node-select" defaultValue={value}>
         {
           props.nodes.map((node, key) => {
             return(
