@@ -1,0 +1,63 @@
+{
+  "settings": {
+    "gridX": 3,
+    "gridY": 4,
+    "colors": {
+      "fg": "",
+      "bg": "",
+      "accent": "",
+      "text": ""
+    }
+  },
+  "nodes":
+  [
+    {
+      "uuid": "eac09cb4-fba5-483d-bacd-38b02f3b19f8",
+      "posX": 1,
+      "posY": 1,
+      "height": 1,
+      "width": 1,
+      "label": "tech",
+      "keychord": "te",
+      "emoji": "&#128507",
+      "links": [
+        {
+          "uuid": "aa7b4a1c-0a6a-4f07-8fbd-112bf5a5b606",
+          "label": "google",
+          "url": "https://google.com",
+          "keychord": "g"
+        },
+        {
+          "uuid": "c5fbcf1e-f0a9-48a7-b3e8-1862f93b7284",
+          "label": "yahooo!!!!",
+          "url": "https://yahoo.com",
+          "keychord": "ya"
+        }
+      ]
+    },
+    {
+      "uuid": "5971046b-16af-4365-a673-5aa9133b2528",
+      "posX": 2,
+      "posY": 2,
+      "height": 2,
+      "width": 2,
+      "label": "reading",
+      "keychord": "re",
+      "emoji": "",
+      "links": [
+        {
+          "uuid": "0bbb1f17-63ee-4c3d-8495-ce657a183830",
+          "label": "barnes",
+          "url": "https://www.barnesandnoble.com/",
+          "keychord": "ba"
+        },
+        {
+          "uuid": "b1899c98-0dea-40b1-9ffb-9052c875ea85",
+          "label": "wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Main_Page",
+          "keychord": "wiki"
+        }
+      ]
+    }
+  ]
+}

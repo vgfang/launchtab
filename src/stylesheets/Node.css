@@ -1,0 +1,12 @@
+.node {
+  border: 2px solid magenta;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.link-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
