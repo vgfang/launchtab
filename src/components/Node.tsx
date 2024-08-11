@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import '../stylesheets/Node.css';
+import * as T from './types'
 
 const Node = (props) => { 
-  const node = props.node
+  const node: T.Node = props.node
   // const emoji = props.node.emoji == "" ? "&#128511;" : props.node.emoji
 
   const openAddLinkModal = () => {

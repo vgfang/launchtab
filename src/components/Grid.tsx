@@ -1,56 +1,72 @@
-import React, {useState, useEffect} from 'react';
-import Node from './Node.tsx'
-import Modal from 'react-modal';
-import AddLinkModal from './AddLinkModal.tsx'
+import React, { useState, useEffect } from "react";
+import Modal from "react-modal";
+import Node from "./Node.tsx";
+import AddLinkModal from "./AddLinkModal.tsx";
+import {v4 as uuidv4} from 'uuid'
+import * as T from './types'
 
-const Grid = (props) => { 
+const Grid = (props) => {
   // add link modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
   const openAddLinkModal = () => {
-    setIsModalOpen(true)
-  }
-  const afterOpenModal = () => {
-  }
-  const closeModal = ()=> {
-    setIsModalOpen(false)
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  
+  const addLinkToNode = (uuid: string, link: object) => {
+    link.uuid = uuidv4()
+    props.setNodes((prevNodes) => {
+      prevNodes.filter((node: T.Node) => node.uuid === uuid);
+    })
   }
 
   const NodeList = (props) => {
     return (
-    <>
-      {props.nodes.map((node, key) => {
-        return <Node key={key} node={node} editMode={props.editMode} openAddLinkModal={props.openAddLinkModal}/>
-      })}
-    </>
-    )
-  }
+      <>
+        {props.nodes.map((node, key) => {
+          return (
+            <Node
+              key={key}
+              node={node}
+              editMode={props.editMode}
+              openAddLinkModal={props.openAddLinkModal}
+            />
+          );
+        })}
+      </>
+    );
+  };
 
   return (
     <>
       <Modal
         isOpen={isModalOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
-        // style={customStyles}
         contentLabel="Add link:"
-      >
-        <AddLinkModal/>
-      </Modal>
-    <div
-      id="grid"
-      style={{
-        display: `grid`,
-        gridTemplateColumns: `repeat(${props.settings.gridX}, 1fr)`,
-        gridTemplateRows: `repeat(${props.settings.gridY}, 1fr)`,
-        gridGap: '20px',
-      }}
+        appElement={document.getElementById('root')}
     >
-      <NodeList nodes={props.nodes} setNodes={props.setNodes} editMode={props.editMode} openAddLinkModal={openAddLinkModal}/>
-    </div>
+        <AddLinkModal nodes={props.nodes} setNodes={props.setNodes} addLinkToNode={addLinkToNode} closeModal={closeModal}/>
+      </Modal>
+      <div
+        id="grid"
+        style={{
+          display: `grid`,
+          gridTemplateColumns: `repeat(${props.settings.gridX}, 1fr)`,
+          gridTemplateRows: `repeat(${props.settings.gridY}, 1fr)`,
+          gridGap: "20px",
+        }}
+      >
+        <NodeList
+          nodes={props.nodes}
+          setNodes={props.setNodes}
+          editMode={props.editMode}
+          openAddLinkModal={openAddLinkModal}
+        />
+      </div>
     </>
-  )
-}
+  );
+};
 
 export default Grid;
-
