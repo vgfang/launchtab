@@ -6,6 +6,7 @@ import Grid from "./components/Grid.tsx";
 import TestJSON from "./test/test.json";
 import SettingsModal from "./components/SettingsModal"
 import * as T from './types'
+import { DefaultSettings } from "./defaults"
 
 function App() {
   // holds current keychord input from user
@@ -13,9 +14,10 @@ function App() {
   // holds current edit mode state
   const [editMode, setEditMode] = useState(true);
   // holds current settings
-  const [settings, setSettings] = useState({});
+  const [settings, setSettings] = useState<T.Settings>(DefaultSettings);
+
   // holds current nodes information
-  const [nodes, setNodes] = useState([]);
+  const [nodes, setNodes] = useState([] as T.Node[]);
   // add link modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openAddLinkModal = () => {
@@ -51,9 +53,9 @@ function App() {
 
   useEffect(() => {
     document.addEventListener("keydown", recordUserKeys);
-    const userJSON: T.Data = TestJSON;
-    setSettings(userJSON["settings"]);
-    setNodes(userJSON["nodes"] as T.Node[]);
+    const userJSON: T.Data = TestJSON as T.Data;
+    setSettings(userJSON.settings);
+    setNodes(userJSON.nodes);
     return () => {
       document.removeEventListener("keydown", recordUserKeys);
     };
@@ -77,7 +79,6 @@ function App() {
         <Modal
           isOpen={isModalOpen}
           onRequestClose={closeModal}
-          appElement={document.getElementById('root')}
         >
           <SettingsModal closeModal={closeModal} />
         </Modal>
@@ -86,8 +87,9 @@ function App() {
           settings={settings}
           nodes={nodes}
           setNodes={setNodes}
+          openAddLinkModal={openAddLinkModal}
         />
-      </main>
+      </main >
     </>
   );
 }

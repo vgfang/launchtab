@@ -2,13 +2,15 @@ import * as T from '../types'
 
 interface Props {
   closeModal: () => void;
-  addLinkToNode: (uuid: string, Link: T.Link) => void;
+  addLinkToNode: any;
   nodes: T.Node[];
-  defaultNode?: T.Node;
+  defaultNode: T.Node;
+  setNodes: any;
 }
 
 interface NodeSelectDropdownProps {
   nodes: T.Node[];
+  defaultNode: T.Node;
 }
 
 const AddLinkModal = (props: Props) => {
@@ -17,7 +19,7 @@ const AddLinkModal = (props: Props) => {
     props.addLinkToNode(uuid, link);
   }
 
-  const addLinkBtnClick = (event: MouseEvent): void => {
+  const addLinkBtnClick = (event: React.MouseEvent<HTMLElement>): void => {
     event.preventDefault()
     addLinkToNode("03b3809e-7d91-48c8-b6d4-d1365a054dff", {
       label: "test",
@@ -27,7 +29,8 @@ const AddLinkModal = (props: Props) => {
   }
 
   const NodeSelectDropdown = (props: NodeSelectDropdownProps) => {
-    const selectedNode: T.Node = props.nodes.find((node: T.Node) => 'defaultNode' in props && node.uuid === props.defaultNode['uuid'])
+    const defaultNode = props.defaultNode;
+    const selectedNode: T.Node = props.nodes.find((node: T.Node) => node.uuid === defaultNode.uuid) as T.Node
     let value = ""
     if (selectedNode !== undefined) {
       value = selectedNode.uuid;
@@ -53,7 +56,7 @@ const AddLinkModal = (props: Props) => {
       <h2>Add Link</h2>
       <form id="add-link-form">
         <label>node: </label>
-        <NodeSelectDropdown nodes={props.nodes} />
+        <NodeSelectDropdown nodes={props.nodes} defaultNode={props.defaultNode} />
         <br />
         <label>label: </label>
         <input type="text" name="label"></input><br />

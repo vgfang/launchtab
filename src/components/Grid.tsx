@@ -1,15 +1,30 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import Modal from "react-modal";
 import Node from "./Node.tsx";
 import AddLinkModal from "./AddLinkModal.tsx";
-import {v4 as uuidv4} from 'uuid'
-import * as T from './types'
+import { v4 as uuidv4 } from 'uuid'
+import * as T from '../types'
 
-const Grid = (props) => {
+interface Props {
+  nodes: T.Node[];
+  setNodes: any;
+  editMode: boolean;
+  settings: T.Settings;
+  openAddLinkModal: any;
+}
+
+interface NodeListProps {
+  nodes: T.Node[];
+  openAddLinkModal: any;
+  setNodes: any;
+  editMode: boolean;
+}
+
+const Grid = (props: Props) => {
   // add link modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalDefaultNode, setModalDefaultNode] = useState({})
-  const openAddLinkModal = (defaultNode?: Node) => {
+  const [modalDefaultNode, setModalDefaultNode] = useState<T.Node>({} as T.Node)
+  const openAddLinkModal = (defaultNode: T.Node) => {
     if (defaultNode) {
       setModalDefaultNode(defaultNode);
     }
@@ -18,15 +33,15 @@ const Grid = (props) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  
-  const addLinkToNode = (uuid: string, link: object) => {
+
+  const addLinkToNode = (uuid: string, link: T.Link) => {
     link.uuid = uuidv4()
-    props.setNodes((prevNodes) => {
+    props.setNodes((prevNodes: T.Node[]) => {
       prevNodes.filter((node: T.Node) => node.uuid === uuid);
     })
   }
 
-  const NodeList = (props) => {
+  const NodeList = (props: NodeListProps) => {
     return (
       <>
         {props.nodes.map((node, key) => {
@@ -40,7 +55,7 @@ const Grid = (props) => {
           );
         })}
       </>
-    );
+    )
   };
 
   return (
@@ -48,9 +63,8 @@ const Grid = (props) => {
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
-        appElement={document.getElementById('root')}
-    >
-        <AddLinkModal nodes={props.nodes} setNodes={props.setNodes} addLinkToNode={addLinkToNode} closeModal={closeModal} defaultNode={modalDefaultNode}/>
+      >
+        <AddLinkModal nodes={props.nodes} setNodes={props.setNodes} addLinkToNode={addLinkToNode} closeModal={closeModal} defaultNode={modalDefaultNode} />
       </Modal>
       <div
         id="grid"

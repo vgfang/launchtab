@@ -1,4 +1,8 @@
-const SettingsModal = (props) => {
+interface Props {
+  closeModal: any
+}
+
+const SettingsModal = (props: Props) => {
   return (
     <div>
       <button onClick={props.closeModal}>[close]</button>
