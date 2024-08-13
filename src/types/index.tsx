@@ -15,7 +15,7 @@ export interface Settings {
 }
 
 export interface Link {
-  uuid: string;
+  uuid?: string;
   label: string;
   url: string;
   keychord: string;

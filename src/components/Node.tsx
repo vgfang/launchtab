@@ -1,32 +1,40 @@
-import React, {useState, useEffect} from 'react';
 import '../stylesheets/Node.css';
-import * as T from './types'
+import Link from './Link'
+import * as T from '../types'
 
-const Node = (props) => { 
+interface Props {
+  node: T.Node;
+  editMode: boolean;
+  openAddLinkModal: (node: T.Node) => void;
+}
+
+interface LinkListProps {
+  links: T.Link[];
+  editMode: boolean;
+}
+
+const Node = (props: Props) => {
   const node: T.Node = props.node
   // const emoji = props.node.emoji == "" ? "&#128511;" : props.node.emoji
 
   const openAddLinkModal = () => {
-    props.openAddLinkModal(node) 
+    props.openAddLinkModal(node)
   }
 
-  const LinkList = (props) => {
+  const LinkList = (props: LinkListProps) => {
     return (
-    <ul className="link-list">
-      {props.links.map((link, key) => {
+      <ul className="link-list">
+        {props.links.map((link: T.Link, key: number) => {
           return (
-            <li key={key}>
-            <a href={link.url}>
-              {link.label}
-            </a>
-            </li>
+            <Link key={key} link={link} editMode={props.editMode} />
           )
-      })}
-    </ul>
+        })
+        }
+      </ul>
     )
   }
   return (
-    <div 
+    <div
       className="node"
       style={{
         gridRow: `${node.posY} / ${node.posY + node.height}`,
@@ -36,13 +44,13 @@ const Node = (props) => {
       <div className="node-header">
         <h2>{props.node.label}</h2>
         <span className="section-keychord-hint">{props.node.keychord}</span>
-        <LinkList links={props.node.links}/>
-        {props.editMode && 
-            <button onClick={openAddLinkModal}>
-              [ + ]
-            </button>
+        <LinkList links={props.node.links} editMode={props.editMode} />
+        {props.editMode &&
+          <button onClick={openAddLinkModal}>
+            ➕
+          </button>
         }
-        </div>
+      </div>
     </div>
   )
 }

@@ -2,7 +2,7 @@ const SettingsModal = (props) => {
   return (
     <div>
       <button onClick={props.closeModal}>[close]</button>
-      <h2>Settings</h2>
+      <h2>⚙</h2>
     </div>
   );
 };

@@ -33,8 +33,8 @@ function App() {
     console.log(`going to ${keychord}`);
   };
 
-  const recordUserKeys = (event) => {
-    setUserInput((prevInput) => {
+  const recordUserKeys = (event: KeyboardEvent): void => {
+    setUserInput((prevInput: string): string => {
       if (event.key === "Backspace") {
         return prevInput.length > 0 ? prevInput.slice(0, -1) : prevInput;
       } else if (event.key === "Enter") {
@@ -51,9 +51,9 @@ function App() {
 
   useEffect(() => {
     document.addEventListener("keydown", recordUserKeys);
-    const userJSON: Data = TestJSON;
+    const userJSON: T.Data = TestJSON;
     setSettings(userJSON["settings"]);
-    setNodes(userJSON["nodes"]);
+    setNodes(userJSON["nodes"] as T.Node[]);
     return () => {
       document.removeEventListener("keydown", recordUserKeys);
     };
@@ -67,19 +67,19 @@ function App() {
     <>
       <header id="header">
         <Clock />
-        <span id="user-input-span">keychord: {userInput}</span>
+        <span id="user-input-span">⌨{userInput}</span>
         <div>
           <button onClick={toggleEditMode}>edit</button>
-          <button onClick={openAddLinkModal}>settings</button>
+          <button onClick={openAddLinkModal}>⚙</button>
         </div>
       </header>
       <main>
-        <Modal 
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        appElement={document.getElementById('root')}
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          appElement={document.getElementById('root')}
         >
-          <SettingsModal closeModal={closeModal}/>
+          <SettingsModal closeModal={closeModal} />
         </Modal>
         <Grid
           editMode={editMode}
