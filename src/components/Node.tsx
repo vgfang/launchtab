@@ -6,6 +6,7 @@ interface Props {
   node: T.Node;
   editMode: boolean;
   openLinkModal: (node: T.Node, mode: T.LinkModalMode) => void;
+  setEditLinkUuid: any,
 }
 
 interface LinkListProps {
@@ -13,6 +14,7 @@ interface LinkListProps {
   links: T.Link[];
   editMode: boolean;
   openEditLinkModal: (node: T.Node, mode: T.LinkModalMode) => void;
+  setEditLinkUuid: any,
 }
 
 const Node = (props: Props) => {
@@ -32,7 +34,7 @@ const Node = (props: Props) => {
       <ul className="link-list">
         {props.links.map((link: T.Link, key: number) => {
           return (
-            <Link key={key} link={link} editMode={props.editMode} openEditLinkModal={props.openEditLinkModal} nodeUuid={node.uuid} />
+            <Link key={key} link={link} editMode={props.editMode} openEditLinkModal={props.openEditLinkModal} nodeUuid={node.uuid} setEditLinkUuid={props.setEditLinkUuid} />
           )
         })
         }
@@ -50,7 +52,7 @@ const Node = (props: Props) => {
       <div className="node-header">
         <h2>{props.node.label}</h2>
         <span className="section-keychord-hint">{node.keychord}</span>
-        <LinkList nodeUuid={node.uuid} links={node.links} editMode={props.editMode} openEditLinkModal={openEditLinkModal} />
+        <LinkList nodeUuid={node.uuid} links={node.links} editMode={props.editMode} openEditLinkModal={openEditLinkModal} setEditLinkUuid={props.setEditLinkUuid} />
         {props.editMode &&
           <button onClick={openAddLinkModal}>
             ➕

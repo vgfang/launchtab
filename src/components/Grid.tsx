@@ -18,13 +18,15 @@ interface NodeListProps {
   openLinkModal: any;
   setNodes: any;
   editMode: boolean;
+  setEditLinkUuid: string;
 }
 
 const Grid = (props: Props) => {
-  // add link modal
+  // link modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDefaultNode, setModalDefaultNode] = useState<T.Node>({} as T.Node)
   const [modalMode, setModalMode] = useState<T.LinkModalMode>(T.LinkModalMode.ADD)
+  const [modalEditLinkUuid, setModalEditLinkUuid] = useState('')
 
   const openLinkModal = (defaultNode: T.Node, mode: T.LinkModalMode) => {
     if (defaultNode) {
@@ -57,6 +59,7 @@ const Grid = (props: Props) => {
         if (linkIndex > -1) {
           nodeForLink.links[linkIndex] = link
         }
+        console.log(nodeForLink)
       }
       return prevNodes
     })
@@ -73,6 +76,7 @@ const Grid = (props: Props) => {
               node={node}
               editMode={props.editMode}
               openLinkModal={props.openLinkModal}
+              setEditLinkUuid={props.setEditLinkUuid}
             />
           );
         })}
@@ -87,7 +91,7 @@ const Grid = (props: Props) => {
         onRequestClose={closeModal}
         ariaHideApp={false}
       >
-        <LinkModal nodes={props.nodes} setNodes={props.setNodes} mode={modalMode} addLinkToNode={addLinkToNode} editLinkForNode={editLinkForNode} closeModal={closeModal} defaultNode={modalDefaultNode} />
+        <LinkModal nodes={props.nodes} setNodes={props.setNodes} mode={modalMode} addLinkToNode={addLinkToNode} editLinkForNode={editLinkForNode} closeModal={closeModal} defaultNode={modalDefaultNode} editLinkUuid={modalEditLinkUuid} />
       </Modal>
       <div
         id="grid"
@@ -103,6 +107,7 @@ const Grid = (props: Props) => {
           setNodes={props.setNodes}
           editMode={props.editMode}
           openLinkModal={openLinkModal}
+          setEditLinkUuid={setModalEditLinkUuid}
         />
       </div>
     </>

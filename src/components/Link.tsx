@@ -6,11 +6,14 @@ interface Props {
   key: number;
   openEditLinkModal: any;
   nodeUuid: string;
+  setEditLinkUuid: any;
 }
 
 const Link = (props: Props) => {
   const openEditLinkModal = () => {
     const newLink = props.link
+    // need to set modal state
+    props.setEditLinkUuid(props.link.uuid)
     props.openEditLinkModal(props.nodeUuid, newLink)
   }
   return (
