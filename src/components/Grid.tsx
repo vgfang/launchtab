@@ -37,14 +37,22 @@ const Grid = (props: Props) => {
   const addLinkToNode = (uuid: string, link: T.Link) => {
     link.uuid = uuidv4()
     props.setNodes((prevNodes: T.Node[]) => {
-      prevNodes.filter((node: T.Node) => node.uuid === uuid);
+      console.log(prevNodes)
+      console.log(uuid)
+      const nodeForLink: T.Node = prevNodes.filter((node: T.Node) => node.uuid === uuid)[0];
+      if (nodeForLink) {
+        nodeForLink.links.push(link)
+      }
+      console.log(nodeForLink)
+      return prevNodes
     })
   }
 
   const NodeList = (props: NodeListProps) => {
+    const nodes = props?.nodes || [];
     return (
       <>
-        {props.nodes.map((node, key) => {
+        {nodes.map((node, key) => {
           return (
             <Node
               key={key}
@@ -63,6 +71,7 @@ const Grid = (props: Props) => {
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
+        ariaHideApp={false}
       >
         <AddLinkModal nodes={props.nodes} setNodes={props.setNodes} addLinkToNode={addLinkToNode} closeModal={closeModal} defaultNode={modalDefaultNode} />
       </Modal>

@@ -7,9 +7,8 @@ interface Props {
 }
 
 const Link = (props: Props) => {
-
   return (
-    <li key={props.key}>
+    <li>
       <a href={props.link.url}>
         {props.link.label}
       </a>

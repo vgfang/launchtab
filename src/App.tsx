@@ -59,10 +59,9 @@ function App() {
     return () => {
       document.removeEventListener("keydown", recordUserKeys);
     };
-  }, []);
+  }, [recordUserKeys]);
 
   useEffect(() => {
-    console.log(nodes);
   }, [nodes]);
 
   return (
@@ -79,6 +78,7 @@ function App() {
         <Modal
           isOpen={isModalOpen}
           onRequestClose={closeModal}
+          ariaHideApp={false}
         >
           <SettingsModal closeModal={closeModal} />
         </Modal>
