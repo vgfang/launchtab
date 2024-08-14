@@ -32,3 +32,8 @@ export interface Node {
   keychord: string;
   links: Link[];
 }
+
+export enum LinkModalMode {
+  ADD = 'ADD',
+  EDIT = 'EDIT'
+}

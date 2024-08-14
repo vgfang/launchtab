@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "react-modal";
 import Node from "./Node.tsx";
-import AddLinkModal from "./AddLinkModal.tsx";
+import LinkModal from "./LinkModal.tsx";
 import { v4 as uuidv4 } from 'uuid'
 import * as T from '../types'
 
@@ -10,12 +10,12 @@ interface Props {
   setNodes: any;
   editMode: boolean;
   settings: T.Settings;
-  openAddLinkModal: any;
+  openLinkModal: any;
 }
 
 interface NodeListProps {
   nodes: T.Node[];
-  openAddLinkModal: any;
+  openLinkModal: any;
   setNodes: any;
   editMode: boolean;
 }
@@ -24,22 +24,39 @@ const Grid = (props: Props) => {
   // add link modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDefaultNode, setModalDefaultNode] = useState<T.Node>({} as T.Node)
-  const openAddLinkModal = (defaultNode: T.Node) => {
+  const [modalMode, setModalMode] = useState<T.LinkModalMode>(T.LinkModalMode.ADD)
+
+  const openLinkModal = (defaultNode: T.Node, mode: T.LinkModalMode) => {
     if (defaultNode) {
       setModalDefaultNode(defaultNode);
     }
+    setModalMode(mode)
     setIsModalOpen(true);
   };
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  const addLinkToNode = (uuid: string, link: T.Link) => {
+  const addLinkToNode = (nodeUuid: string, link: T.Link) => {
     link.uuid = uuidv4()
     props.setNodes((prevNodes: T.Node[]) => {
-      const nodeForLink: T.Node = prevNodes.filter((node: T.Node) => node.uuid === uuid)[0];
+      const nodeForLink: T.Node | undefined = prevNodes.find((node: T.Node) => node.uuid === nodeUuid);
       if (nodeForLink) {
         nodeForLink.links.push(link)
+      }
+      return prevNodes
+    })
+  }
+
+  const editLinkForNode = (nodeUuid: string, link: T.Link) => {
+    props.setNodes((prevNodes: T.Node[]) => {
+      const nodeForLink: T.Node | undefined = prevNodes.find((node: T.Node) => node.uuid === nodeUuid)
+      if (nodeForLink) {
+        const linkIndex: number = nodeForLink.links.findIndex((oldLink: T.Link) => oldLink.uuid === link.uuid)
+        if (linkIndex > -1) {
+          nodeForLink.links[linkIndex] = link
+        }
       }
       return prevNodes
     })
@@ -55,7 +72,7 @@ const Grid = (props: Props) => {
               key={key}
               node={node}
               editMode={props.editMode}
-              openAddLinkModal={props.openAddLinkModal}
+              openLinkModal={props.openLinkModal}
             />
           );
         })}
@@ -70,7 +87,7 @@ const Grid = (props: Props) => {
         onRequestClose={closeModal}
         ariaHideApp={false}
       >
-        <AddLinkModal nodes={props.nodes} setNodes={props.setNodes} addLinkToNode={addLinkToNode} closeModal={closeModal} defaultNode={modalDefaultNode} />
+        <LinkModal nodes={props.nodes} setNodes={props.setNodes} mode={modalMode} addLinkToNode={addLinkToNode} editLinkForNode={editLinkForNode} closeModal={closeModal} defaultNode={modalDefaultNode} />
       </Modal>
       <div
         id="grid"
@@ -85,7 +102,7 @@ const Grid = (props: Props) => {
           nodes={props.nodes}
           setNodes={props.setNodes}
           editMode={props.editMode}
-          openAddLinkModal={openAddLinkModal}
+          openLinkModal={openLinkModal}
         />
       </div>
     </>

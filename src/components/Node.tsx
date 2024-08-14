@@ -5,12 +5,14 @@ import * as T from '../types'
 interface Props {
   node: T.Node;
   editMode: boolean;
-  openAddLinkModal: (node: T.Node) => void;
+  openLinkModal: (node: T.Node, mode: T.LinkModalMode) => void;
 }
 
 interface LinkListProps {
+  nodeUuid: string;
   links: T.Link[];
   editMode: boolean;
+  openEditLinkModal: (node: T.Node, mode: T.LinkModalMode) => void;
 }
 
 const Node = (props: Props) => {
@@ -18,7 +20,11 @@ const Node = (props: Props) => {
   // const emoji = props.node.emoji == "" ? "&#128511;" : props.node.emoji
 
   const openAddLinkModal = () => {
-    props.openAddLinkModal(node)
+    props.openLinkModal(node, T.LinkModalMode.ADD)
+  }
+
+  const openEditLinkModal = () => {
+    props.openLinkModal(node, T.LinkModalMode.EDIT)
   }
 
   const LinkList = (props: LinkListProps) => {
@@ -26,7 +32,7 @@ const Node = (props: Props) => {
       <ul className="link-list">
         {props.links.map((link: T.Link, key: number) => {
           return (
-            <Link key={key} link={link} editMode={props.editMode} />
+            <Link key={key} link={link} editMode={props.editMode} openEditLinkModal={props.openEditLinkModal} nodeUuid={node.uuid} />
           )
         })
         }
@@ -43,8 +49,8 @@ const Node = (props: Props) => {
     >
       <div className="node-header">
         <h2>{props.node.label}</h2>
-        <span className="section-keychord-hint">{props.node.keychord}</span>
-        <LinkList links={props.node.links} editMode={props.editMode} />
+        <span className="section-keychord-hint">{node.keychord}</span>
+        <LinkList nodeUuid={node.uuid} links={node.links} editMode={props.editMode} openEditLinkModal={openEditLinkModal} />
         {props.editMode &&
           <button onClick={openAddLinkModal}>
             ➕

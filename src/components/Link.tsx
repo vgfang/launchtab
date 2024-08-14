@@ -4,9 +4,15 @@ interface Props {
   link: T.Link;
   editMode: boolean;
   key: number;
+  openEditLinkModal: any;
+  nodeUuid: string;
 }
 
 const Link = (props: Props) => {
+  const openEditLinkModal = () => {
+    const newLink = props.link
+    props.openEditLinkModal(props.nodeUuid, newLink)
+  }
   return (
     <li>
       <a href={props.link.url}>
@@ -14,7 +20,7 @@ const Link = (props: Props) => {
       </a>
       {props.editMode &&
         <div style={{ 'display': 'flex', 'flexDirection': 'row' }}>
-          <button className="link-edit-button">
+          <button onClick={openEditLinkModal} className="link-edit-button">
             ✎
           </button>
           <button className="link-delete-button">
