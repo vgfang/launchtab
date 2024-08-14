@@ -12,8 +12,8 @@ interface Props {
 
 interface NodeSelectDropdownProps {
   nodes: T.Node[];
-  defaultNode: T.Node;
   setSelectedNode: any;
+  selectedNode: T.Node;
 }
 
 const AddLinkModal = (props: Props) => {
@@ -39,9 +39,8 @@ const AddLinkModal = (props: Props) => {
 
   const NodeSelectDropdown = (props: NodeSelectDropdownProps) => {
     const nodes = props?.nodes || [];
-    const defaultNode = props?.defaultNode || {};
-    const selectedNode: T.Node | undefined = nodes.find((node: T.Node) => node.uuid === defaultNode.uuid) as T.Node | undefined
-
+    const selectOnChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => props.setSelectedNode(findNodeViaUUID(e.target.value))
+    const selectedNode = props.selectedNode
     const findNodeViaUUID = (uuid: string): T.Node | undefined => {
       return nodes.find((node: T.Node) => node.uuid == uuid)
     }
@@ -51,7 +50,7 @@ const AddLinkModal = (props: Props) => {
       value = selectedNode.uuid;
     }
     return (
-      <select name="node-select" defaultValue={value} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => props.setSelectedNode(findNodeViaUUID(e.target.value))}>
+      <select name="node-select" value={value} onChange={selectOnChangeHandler}>
         {
           nodes.map((node: T.Node, key: number) => {
             return (
@@ -71,7 +70,7 @@ const AddLinkModal = (props: Props) => {
       <h2>Add Link</h2>
       <form id="add-link-form">
         <label>node: </label>
-        <NodeSelectDropdown nodes={props.nodes} defaultNode={props.defaultNode} setSelectedNode={setSelectedNode} />
+        <NodeSelectDropdown nodes={props.nodes} selectedNode={selectedNode} setSelectedNode={setSelectedNode} />
         <br />
         <label>label: </label>
         <input type="text" name="label" value={label} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setLabel(e.target.value))}></input><br />

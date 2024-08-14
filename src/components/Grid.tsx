@@ -37,13 +37,10 @@ const Grid = (props: Props) => {
   const addLinkToNode = (uuid: string, link: T.Link) => {
     link.uuid = uuidv4()
     props.setNodes((prevNodes: T.Node[]) => {
-      console.log(prevNodes)
-      console.log(uuid)
       const nodeForLink: T.Node = prevNodes.filter((node: T.Node) => node.uuid === uuid)[0];
       if (nodeForLink) {
         nodeForLink.links.push(link)
       }
-      console.log(nodeForLink)
       return prevNodes
     })
   }
