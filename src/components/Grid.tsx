@@ -10,7 +10,7 @@ interface Props {
   setNodes: any;
   editMode: boolean;
   settings: T.Settings;
-  openLinkModal: any;
+  openConfirmModal: any;
 }
 
 interface NodeListProps {
@@ -18,7 +18,9 @@ interface NodeListProps {
   openLinkModal: any;
   setNodes: any;
   editMode: boolean;
-  setEditLinkUuid: string;
+  setEditLinkUuid: any;
+  openConfirmModal: any;
+  deleteLinkForNode: any;
 }
 
 const Grid = (props: Props) => {
@@ -65,6 +67,20 @@ const Grid = (props: Props) => {
     })
   }
 
+  const deleteLinkForNode = (nodeUuid: string, linkUuid: string) => {
+    props.setNodes((prevNodes: T.Node[]) => {
+      const nodeForLink: T.Node | undefined = prevNodes.find((node: T.Node) => node.uuid === nodeUuid)
+      if (nodeForLink) {
+        const linkIndex: number = nodeForLink.links.findIndex((oldLink: T.Link) => oldLink.uuid === linkUuid)
+        if (linkIndex > -1) {
+          nodeForLink.links.splice(linkIndex, 1)
+        }
+        console.log(nodeForLink)
+      }
+      return prevNodes
+    })
+  }
+
   const NodeList = (props: NodeListProps) => {
     const nodes = props?.nodes || [];
     return (
@@ -77,6 +93,8 @@ const Grid = (props: Props) => {
               editMode={props.editMode}
               openLinkModal={props.openLinkModal}
               setEditLinkUuid={props.setEditLinkUuid}
+              openConfirmModal={props.openConfirmModal}
+              deleteLinkForNode={props.deleteLinkForNode}
             />
           );
         })}
@@ -93,6 +111,7 @@ const Grid = (props: Props) => {
       >
         <LinkModal nodes={props.nodes} setNodes={props.setNodes} mode={modalMode} addLinkToNode={addLinkToNode} editLinkForNode={editLinkForNode} closeModal={closeModal} defaultNode={modalDefaultNode} editLinkUuid={modalEditLinkUuid} />
       </Modal>
+
       <div
         id="grid"
         style={{
@@ -108,6 +127,8 @@ const Grid = (props: Props) => {
           editMode={props.editMode}
           openLinkModal={openLinkModal}
           setEditLinkUuid={setModalEditLinkUuid}
+          openConfirmModal={props.openConfirmModal}
+          deleteLinkForNode={deleteLinkForNode}
         />
       </div>
     </>

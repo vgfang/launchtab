@@ -1,6 +1,5 @@
 ### node
 - a node has a header text and an optional emoji
-- nodes can be of type link 
 
 ### hotkeys
 - we are using chord-based key strokes to activate links

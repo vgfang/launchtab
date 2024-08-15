@@ -7,6 +7,7 @@ import TestJSON from "./test/test.json";
 import SettingsModal from "./components/SettingsModal"
 import * as T from './types'
 import { DefaultSettings } from "./defaults"
+import ConfirmModal from "./components/ConfirmModal.tsx";
 
 function App() {
   // holds current keychord input from user
@@ -15,17 +16,29 @@ function App() {
   const [editMode, setEditMode] = useState(true);
   // holds current settings
   const [settings, setSettings] = useState<T.Settings>(DefaultSettings);
-
   // holds current nodes information
   const [nodes, setNodes] = useState([] as T.Node[]);
-  // add link modal
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openAddLinkModal = () => {
+  const openSettingsModal = () => {
     setIsModalOpen(true);
   };
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
+  const [confirmFunc, setConfirmFunc] = useState(() => { })
+  const openConfirmModal = (func: any, desc: string) => {
+    setConfirmFunc(func)
+    console.log(func)
+    setConfirmDescription(desc)
+    setIsConfirmModalOpen(true)
+  }
+  const closeConfirmModal = () => {
+    setIsModalOpen(false)
+  }
+  const [confirmDescription, setConfirmDescription] = useState('')
 
   const toggleEditMode = () => {
     setEditMode(editMode ? false : true)
@@ -71,7 +84,7 @@ function App() {
         <span id="user-input-span">⌨{userInput}</span>
         <div>
           <button onClick={toggleEditMode}>edit</button>
-          <button onClick={openAddLinkModal}>⚙</button>
+          <button onClick={openSettingsModal}>⚙</button>
         </div>
       </header>
       <main>
@@ -82,12 +95,23 @@ function App() {
         >
           <SettingsModal closeModal={closeModal} />
         </Modal>
+        <Modal
+          isOpen={isConfirmModalOpen}
+          onRequestClose={closeConfirmModal}
+          ariaHideApp={false}
+        >
+          <ConfirmModal
+            confirmFunc={confirmFunc}
+            closeModal={closeConfirmModal}
+            description={confirmDescription}
+          ></ConfirmModal>
+        </Modal>
         <Grid
           editMode={editMode}
           settings={settings}
           nodes={nodes}
           setNodes={setNodes}
-          openAddLinkModal={openAddLinkModal}
+          openConfirmModal={openConfirmModal}
         />
       </main >
     </>

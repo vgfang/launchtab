@@ -7,6 +7,8 @@ interface Props {
   openEditLinkModal: any;
   nodeUuid: string;
   setEditLinkUuid: any;
+  openConfirmModal: any;
+  deleteLinkForNode: any;
 }
 
 const Link = (props: Props) => {
@@ -16,6 +18,18 @@ const Link = (props: Props) => {
     props.setEditLinkUuid(props.link.uuid)
     props.openEditLinkModal(props.nodeUuid, newLink)
   }
+
+  const handleDeleteLink = () => {
+    console.log("handle delete link")
+    const description = `Are you sure you want to delete link:\n ${props.link.label}(${props.link.url})?`;
+    // props.openConfirmModal(props.deleteLinkForNode.bind(
+    //   null,
+    //   props.nodeUuid,
+    //   props.link.uuid
+    // ), description)
+    props.openConfirmModal(() => { console.log("hey") }, description)
+  }
+
   return (
     <li>
       <a href={props.link.url}>
@@ -26,7 +40,7 @@ const Link = (props: Props) => {
           <button onClick={openEditLinkModal} className="link-edit-button">
             ✎
           </button>
-          <button className="link-delete-button">
+          <button onClick={handleDeleteLink} className="link-delete-button">
             ✕
           </button>
         </div>
