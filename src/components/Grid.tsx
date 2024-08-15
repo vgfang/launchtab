@@ -61,13 +61,13 @@ const Grid = (props: Props) => {
         if (linkIndex > -1) {
           nodeForLink.links[linkIndex] = link
         }
-        console.log(nodeForLink)
       }
       return prevNodes
     })
   }
 
   const deleteLinkForNode = (nodeUuid: string, linkUuid: string) => {
+    console.log(`delete link for node ${nodeUuid} ${linkUuid}`)
     props.setNodes((prevNodes: T.Node[]) => {
       const nodeForLink: T.Node | undefined = prevNodes.find((node: T.Node) => node.uuid === nodeUuid)
       if (nodeForLink) {
@@ -75,7 +75,6 @@ const Grid = (props: Props) => {
         if (linkIndex > -1) {
           nodeForLink.links.splice(linkIndex, 1)
         }
-        console.log(nodeForLink)
       }
       return prevNodes
     })

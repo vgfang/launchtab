@@ -30,13 +30,12 @@ function App() {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
   const [confirmFunc, setConfirmFunc] = useState(() => { })
   const openConfirmModal = (func: any, desc: string) => {
-    setConfirmFunc(func)
-    console.log(func)
+    setConfirmFunc(() => func)
     setConfirmDescription(desc)
     setIsConfirmModalOpen(true)
   }
   const closeConfirmModal = () => {
-    setIsModalOpen(false)
+    setIsConfirmModalOpen(false)
   }
   const [confirmDescription, setConfirmDescription] = useState('')
 

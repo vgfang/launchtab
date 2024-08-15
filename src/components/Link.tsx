@@ -22,12 +22,11 @@ const Link = (props: Props) => {
   const handleDeleteLink = () => {
     console.log("handle delete link")
     const description = `Are you sure you want to delete link:\n ${props.link.label}(${props.link.url})?`;
-    // props.openConfirmModal(props.deleteLinkForNode.bind(
-    //   null,
-    //   props.nodeUuid,
-    //   props.link.uuid
-    // ), description)
-    props.openConfirmModal(() => { console.log("hey") }, description)
+    props.openConfirmModal(() => props.deleteLinkForNode(
+      props.nodeUuid,
+      props.link.uuid
+    ), description)
+    // props.openConfirmModal(() => console.log("hey"), description)
   }
 
   return (

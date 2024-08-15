@@ -5,13 +5,15 @@ interface Props {
 }
 
 const ConfirmModal = (props: Props) => {
-
-  console.log(props.confirmFunc)
-
   const handleLinkFormSubmit = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
+    console.log(props.confirmFunc)
     if (props.confirmFunc) {
       props.confirmFunc()
+      props.closeModal()
+    } else {
+      alert('error with confirmation modal function passing')
+      props.closeModal()
     }
   }
 
