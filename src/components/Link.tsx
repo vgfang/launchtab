@@ -6,17 +6,14 @@ interface Props {
   key: number;
   openEditLinkModal: any;
   nodeUuid: string;
-  setEditLinkUuid: any;
   openConfirmModal: any;
   deleteLinkForNode: any;
 }
 
 const Link = (props: Props) => {
   const openEditLinkModal = () => {
-    const newLink = props.link
     // need to set modal state
-    props.setEditLinkUuid(props.link.uuid)
-    props.openEditLinkModal(props.nodeUuid, newLink)
+    props.openEditLinkModal(props.link)
   }
 
   const parseUrlForUse = (url: string) => {
@@ -28,7 +25,6 @@ const Link = (props: Props) => {
   }
 
   const handleDeleteLink = () => {
-    console.log("handle delete link")
     const description = `Are you sure you want to delete link:\n ${props.link.label}(${props.link.url})?`;
     props.openConfirmModal(() => props.deleteLinkForNode(
       props.nodeUuid,

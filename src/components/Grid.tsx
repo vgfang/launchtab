@@ -2,6 +2,7 @@ import { useState } from "react";
 import Modal from "react-modal";
 import Node from "./Node.tsx";
 import LinkModal from "./LinkModal.tsx";
+import NodeModal from "./NodeModal.tsx";
 import { v4 as uuidv4 } from 'uuid'
 import * as T from '../types'
 
@@ -18,9 +19,10 @@ interface NodeListProps {
   openLinkModal: any;
   setNodes: any;
   editMode: boolean;
-  setEditLinkUuid: any;
   openConfirmModal: any;
   deleteLinkForNode: any;
+  openNodeModal: any;
+  closeNodeModal: any;
 }
 
 const Grid = (props: Props) => {
@@ -28,15 +30,27 @@ const Grid = (props: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDefaultNode, setModalDefaultNode] = useState<T.Node>({} as T.Node)
   const [modalMode, setModalMode] = useState<T.LinkModalMode>(T.LinkModalMode.ADD)
-  const [modalEditLinkUuid, setModalEditLinkUuid] = useState('')
+  const [modalEditLink, setModalEditLink] = useState<T.Link | undefined>(undefined)
 
   // node modal
   const [isNodeModalOpen, setIsNodeModalOpen] = useState(false);
-  const [nodeModalSelectedNode, setNodeModalSelectedNode] = useState<T.Node>();
+  const [nodeModalSelectedNode, setNodeModalSelectedNode] = useState<T.Node>({} as T.Node);
 
-  const openLinkModal = (defaultNode: T.Node, mode: T.LinkModalMode) => {
+  const openNodeModal = (selectedNode: T.Node) => {
+    setNodeModalSelectedNode(selectedNode)
+    setIsNodeModalOpen(true)
+  }
+
+  const closeNodeModal = () => {
+    setIsNodeModalOpen(false)
+  }
+
+  const openLinkModal = (defaultNode: T.Node, mode: T.LinkModalMode, editLink: T.Link | undefined = undefined) => {
     if (defaultNode) {
       setModalDefaultNode(defaultNode);
+    }
+    if (editLink) {
+      setModalEditLink(editLink)
     }
     setModalMode(mode)
     setIsModalOpen(true);
@@ -45,6 +59,16 @@ const Grid = (props: Props) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const updateNode = (node: T.Node) => {
+    props.setNodes((prevNodes: T.Node[]) => {
+      const nodeForEditIndex: number = prevNodes.findIndex((node: T.Node) => node.uuid === node.uuid);
+      if (nodeForEditIndex > -1) {
+        prevNodes[nodeForEditIndex] = node
+      }
+      return prevNodes
+    })
+  }
 
   const addLinkToNode = (nodeUuid: string, link: T.Link) => {
     link.uuid = uuidv4()
@@ -94,9 +118,10 @@ const Grid = (props: Props) => {
               node={node}
               editMode={props.editMode}
               openLinkModal={props.openLinkModal}
-              setEditLinkUuid={props.setEditLinkUuid}
               openConfirmModal={props.openConfirmModal}
               deleteLinkForNode={props.deleteLinkForNode}
+              openNodeModal={openNodeModal}
+              closeNodeModal={closeNodeModal}
             />
           );
         })}
@@ -111,9 +136,15 @@ const Grid = (props: Props) => {
         onRequestClose={closeModal}
         ariaHideApp={false}
       >
-        <LinkModal nodes={props.nodes} setNodes={props.setNodes} mode={modalMode} addLinkToNode={addLinkToNode} editLinkForNode={editLinkForNode} closeModal={closeModal} defaultNode={modalDefaultNode} editLinkUuid={modalEditLinkUuid} />
+        <LinkModal nodes={props.nodes} setNodes={props.setNodes} mode={modalMode} addLinkToNode={addLinkToNode} editLinkForNode={editLinkForNode} closeModal={closeModal} defaultNode={modalDefaultNode} editLink={modalEditLink} />
       </Modal>
-
+      <Modal
+        isOpen={isNodeModalOpen}
+        onRequestClose={closeModal}
+        ariaHideApp={false}
+      >
+        <NodeModal selectedNode={nodeModalSelectedNode} closeModal={closeNodeModal} updateNode={updateNode} />
+      </Modal>
       <div
         id="grid"
         style={{
@@ -128,8 +159,9 @@ const Grid = (props: Props) => {
           setNodes={props.setNodes}
           editMode={props.editMode}
           openLinkModal={openLinkModal}
-          setEditLinkUuid={setModalEditLinkUuid}
           openConfirmModal={props.openConfirmModal}
+          openNodeModal={openNodeModal}
+          closeNodeModal={closeNodeModal}
           deleteLinkForNode={deleteLinkForNode}
         />
       </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as T from '../types'
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   defaultNode: T.Node;
   setNodes: any;
   mode: T.LinkModalMode;
-  editLinkUuid?: string;
+  editLink?: T.Link | undefined;
 }
 
 interface NodeSelectDropdownProps {
@@ -24,6 +24,15 @@ const LinkModal = (props: Props) => {
   const [keychord, setKeychord] = useState('')
   const [url, setUrl] = useState('')
   const [selectedNode, setSelectedNode] = useState(props.defaultNode)
+
+  useEffect(() => {
+    // if edit modal set values
+    if (props.mode === T.LinkModalMode.EDIT && props.editLink) {
+      setLabel(props.editLink.label)
+      setKeychord(props.editLink.keychord)
+      setUrl(props.editLink.url)
+    }
+  }, []);
 
   // uses the node uuid to add the link to the link list
   const addLinkToNode = (nodeUuid: string, link: T.Link) => {
@@ -46,12 +55,12 @@ const LinkModal = (props: Props) => {
 
   const editLinkBtnClick = (event: React.MouseEvent<HTMLElement>): void => {
     event.preventDefault()
-    if (!props.editLinkUuid) {
-      alert("problem with linkuuid passing")
+    if (!props.editLink) {
+      alert("problem with link passing")
       return
     }
     editLinkForNode(selectedNode.uuid, {
-      uuid: props.editLinkUuid,
+      uuid: props.editLink.uuid,
       label: label,
       url: url,
       keychord: keychord
@@ -107,9 +116,9 @@ const LinkModal = (props: Props) => {
         <label>label: </label>
         <input type="text" name="label" value={label} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setLabel(e.target.value))}></input><br />
         <label>keystroke: </label>
-        <input type="text" name="keystroke" onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))}></input><br />
+        <input type="text" name="keychord" value={keychord} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))}></input><br />
         <label>url: </label>
-        <input type="text" name="url" onChange={((e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value))}></input><br />
+        <input type="text" name="url" value={url} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value))}></input><br />
         <button onClick={props.closeModal}>[ cancel ]</button>
         <button type="submit" form="link-modal-form" onClick={handleLinkFormSubmit}>
           {props.mode === T.LinkModalMode.ADD && '[ add ]'}

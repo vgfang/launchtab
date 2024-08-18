@@ -5,32 +5,35 @@ import * as T from '../types'
 interface Props {
   node: T.Node;
   editMode: boolean;
-  openLinkModal: (node: T.Node, mode: T.LinkModalMode) => void;
-  setEditLinkUuid: any,
+  openLinkModal: (node: T.Node, mode: T.LinkModalMode, link?: T.Link | undefined) => void;
   openConfirmModal: any;
   deleteLinkForNode: any;
+  openNodeModal: any;
+  closeNodeModal: any;
 }
 
 interface LinkListProps {
   nodeUuid: string;
   links: T.Link[];
   editMode: boolean;
-  openEditLinkModal: (node: T.Node, mode: T.LinkModalMode) => void;
-  setEditLinkUuid: any,
+  openEditLinkModal: (link: T.Link | undefined) => void;
   openConfirmModal: any;
   deleteLinkForNode: any;
 }
 
 const Node = (props: Props) => {
   const node: T.Node = props.node
-  // const emoji = props.node.emoji == "" ? "&#128511;" : props.node.emoji
 
   const openAddLinkModal = () => {
     props.openLinkModal(node, T.LinkModalMode.ADD)
   }
 
-  const openEditLinkModal = () => {
-    props.openLinkModal(node, T.LinkModalMode.EDIT)
+  const openEditLinkModal = (link: T.Link | undefined) => {
+    props.openLinkModal(node, T.LinkModalMode.EDIT, link)
+  }
+
+  const openNodeModalForNode = () => {
+    props.openNodeModal(props.node)
   }
 
   const LinkList = (props: LinkListProps) => {
@@ -44,7 +47,6 @@ const Node = (props: Props) => {
               editMode={props.editMode}
               openEditLinkModal={props.openEditLinkModal}
               nodeUuid={node.uuid}
-              setEditLinkUuid={props.setEditLinkUuid}
               openConfirmModal={props.openConfirmModal}
               deleteLinkForNode={props.deleteLinkForNode}
             />
@@ -63,6 +65,7 @@ const Node = (props: Props) => {
       }}
     >
       <div className="node-header">
+        {props.editMode && <button onClick={openNodeModalForNode}>[ edit ]</button>}
         <h2>{props.node.label}</h2>
         <span className="section-keychord-hint">{node.keychord}</span>
         <LinkList
@@ -70,7 +73,6 @@ const Node = (props: Props) => {
           links={node.links}
           editMode={props.editMode}
           openEditLinkModal={openEditLinkModal}
-          setEditLinkUuid={props.setEditLinkUuid}
           openConfirmModal={props.openConfirmModal}
           deleteLinkForNode={props.deleteLinkForNode}
         />
