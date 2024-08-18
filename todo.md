@@ -8,8 +8,6 @@
   - if that link is to be activated and its in that node we need to type 'abc'
 
 ### todo list
-- delete link functionality
-- delete link/node confirmation modal
 - drag and drop links
 - edit node modal
 - keychord functionality

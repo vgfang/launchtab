@@ -10,15 +10,21 @@ const SettingsModal = (props: Props) => {
 
   return (
     <div>
-      <button onClick={props.closeModal}>[close]</button>
-      <h2>⚙</h2>
+      <h2>settings:</h2>
 
       <form>
+
         <label>Grid Size: </label>
         <label>x: </label>
         <input type="text" />
         <label>y: </label>
         <input type="text" /><br />
+
+        <label>Grid Padding: </label>
+        <label>Grid Gap: </label>
+        <label>Grid Width: </label>
+        <label>Grid Radius: </label>
+        <br />
 
         <label>Colors:</label>
         <table>
@@ -60,7 +66,7 @@ const SettingsModal = (props: Props) => {
 
         <button onClick={props.closeModal}>[ cancel ]</button>
         <button type="submit" form="confirm-modal-form" onClick={handleLinkFormSubmit}>
-          [ save setttings ]
+          [ save ]
         </button>
       </form>
     </div>

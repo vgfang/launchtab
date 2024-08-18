@@ -30,6 +30,10 @@ const Grid = (props: Props) => {
   const [modalMode, setModalMode] = useState<T.LinkModalMode>(T.LinkModalMode.ADD)
   const [modalEditLinkUuid, setModalEditLinkUuid] = useState('')
 
+  // node modal
+  const [isNodeModalOpen, setIsNodeModalOpen] = useState(false);
+  const [nodeModalSelectedNode, setNodeModalSelectedNode] = useState<T.Node>();
+
   const openLinkModal = (defaultNode: T.Node, mode: T.LinkModalMode) => {
     if (defaultNode) {
       setModalDefaultNode(defaultNode);
@@ -62,7 +66,6 @@ const Grid = (props: Props) => {
           nodeForLink.links[linkIndex] = link
         }
       }
-      return prevNodes
     })
   }
 

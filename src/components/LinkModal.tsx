@@ -98,9 +98,8 @@ const LinkModal = (props: Props) => {
 
   return (
     <div>
-      <button onClick={props.closeModal}>[close]</button>
-      {props.mode === T.LinkModalMode.ADD && <h2>Add Link</h2>}
-      {props.mode === T.LinkModalMode.EDIT && <h2>Edit Link</h2>}
+      {props.mode === T.LinkModalMode.ADD && <h2>add link:</h2>}
+      {props.mode === T.LinkModalMode.EDIT && <h2>edit link:</h2>}
       <form id="link-modal-form">
         <label>node: </label>
         <NodeSelectDropdown nodes={props.nodes} selectedNode={selectedNode} setSelectedNode={setSelectedNode} />
@@ -111,9 +110,10 @@ const LinkModal = (props: Props) => {
         <input type="text" name="keystroke" onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))}></input><br />
         <label>url: </label>
         <input type="text" name="url" onChange={((e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value))}></input><br />
+        <button onClick={props.closeModal}>[ cancel ]</button>
         <button type="submit" form="link-modal-form" onClick={handleLinkFormSubmit}>
-          {props.mode === T.LinkModalMode.ADD && '[ add link ]'}
-          {props.mode === T.LinkModalMode.EDIT && '[ save changes ]'}
+          {props.mode === T.LinkModalMode.ADD && '[ add ]'}
+          {props.mode === T.LinkModalMode.EDIT && '[ save ]'}
         </button>
       </form>
     </div >

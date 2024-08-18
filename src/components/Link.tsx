@@ -19,6 +19,14 @@ const Link = (props: Props) => {
     props.openEditLinkModal(props.nodeUuid, newLink)
   }
 
+  const parseUrlForUse = (url: string) => {
+    const hasPrefix = /^(http:\/\/|https:\/\/)/i.test(url);
+    if (hasPrefix) {
+      return url;
+    }
+    return `https://${url}`;
+  }
+
   const handleDeleteLink = () => {
     console.log("handle delete link")
     const description = `Are you sure you want to delete link:\n ${props.link.label}(${props.link.url})?`;
@@ -26,12 +34,15 @@ const Link = (props: Props) => {
       props.nodeUuid,
       props.link.uuid
     ), description)
-    // props.openConfirmModal(() => console.log("hey"), description)
   }
 
   return (
     <li>
-      <a href={props.link.url}>
+      <span>{'> '}</span>
+      <a
+        href={parseUrlForUse(props.link.url)}
+        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => props.editMode && e.preventDefault()}
+      >
         {props.link.label}
       </a>
       {props.editMode &&
