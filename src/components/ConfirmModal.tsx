@@ -19,7 +19,7 @@ const ConfirmModal = (props: Props) => {
 
 
   return (
-    <>
+    <div>
       <form>
         <p>{props.description}</p>
         <button onClick={props.closeModal}>[ cancel ]</button>
@@ -27,7 +27,7 @@ const ConfirmModal = (props: Props) => {
           [ confirm ]
         </button>
       </form>
-    </>
+    </div >
   )
 }
 

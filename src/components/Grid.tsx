@@ -60,11 +60,21 @@ const Grid = (props: Props) => {
     setIsModalOpen(false);
   };
 
-  const updateNode = (node: T.Node) => {
+  const updateNode = (newNode: T.Node) => {
     props.setNodes((prevNodes: T.Node[]) => {
-      const nodeForEditIndex: number = prevNodes.findIndex((node: T.Node) => node.uuid === node.uuid);
+      const nodeForEditIndex: number = prevNodes.findIndex((node: T.Node) => node.uuid === newNode.uuid);
       if (nodeForEditIndex > -1) {
-        prevNodes[nodeForEditIndex] = node
+        prevNodes[nodeForEditIndex] = newNode
+      }
+      return prevNodes
+    })
+  }
+
+  const deleteNode = (delNodeUuid: string) => {
+    props.setNodes((prevNodes: T.Node[]) => {
+      const nodeForDelIndex: number = prevNodes.findIndex((node: T.Node) => node.uuid === delNodeUuid);
+      if (nodeForDelIndex > -1) {
+        prevNodes.splice(nodeForDelIndex, 1)
       }
       return prevNodes
     })
@@ -143,7 +153,7 @@ const Grid = (props: Props) => {
         onRequestClose={closeModal}
         ariaHideApp={false}
       >
-        <NodeModal selectedNode={nodeModalSelectedNode} closeModal={closeNodeModal} updateNode={updateNode} />
+        <NodeModal selectedNode={nodeModalSelectedNode} closeModal={closeNodeModal} updateNode={updateNode} deleteNode={deleteNode} openConfirmModal={props.openConfirmModal} />
       </Modal>
       <div
         id="grid"

@@ -5,6 +5,8 @@ interface Props {
   selectedNode: T.Node;
   closeModal: any;
   updateNode: any;
+  deleteNode: any;
+  openConfirmModal: any;
 }
 
 const NodeModal = (props: Props) => {
@@ -33,8 +35,14 @@ const NodeModal = (props: Props) => {
     props.closeModal()
   }
 
+  const deleteSelectedNode = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault()
+    const desc = `confirm deletion of node ${props.selectedNode.label}`
+    props.openConfirmModal(() => { props.deleteNode(props.selectedNode.uuid); props.closeModal() }, desc)
+  }
+
   return (
-    <>
+    <div>
       <h2>Edit Node: {props.selectedNode.emoji} {props.selectedNode.label}</h2>
       <form>
         <table>
@@ -63,10 +71,12 @@ const NodeModal = (props: Props) => {
             </tr>
           </tbody>
         </table>
+        <button onClick={deleteSelectedNode}>[ delete ]</button>
+        <br />
         <button onClick={(e) => { e.preventDefault(); props.closeModal() }}>[ cancel ]</button>
         <button onClick={updateSelectedNode}>[ save ]</button>
       </form>
-    </>
+    </div>
   )
 }
 

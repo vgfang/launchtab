@@ -88,6 +88,10 @@ function App() {
       </header>
       <main>
         <Modal
+          style={{
+            overlay: { zIndex: 10 },
+            content: { zIndex: 11 }
+          }}
           isOpen={isModalOpen}
           onRequestClose={closeModal}
           ariaHideApp={false}
@@ -98,6 +102,10 @@ function App() {
           isOpen={isConfirmModalOpen}
           onRequestClose={closeConfirmModal}
           ariaHideApp={false}
+          style={{
+            overlay: { zIndex: 20 },
+            content: { zIndex: 21 }
+          }}
         >
           <ConfirmModal
             confirmFunc={confirmFunc}
