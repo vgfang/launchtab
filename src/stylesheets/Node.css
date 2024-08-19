@@ -1,7 +1,7 @@
 .node {
-  border: 2px solid magenta;
-  border-radius: 10px;
-  padding: 20px;
+  border: 2px solid var(--fg-color);
+  border-radius: var(--node-radius);
+  padding: var(--node-padding);
 }
 
 .link-section {

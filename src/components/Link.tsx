@@ -34,11 +34,11 @@ const Link = (props: Props) => {
 
   return (
     <li>
-      <span>{'> '}</span>
       <a
         href={parseUrlForUse(props.link.url)}
         onClick={(e: React.MouseEvent<HTMLAnchorElement>) => props.editMode && e.preventDefault()}
       >
+        <span>{'> '}</span>
         {props.link.label}
       </a>
       {props.editMode &&

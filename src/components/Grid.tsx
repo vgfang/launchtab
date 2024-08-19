@@ -5,6 +5,7 @@ import LinkModal from "./LinkModal.tsx";
 import NodeModal from "./NodeModal.tsx";
 import { v4 as uuidv4 } from 'uuid'
 import * as T from '../types'
+import '../stylesheets/Grid.css';
 
 interface Props {
   nodes: T.Node[];
@@ -157,12 +158,6 @@ const Grid = (props: Props) => {
       </Modal>
       <div
         id="grid"
-        style={{
-          display: `grid`,
-          gridTemplateColumns: `repeat(${props.settings.gridX}, 1fr)`,
-          gridTemplateRows: `repeat(${props.settings.gridY}, 1fr)`,
-          gridGap: "20px",
-        }}
       >
         <NodeList
           nodes={props.nodes}

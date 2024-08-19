@@ -47,7 +47,7 @@ const SettingsModal = (props: Props) => {
     <div>
       <h2>settings:</h2>
 
-      <form>
+      <form id="settings-modal-form">
 
         <label>Grid:</label>
         <table>
@@ -63,7 +63,7 @@ const SettingsModal = (props: Props) => {
                 <label>Size Y:</label>
               </td>
               <td>
-                <input type="text" value={gridY} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGridY(e.target.value)} />
+                <input type="number" value={gridY} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGridY(e.target.value)} />
               </td>
             </tr>
             <tr>
@@ -71,13 +71,13 @@ const SettingsModal = (props: Props) => {
                 <label>Width: </label>
               </td>
               <td>
-                <input type="text" value={width} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWidth(e.target.value)} />
+                <input type="number" value={width} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWidth(e.target.value)} />
               </td>
               <td>
                 <label>Padding: </label>
               </td>
               <td>
-                <input type="text" value={padding} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPadding(e.target.value)} />
+                <input type="number" value={padding} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPadding(e.target.value)} />
               </td>
             </tr>
             <tr>
@@ -85,13 +85,13 @@ const SettingsModal = (props: Props) => {
                 <label>Gap: </label>
               </td>
               <td>
-                <input type="text" value={gap} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGap(e.target.value)} />
+                <input type="number" value={gap} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGap(e.target.value)} />
               </td>
               <td>
                 <label>Radius: </label>
               </td>
               <td>
-                <input type="text" value={radius} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRadius(e.target.value)} />
+                <input type="number" value={radius} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRadius(e.target.value)} />
               </td>
             </tr>
           </tbody>
@@ -134,7 +134,7 @@ const SettingsModal = (props: Props) => {
         </table>
 
         <button onClick={props.closeModal}>[ cancel ]</button>
-        <button type="submit" form="confirm-modal-form" onClick={handleLinkFormSubmit}>
+        <button type="submit" form="settings-modal-form" onClick={handleLinkFormSubmit}>
           [ save ]
         </button>
       </form>

@@ -18,6 +18,13 @@ export interface Settings {
     accent: string,
     text: string
   }
+  fonts?: {
+    headerSize: number;
+    linkSize: number;
+    keychordHintSIze: number;
+    clockSize: number;
+    fontFamily: string;
+  }
 }
 
 export interface Link {

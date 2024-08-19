@@ -82,6 +82,20 @@ function App() {
     setNodes(userJSON.nodes);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.style.setProperty('--bg-color', settings.colors.bg);
+    document.documentElement.style.setProperty('--fg-color', settings.colors.fg);
+    document.documentElement.style.setProperty('--text-color', settings.colors.text);
+    document.documentElement.style.setProperty('--accent-color', settings.colors.accent);
+    document.documentElement.style.setProperty('--node-radius', `${settings.grid.radius}px`);
+    document.documentElement.style.setProperty('--node-padding', `${settings.grid.padding}px`);
+    document.documentElement.style.setProperty('--grid-gap', `${settings.grid.gap}px`);
+    document.documentElement.style.setProperty('--node-width', `${settings.grid.width} px`);
+    document.documentElement.style.setProperty('--grid-size-x', `${settings.grid.sizeX}`);
+    document.documentElement.style.setProperty('--grid-size-y', `${settings.grid.sizeY}`);
+    console.log("loaded settings")
+  }, [settings]);
+
   return (
     <>
       <header id="header">
