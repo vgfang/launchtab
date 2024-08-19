@@ -47,6 +47,11 @@ function App() {
     console.log(`going to ${keychord}`);
   };
 
+  const saveSettings = (newSettings: T.Settings) => {
+    setSettings(newSettings)
+  }
+
+
   const recordUserKeys = (event: KeyboardEvent): void => {
     setUserInput((prevInput: string): string => {
       if (event.key === "Backspace") {
@@ -65,16 +70,17 @@ function App() {
 
   useEffect(() => {
     document.addEventListener("keydown", recordUserKeys);
-    const userJSON: T.Data = TestJSON as T.Data;
-    setSettings(userJSON.settings);
-    setNodes(userJSON.nodes);
     return () => {
       document.removeEventListener("keydown", recordUserKeys);
     };
   }, [recordUserKeys]);
 
   useEffect(() => {
-  }, [nodes]);
+    // testcode
+    const userJSON: T.Data = TestJSON as T.Data;
+    setSettings(userJSON.settings);
+    setNodes(userJSON.nodes);
+  }, []);
 
   return (
     <>
@@ -96,7 +102,7 @@ function App() {
           onRequestClose={closeModal}
           ariaHideApp={false}
         >
-          <SettingsModal closeModal={closeModal} />
+          <SettingsModal oldSettings={settings} saveSettings={saveSettings} closeModal={closeModal} />
         </Modal>
         <Modal
           isOpen={isConfirmModalOpen}

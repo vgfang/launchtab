@@ -4,8 +4,14 @@ export interface Data {
 }
 
 export interface Settings {
-  gridX: number;
-  gridY: number;
+  grid: {
+    sizeX: number,
+    sizeY: number,
+    width: number,
+    padding: number,
+    gap: number,
+    radius: number,
+  },
   colors: {
     fg: string,
     bg: string,

@@ -1,10 +1,16 @@
 export const DefaultSettings = {
-  gridX: 3,
-  gridY: 3,
-  colors: {
-    fg: "#000000",
-    bg: "#ffffff",
-    accent: "#222222",
-    text: "#222222"
+  "grid": {
+    "sizeX": 3,
+    "sizeY": 3,
+    "width": 300,
+    "padding": 10,
+    "gap": 10,
+    "radius": 10
+  },
+  "colors": {
+    "fg": "#abaca1",
+    "bg": "#000000",
+    "accent": "#ffffff",
+    "text": "#ba0000"
   }
 }
