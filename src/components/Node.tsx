@@ -64,9 +64,14 @@ const Node = (props: Props) => {
         gridColumn: `${node.posX} / ${node.posX + node.width}`,
       }}
     >
-      <div className="node-header">
-        {props.editMode && <button onClick={openNodeModalForNode}>[ edit ]</button>}
-        <h2>{props.node.label}</h2>
+      <div>
+        <div className="node-header">
+          <h2 className="node-label">{props.node.label}</h2>
+          {props.editMode &&
+            <button className='edit-btn-square' onClick={openNodeModalForNode}>
+              ✎
+            </button>}
+        </div>
         <span className="section-keychord-hint">{node.keychord}</span>
         <LinkList
           nodeUuid={node.uuid}
@@ -77,12 +82,12 @@ const Node = (props: Props) => {
           deleteLinkForNode={props.deleteLinkForNode}
         />
         {props.editMode &&
-          <button onClick={openAddLinkModal}>
-            ➕
+          <button onClick={openAddLinkModal} className='edit-btn-square'>
+            ＋
           </button>
         }
       </div>
-    </div>
+    </div >
   )
 }
 

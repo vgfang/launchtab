@@ -1,4 +1,5 @@
 import * as T from '../types'
+import '../stylesheets/Link.css';
 
 interface Props {
   link: T.Link;
@@ -33,8 +34,9 @@ const Link = (props: Props) => {
   }
 
   return (
-    <li>
+    <li className="link-container">
       <a
+        className="link-a"
         href={parseUrlForUse(props.link.url)}
         onClick={(e: React.MouseEvent<HTMLAnchorElement>) => props.editMode && e.preventDefault()}
       >
@@ -42,11 +44,11 @@ const Link = (props: Props) => {
         {props.link.label}
       </a>
       {props.editMode &&
-        <div style={{ 'display': 'flex', 'flexDirection': 'row' }}>
-          <button onClick={openEditLinkModal} className="link-edit-button">
+        <div className="link-edit-buttons-container">
+          <button onClick={openEditLinkModal} className="edit-btn-square">
             ✎
           </button>
-          <button onClick={handleDeleteLink} className="link-delete-button">
+          <button onClick={handleDeleteLink} className="edit-btn-square">
             ✕
           </button>
         </div>

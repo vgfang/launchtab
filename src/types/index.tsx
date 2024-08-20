@@ -18,10 +18,10 @@ export interface Settings {
     accent: string,
     text: string
   }
-  fonts?: {
+  fonts: {
     headerSize: number;
     linkSize: number;
-    keychordHintSIze: number;
+    keychordHintSize: number;
     clockSize: number;
     fontFamily: string;
   }

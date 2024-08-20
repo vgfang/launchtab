@@ -1,0 +1,17 @@
+.link-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 4px;
+  align-items: flex-start;
+}
+
+.link-edit-buttons-container {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+}
+
+.link-a {
+  font-size: var(--link-font-size);
+}

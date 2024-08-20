@@ -2,6 +2,8 @@
   border: 2px solid var(--fg-color);
   border-radius: var(--node-radius);
   padding: var(--node-padding);
+  width: var(--node-width);
+  height: fit-content; 
 }
 
 .link-section {
@@ -9,4 +11,15 @@
   flex-direction: column;
   justify-content: start;
   align-items: start;
+}
+
+.node-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.node-label {
+  font-size = var(--header-font-size);
 }

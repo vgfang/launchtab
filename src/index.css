@@ -2,7 +2,6 @@
   font-family:
     Jetbrains Mono,
     monospace;
-  font-weight: 400;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -21,7 +20,12 @@
   --node-padding: 10px;
   --grid-gap: 10px;
   --node-width: 10px;
-
+  
+  --header-font-size: 24px;
+  --link-font-size: 16px;
+  --clock-font-size: 64px;
+  --keychord-hint-size: 10px;
+  --font-family: "Jetbrains Mono, monospace"
 }
 
 a {
@@ -51,15 +55,15 @@ a:hover {
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
+  border-radius: var(--node-radius);
+  border: 2px solid var(--fg-color);
   transition: border-color 0.25s;
+  font-family:
+    Jetbrains Mono,
+    monospace;
 }
 button:hover {
-  border-color: #ffffff;
+  border-color: var(--accent-color);
 }
 button:focus,
 button:focus-visible {
@@ -68,7 +72,6 @@ button:focus-visible {
 
 h1 {
   text-align: center;
-  color: var(--fg-color);
 }
 
 ul {
@@ -77,6 +80,6 @@ ul {
   list-style-type: none;
 }
 
-h2, li, td {
+h1, h2, li, td, label {
   color: var(--text-color)
 }

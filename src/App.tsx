@@ -40,6 +40,7 @@ function App() {
   const [confirmDescription, setConfirmDescription] = useState('')
 
   const toggleEditMode = () => {
+    setUserInput("")
     setEditMode(editMode ? false : true)
   }
 
@@ -51,9 +52,12 @@ function App() {
     setSettings(newSettings)
   }
 
-
   const recordUserKeys = (event: KeyboardEvent): void => {
     setUserInput((prevInput: string): string => {
+      if (editMode) {
+        return prevInput;
+      }
+
       if (event.key === "Backspace") {
         return prevInput.length > 0 ? prevInput.slice(0, -1) : prevInput;
       } else if (event.key === "Enter") {
@@ -83,27 +87,34 @@ function App() {
   }, []);
 
   useEffect(() => {
+    document.documentElement.style.setProperty('--node-radius', `${settings.grid.radius}px`);
+    document.documentElement.style.setProperty('--node-padding', `${settings.grid.padding}px`);
+    document.documentElement.style.setProperty('--grid-gap', `${settings.grid.gap}px`);
+    document.documentElement.style.setProperty('--node-width', `${settings.grid.width}px`);
+    document.documentElement.style.setProperty('--grid-size-x', `${settings.grid.sizeX}`);
+    document.documentElement.style.setProperty('--grid-size-y', `${settings.grid.sizeY}`);
+
     document.documentElement.style.setProperty('--bg-color', settings.colors.bg);
     document.documentElement.style.setProperty('--fg-color', settings.colors.fg);
     document.documentElement.style.setProperty('--text-color', settings.colors.text);
     document.documentElement.style.setProperty('--accent-color', settings.colors.accent);
-    document.documentElement.style.setProperty('--node-radius', `${settings.grid.radius}px`);
-    document.documentElement.style.setProperty('--node-padding', `${settings.grid.padding}px`);
-    document.documentElement.style.setProperty('--grid-gap', `${settings.grid.gap}px`);
-    document.documentElement.style.setProperty('--node-width', `${settings.grid.width} px`);
-    document.documentElement.style.setProperty('--grid-size-x', `${settings.grid.sizeX}`);
-    document.documentElement.style.setProperty('--grid-size-y', `${settings.grid.sizeY}`);
-    console.log("loaded settings")
+
+    document.documentElement.style.setProperty('--header-font-size', `${settings.fonts.headerSize}px`);
+    document.documentElement.style.setProperty('--link-font-size', `${settings.fonts.linkSize}px`);
+    document.documentElement.style.setProperty('--keychord-font-size', `${settings.fonts.keychordHintSize}px`);
+    document.documentElement.style.setProperty('--clock-font-size', `${settings.fonts.clockSize}px`);
+    document.documentElement.style.setProperty('--font-family', `${settings.fonts.fontFamily}`);
   }, [settings]);
 
   return (
     <>
-      <header id="header">
+      <header className="header">
         <Clock />
-        <span id="user-input-span">⌨{userInput}</span>
+        <span className="user-input-span">{userInput}</span>
         <div>
-          <button onClick={toggleEditMode}>edit</button>
-          <button onClick={openSettingsModal}>⚙</button>
+          <button className="edit-btn-big">⌨</button>
+          <button className="edit-btn-big" onClick={toggleEditMode}>✎</button>
+          <button className="edit-btn-big" onClick={openSettingsModal}>⚙</button>
         </div>
       </header>
       <main>

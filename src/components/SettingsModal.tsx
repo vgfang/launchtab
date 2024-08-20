@@ -14,11 +14,17 @@ const SettingsModal = (props: Props) => {
   const [padding, setPadding] = useState(props.oldSettings.grid.padding.toString())
   const [gap, setGap] = useState(props.oldSettings.grid.gap.toString())
   const [radius, setRadius] = useState(props.oldSettings.grid.radius.toString())
+
   const [colorFg, setColorFg] = useState(props.oldSettings.colors.fg)
   const [colorBg, setColorBg] = useState(props.oldSettings.colors.bg)
   const [colorAccent, setColorAccent] = useState(props.oldSettings.colors.accent)
   const [colorText, setColorText] = useState(props.oldSettings.colors.text)
 
+  const [fontHeaderSize, setFontHeaderSize] = useState(props.oldSettings.fonts.headerSize);
+  const [fontLinkSize, setFontLinkSize] = useState(props.oldSettings.fonts.linkSize);
+  const [fontKeychordHintSize, setFontKeychordHintSize] = useState(props.oldSettings.fonts.keychordHintSize);
+  const [fontClockSize, setFontClockSize] = useState(props.oldSettings.fonts.clockSize);
+  const [fontFamily, setFontFamily] = useState(props.oldSettings.fonts.fontFamily);
 
   const handleLinkFormSubmit = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
@@ -36,6 +42,13 @@ const SettingsModal = (props: Props) => {
         bg: colorBg,
         accent: colorAccent,
         text: colorText
+      },
+      fonts: {
+        headerSize: 24,
+        linkSize: 16,
+        keychordHintSize: 12,
+        clockSize: 36,
+        fontFamily: "Arial, sans-serif"
       }
     }
     // TODO: add validator
@@ -133,6 +146,50 @@ const SettingsModal = (props: Props) => {
           </tbody>
         </table>
 
+        <br />
+
+        <label>Fonts: </label>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <label>Font Family:</label>
+              </td>
+              <td colSpan={3}>
+                <input type="text" value={fontFamily} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontFamily(e.target.value)} />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Clock Size:</label>
+              </td>
+              <td>
+                <input type="number" value={fontClockSize} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontClockSize(parseInt(e.target.value))} />
+              </td>
+              <td>
+                <label>Header Size:</label>
+              </td>
+              <td>
+                <input type="number" value={fontHeaderSize} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontHeaderSize(parseInt(e.target.value))} />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Link Size:</label>
+              </td>
+              <td>
+                <input type="number" value={fontLinkSize} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontLinkSize(parseInt(e.target.value))} />
+              </td>
+              <td>
+                <label>Key Hint Size:</label>
+              </td>
+              <td>
+                <input type="number" value={fontKeychordHintSize} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontKeychordHintSize(parseInt(e.target.value))} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
         <button onClick={props.closeModal}>[ cancel ]</button>
         <button type="submit" form="settings-modal-form" onClick={handleLinkFormSubmit}>
           [ save ]

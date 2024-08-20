@@ -4,3 +4,27 @@
   padding: 2rem;
   text-align: left;
 }
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-btn-square {
+  aspect-ratio: 1/1;
+  width: 2rem;
+}
+
+.edit-btn-big {
+  aspect-ratio: 1/1;
+  width: 2rem;
+}
+
+.user-input-span {
+}
+
+.time-text {
+  font-size: var(--clock-font-size);
+}
