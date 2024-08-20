@@ -1,7 +1,10 @@
 import * as T from '../types'
 
 export const getEmptyGridLocations = (data: T.Data): { x: number, y: number }[] => {
-  console.log(data)
+  const sizeX: number = data.settings.grid.sizeX
+  const sizeY: number = data.settings.grid.sizeY
+
+
   return [{ 'x': 1, 'y': 2 }]
 }
 
@@ -10,22 +13,18 @@ export const validateGrid = (data: T.Data): string => {
   return "valid"
 }
 
-export const numMatchingChars = (str1: string, str2: string): number => {
-
-
-}
-
-// get the closest link for the keychord (longest prefix)
-export const getLinkMatchingKeychord = (nodes: T.Node[], keychord: string) => {
-
-
-  const matchingLink: T.Link | undefined = undefined;
+// get the matching link for the keychord
+export const getLinkMatchingKeychord = (nodes: T.Node[], keychord: string): T.Link | undefined => {
+  let matchingLink: T.Link | undefined = undefined;
+  if (keychord.length == 0)
+    return undefined
   for (const node of nodes) {
-
     for (const link of node.links) {
-      if (node.keychord + link.keychord == keychord) {
-        return link
-      } elif(node.keychord)
+      if (node.keychord + link.keychord === keychord) {
+        matchingLink = link
+      }
     }
   }
+  return matchingLink
 }
+

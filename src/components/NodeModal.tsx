@@ -71,10 +71,10 @@ const NodeModal = (props: Props) => {
             </tr>
           </tbody>
         </table>
-        <button onClick={deleteSelectedNode}>[ delete ]</button>
         <br />
-        <button onClick={(e) => { e.preventDefault(); props.closeModal() }}>[ cancel ]</button>
         <button onClick={updateSelectedNode}>[ save ]</button>
+        <button onClick={deleteSelectedNode}>[ delete ]</button>
+        <button onClick={(e) => { e.preventDefault(); props.closeModal() }}>[ cancel ]</button>
       </form>
     </div>
   )

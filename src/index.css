@@ -102,16 +102,15 @@ li,
 td,
 label,
 button,
-input,
 span {
   color: var(--text-color)
 }
 
-input[type='text'],
-input[type='number'] {}
-
-input {
+input,
+select {
   font-size: var(--link-font-size);
+  border: 2px solid var(--fg-color);
+  color: var(--text-color)
 }
 
 td {

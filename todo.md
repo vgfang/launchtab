@@ -11,6 +11,7 @@
 - node add functionality
 - data validation
 - drag and drop links
+- fix modal UX
 - keychord functionality (and fix ux with enter key and btns)
 - disable test loading and set up defaults properly
 - chrome extension

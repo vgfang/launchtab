@@ -18,6 +18,9 @@ function App() {
   const [settings, setSettings] = useState<T.Settings>(DefaultSettings);
   // holds current nodes information
   const [nodes, setNodes] = useState([] as T.Node[]);
+  // holds the currently most accurate link
+  const [targetedLink, setTargetedLink] = useState<T.Link | undefined>(undefined)
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openSettingsModal = () => {
@@ -137,7 +140,7 @@ function App() {
         </div>
         <Clock />
         <span className="user-input-span">{!editMode && '⌨'} {userInput} {editMode && '* edit mode active *'}</span>
-        <span className="link-preview-span">{'->'}</span>
+        <span className="link-preview-span">{targetedLink && `->${targetedLink.label}`}</span>
       </header>
       <main>
         <Modal

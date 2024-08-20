@@ -36,12 +36,12 @@ const Link = (props: Props) => {
   return (
     <li className="link-container">
       <div className="link-label-keychord-container">
+        <span>{!props.editMode && '> '}{props.editMode && '⋮ '}</span>
         <a
           className="link-a"
           href={parseUrlForUse(props.link.url)}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => props.editMode && e.preventDefault()}
         >
-          <span>{'> '}</span>
           {props.link.label}
         </a>
         <span className="keychord-hint">

@@ -67,7 +67,7 @@ const Node = (props: Props) => {
       <div>
         <div className="node-header">
           <div className="node-label-keychord-container">
-            <h2 className="node-label">{props.node.label}</h2>
+            <h2 className="node-label">🖥️{props.node.label}</h2>
             <span className="keychord-hint">{node.keychord}</span>
           </div>
           {props.editMode &&

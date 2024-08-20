@@ -115,15 +115,15 @@ const LinkModal = (props: Props) => {
         <br />
         <label>label: </label>
         <input type="text" name="label" value={label} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setLabel(e.target.value))}></input><br />
-        <label>keystroke: </label>
+        <label>keychord: </label>
         <input type="text" name="keychord" value={keychord} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))}></input><br />
         <label>url: </label>
         <input type="text" name="url" value={url} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value))}></input><br />
-        <button onClick={props.closeModal}>[ cancel ]</button>
         <button type="submit" form="link-modal-form" onClick={handleLinkFormSubmit}>
           {props.mode === T.LinkModalMode.ADD && '[ add ]'}
           {props.mode === T.LinkModalMode.EDIT && '[ save ]'}
         </button>
+        <button onClick={props.closeModal}>[ cancel ]</button>
       </form>
     </div >
   );
