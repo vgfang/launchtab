@@ -106,16 +106,38 @@ function App() {
     document.documentElement.style.setProperty('--font-family', `${settings.fonts.fontFamily}`);
   }, [settings]);
 
+
+  Modal.defaultStyles = {
+    overlay: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    },
+    content: {
+      border: '1px solid #ccc',
+      overflow: 'auto',
+      WebkitOverflowScrolling: 'touch',
+      borderRadius: '4px',
+      outline: 'none',
+      padding: '20px'
+    }
+  }
+
+
   return (
     <>
       <header className="header">
-        <Clock />
-        <span className="user-input-span">{userInput}</span>
-        <div>
-          <button className="edit-btn-big">⌨</button>
-          <button className="edit-btn-big" onClick={toggleEditMode}>✎</button>
-          <button className="edit-btn-big" onClick={openSettingsModal}>⚙</button>
+        <div className="edit-btn-container">
+          {editMode &&
+            <button className="edit-btn-big" onClick={openSettingsModal}>[settings ⚙]</button>
+          }
+          <button className="edit-btn-big edit-btn-main" onClick={toggleEditMode}>✎</button>
         </div>
+        <Clock />
+        <span className="user-input-span">{!editMode && '⌨'} {userInput} {editMode && '* edit mode active *'}</span>
+        <span className="link-preview-span">{'->'}</span>
       </header>
       <main>
         <Modal

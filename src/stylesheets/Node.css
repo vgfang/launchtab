@@ -3,7 +3,7 @@
   border-radius: var(--node-radius);
   padding: var(--node-padding);
   width: var(--node-width);
-  height: fit-content; 
+  height: fit-content;
 }
 
 .link-section {
@@ -17,9 +17,20 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
+}
+
+.node-label-keychord-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.link-list {
+  width: 100%;
+  margin: 0;
 }
 
 .node-label {
-  font-size = var(--header-font-size);
+  font-size: var(--header-font-size);
 }

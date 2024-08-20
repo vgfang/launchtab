@@ -7,12 +7,12 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+
   --bg-color: #015234;
   --fg-color: #CA63A8;
   --accent-color: #FFFFFF;
   --text-color: #222222;
-  
+
   --grid-size-x: 3;
   --grid-size-y: 3;
 
@@ -20,7 +20,7 @@
   --node-padding: 10px;
   --grid-gap: 10px;
   --node-width: 10px;
-  
+
   --header-font-size: 24px;
   --link-font-size: 16px;
   --clock-font-size: 64px;
@@ -31,6 +31,7 @@
 a {
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -50,6 +51,7 @@ body {
 a {
   color: var(--text-color)
 }
+
 a:hover {
   color: var(--accent-color)
 }
@@ -57,20 +59,30 @@ a:hover {
 button {
   border-radius: var(--node-radius);
   border: 2px solid var(--fg-color);
-  transition: border-color 0.25s;
   font-family:
     Jetbrains Mono,
     monospace;
+  font-size: var(--link-font-size)
 }
+
 button:hover {
   border-color: var(--accent-color);
+  color: var(--accent-color)
 }
+
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 4px auto var(--acc);
 }
 
 h1 {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 0;
   text-align: center;
 }
 
@@ -80,6 +92,28 @@ ul {
   list-style-type: none;
 }
 
-h1, h2, li, td, label {
+label {
+  font-size: var(--link-font-size)
+}
+
+h1,
+h2,
+li,
+td,
+label,
+button,
+input,
+span {
   color: var(--text-color)
+}
+
+input[type='text'],
+input[type='number'] {}
+
+input {
+  font-size: var(--link-font-size);
+}
+
+td {
+  padding: 4px;
 }

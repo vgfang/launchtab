@@ -66,13 +66,15 @@ const Node = (props: Props) => {
     >
       <div>
         <div className="node-header">
-          <h2 className="node-label">{props.node.label}</h2>
+          <div className="node-label-keychord-container">
+            <h2 className="node-label">{props.node.label}</h2>
+            <span className="keychord-hint">{node.keychord}</span>
+          </div>
           {props.editMode &&
             <button className='edit-btn-square' onClick={openNodeModalForNode}>
               ✎
             </button>}
         </div>
-        <span className="section-keychord-hint">{node.keychord}</span>
         <LinkList
           nodeUuid={node.uuid}
           links={node.links}
@@ -81,6 +83,7 @@ const Node = (props: Props) => {
           openConfirmModal={props.openConfirmModal}
           deleteLinkForNode={props.deleteLinkForNode}
         />
+        <br />
         {props.editMode &&
           <button onClick={openAddLinkModal} className='edit-btn-square'>
             ＋

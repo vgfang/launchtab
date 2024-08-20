@@ -70,13 +70,13 @@ const SettingsModal = (props: Props) => {
                 <label>Size X: </label>
               </td>
               <td>
-                <input type="number" value={gridX} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGridX(e.target.value)} />
+                <input type="number" className='short-number-input' value={gridX} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGridX(e.target.value)} />
               </td>
               <td>
                 <label>Size Y:</label>
               </td>
               <td>
-                <input type="number" value={gridY} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGridY(e.target.value)} />
+                <input type="number" className='short-number-input' value={gridY} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGridY(e.target.value)} />
               </td>
             </tr>
             <tr>
@@ -84,13 +84,13 @@ const SettingsModal = (props: Props) => {
                 <label>Width: </label>
               </td>
               <td>
-                <input type="number" value={width} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWidth(e.target.value)} />
+                <input type="number" className='short-number-input' value={width} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWidth(e.target.value)} />
               </td>
               <td>
                 <label>Padding: </label>
               </td>
               <td>
-                <input type="number" value={padding} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPadding(e.target.value)} />
+                <input type="number" className='short-number-input' value={padding} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPadding(e.target.value)} />
               </td>
             </tr>
             <tr>
@@ -98,13 +98,13 @@ const SettingsModal = (props: Props) => {
                 <label>Gap: </label>
               </td>
               <td>
-                <input type="number" value={gap} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGap(e.target.value)} />
+                <input type="number" className='short-number-input' value={gap} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGap(e.target.value)} />
               </td>
               <td>
                 <label>Radius: </label>
               </td>
               <td>
-                <input type="number" value={radius} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRadius(e.target.value)} />
+                <input type="number" className='short-number-input' value={radius} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRadius(e.target.value)} />
               </td>
             </tr>
           </tbody>
@@ -156,7 +156,7 @@ const SettingsModal = (props: Props) => {
                 <label>Font Family:</label>
               </td>
               <td colSpan={3}>
-                <input type="text" value={fontFamily} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontFamily(e.target.value)} />
+                <input type="text" className='fill-text-input' value={fontFamily} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontFamily(e.target.value)} />
               </td>
             </tr>
             <tr>
@@ -164,13 +164,13 @@ const SettingsModal = (props: Props) => {
                 <label>Clock Size:</label>
               </td>
               <td>
-                <input type="number" value={fontClockSize} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontClockSize(parseInt(e.target.value))} />
+                <input type="number" className='short-number-input' value={fontClockSize} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontClockSize(parseInt(e.target.value))} />
               </td>
               <td>
                 <label>Header Size:</label>
               </td>
               <td>
-                <input type="number" value={fontHeaderSize} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontHeaderSize(parseInt(e.target.value))} />
+                <input type="number" className='short-number-input' value={fontHeaderSize} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontHeaderSize(parseInt(e.target.value))} />
               </td>
             </tr>
             <tr>
@@ -178,22 +178,22 @@ const SettingsModal = (props: Props) => {
                 <label>Link Size:</label>
               </td>
               <td>
-                <input type="number" value={fontLinkSize} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontLinkSize(parseInt(e.target.value))} />
+                <input type="number" className='short-number-input' value={fontLinkSize} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontLinkSize(parseInt(e.target.value))} />
               </td>
               <td>
                 <label>Key Hint Size:</label>
               </td>
               <td>
-                <input type="number" value={fontKeychordHintSize} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontKeychordHintSize(parseInt(e.target.value))} />
+                <input type="number" className='short-number-input' value={fontKeychordHintSize} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontKeychordHintSize(parseInt(e.target.value))} />
               </td>
             </tr>
           </tbody>
         </table>
         <br />
-        <button onClick={props.closeModal}>[ cancel ]</button>
         <button type="submit" form="settings-modal-form" onClick={handleLinkFormSubmit}>
           [ save ]
         </button>
+        <button onClick={props.closeModal}>[ cancel ]</button>
       </form>
     </div>
   );

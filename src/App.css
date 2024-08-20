@@ -12,19 +12,45 @@
   align-items: center;
 }
 
+.edit-btn-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 .edit-btn-square {
   aspect-ratio: 1/1;
   width: 2rem;
 }
 
 .edit-btn-big {
-  aspect-ratio: 1/1;
-  width: 2rem;
+  height: 2rem;
+  margin: 0.5rem;
 }
 
 .user-input-span {
+  margin: 2rem;
+  min-height: 2rem;
 }
 
 .time-text {
   font-size: var(--clock-font-size);
+}
+
+.fill-text-input {
+  width: 97.75%;
+}
+
+.long-text-input {
+  width: 20rem;
+}
+
+.short-number-input {
+  width: 4rem;
+}
+
+.keychord-hint {
+  color: var(--fg-color);
+  margin-left: 1rem;
+  font-size: var(--keychord-hint-size)
 }

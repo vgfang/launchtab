@@ -8,14 +8,14 @@
   - if that link is to be activated and its in that node we need to type 'abc'
 
 ### todo list
+- node add functionality
+- data validation
 - drag and drop links
-- edit node modal
-- keychord functionality
-- chrome extension and saving
-- color customization
+- keychord functionality (and fix ux with enter key and btns)
+- disable test loading and set up defaults properly
+- chrome extension
 - import/export json
-- all UX stuff
-  - move add link button to top? 
+- make ui not ugly
 
 ### optional features
 - trash bin for recovering links

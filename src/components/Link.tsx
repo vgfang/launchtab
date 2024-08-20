@@ -35,15 +35,21 @@ const Link = (props: Props) => {
 
   return (
     <li className="link-container">
-      <a
-        className="link-a"
-        href={parseUrlForUse(props.link.url)}
-        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => props.editMode && e.preventDefault()}
-      >
-        <span>{'> '}</span>
-        {props.link.label}
-      </a>
-      {props.editMode &&
+      <div className="link-label-keychord-container">
+        <a
+          className="link-a"
+          href={parseUrlForUse(props.link.url)}
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => props.editMode && e.preventDefault()}
+        >
+          <span>{'> '}</span>
+          {props.link.label}
+        </a>
+        <span className="keychord-hint">
+          {props.link.keychord}
+        </span>
+      </div>
+      {
+        props.editMode &&
         <div className="link-edit-buttons-container">
           <button onClick={openEditLinkModal} className="edit-btn-square">
             ✎
@@ -53,7 +59,7 @@ const Link = (props: Props) => {
           </button>
         </div>
       }
-    </li>
+    </li >
   )
 }
 

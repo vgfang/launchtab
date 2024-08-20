@@ -3,7 +3,7 @@
     "grid": {
       "sizeX": 3,
       "sizeY": 3,
-      "width": 200,
+      "width": 250,
       "padding": 20,
       "gap": 10,
       "radius": 10
@@ -17,7 +17,7 @@
     "fonts": {
       "headerSize": 30,
       "linkSize": 18,
-      "keychordHintSize": 12,
+      "keychordHintSize": 14,
       "clockSize": 64,
       "fontFamily": "Arial, sans-serif"
     }
