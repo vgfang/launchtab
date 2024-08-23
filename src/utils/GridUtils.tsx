@@ -2,7 +2,7 @@ import * as T from '../types'
 
 export interface GridUtilsInterface {
   getEmptyGridLocations: (node: T.Node[], gridX: number, gridY: number) => { x: number, y: number }[];
-  validateGrid: (data: T.Data) => { valid: boolean, error?: string };
+  validateGrid: (node: T.Node[], gridX: number, gridY: number) => { valid: boolean, error?: string };
   getLinkMatchingKeychord: (nodes: T.Node[], keychord: string) => T.Link | undefined;
 }
 
@@ -33,29 +33,29 @@ export const GridUtils: GridUtilsInterface = {
     return emptyLocations
   },
 
-  validateGrid: (data: T.Data): { valid: boolean, error?: string } => {
-    const x: number = data.settings.grid.sizeX
-    const y: number = data.settings.grid.sizeY
+  validateGrid: (nodes: T.Node[], gridX: number, gridY: number): T.Validation => {
+    const x = gridX
+    const y = gridY
 
     const grid = Array(y).fill(null).map(() => Array(x).fill(false));
 
     if (x < 0 || y < 0)
       return { valid: false, error: "settings grid size is invalid." }
 
-    for (const node of data.nodes) {
+    for (const node of nodes) {
       for (let i = 0; i < node.width; i++) {
         for (let j = 0; j < node.height; j++) {
-          if (grid[node.posX + i][node.posY + j])
+          if (grid[node.posX + i - 1][node.posY + j - 1])
             return { valid: false, error: "nodes are overlapping." }
-          if (node.posX + i > x ||
-            node.posX + i <= 0 ||
-            node.posY + j <= 0 ||
-            node.posY + j > y
+          if (node.posX + i - 1 > x ||
+            node.posX + i - 1 < 0 ||
+            node.posY + j - 1 < 0 ||
+            node.posY + j - 1 > y
           ) {
-            return { valid: false, error: "nodes positions are out of grid size bounds." }
+            return { valid: false, error: "node positions are out of grid size bounds." }
           }
 
-          grid[node.posX + i][node.posY + j] = true;
+          grid[node.posX + i - 1][node.posY + j - 1] = true;
         }
       }
     }

@@ -8,7 +8,7 @@ interface Props {
   openLinkModal: (node: T.Node, mode: T.LinkModalMode, link?: T.Link | undefined) => void;
   openConfirmModal: any;
   deleteLinkForNode: any;
-  openNodeModal: any;
+  openNodeModal: (selectedNode: T.Node | undefined, mode: T.NodeModalMode) => void;
   closeNodeModal: any;
 }
 
@@ -33,7 +33,7 @@ const Node = (props: Props) => {
   }
 
   const openNodeModalForNode = () => {
-    props.openNodeModal(props.node)
+    props.openNodeModal(props.node, T.NodeModalMode.EDIT)
   }
 
   const LinkList = (props: LinkListProps) => {
@@ -86,7 +86,7 @@ const Node = (props: Props) => {
         <br />
         {props.editMode &&
           <button onClick={openAddLinkModal} className='edit-btn-square'>
-            ＋
+            +
           </button>
         }
       </div>

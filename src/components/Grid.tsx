@@ -38,10 +38,16 @@ const Grid = (props: Props) => {
 
   // node modal
   const [isNodeModalOpen, setIsNodeModalOpen] = useState(false);
-  const [nodeModalSelectedNode, setNodeModalSelectedNode] = useState<T.Node>({} as T.Node);
+  const [nodeModalSelectedNode, setNodeModalSelectedNode] = useState<T.Node | undefined>({} as T.Node);
+  const [nodeModalMode, setNodeModalMode] = useState<T.NodeModalMode>(T.NodeModalMode.ADD)
 
-  const openNodeModal = (selectedNode: T.Node) => {
-    setNodeModalSelectedNode(selectedNode)
+  const openNodeModal = (selectedNode: T.Node | undefined, mode: T.NodeModalMode) => {
+    setNodeModalMode(mode)
+    if (selectedNode) {
+      setNodeModalSelectedNode(selectedNode)
+    } else {
+      setNodeModalSelectedNode(undefined)
+    }
     setIsNodeModalOpen(true)
   }
 
@@ -63,6 +69,20 @@ const Grid = (props: Props) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+
+  const addNode = (newNode: T.Node): T.Validation => {
+    const validationCheck = GridUtils.validateGrid([...props.nodes, newNode], props.size.x, props.size.y)
+    if (validationCheck.valid) {
+      props.setNodes((prevNodes: T.Node[]) => {
+        prevNodes.push(newNode)
+        return prevNodes
+      })
+    } else {
+      alert(validationCheck.error)
+    }
+    return validationCheck
+  }
 
   const updateNode = (newNode: T.Node) => {
     props.setNodes((prevNodes: T.Node[]) => {
@@ -104,6 +124,7 @@ const Grid = (props: Props) => {
           nodeForLink.links[linkIndex] = link
         }
       }
+      return prevNodes
     })
   }
 
@@ -145,6 +166,7 @@ const Grid = (props: Props) => {
         {props.editMode && emptyGridLocs.map((xy: { x: number, y: number }, key: number) => {
           return (
             <button
+              onClick={() => { openNodeModal(undefined, T.NodeModalMode.ADD) }}
               key={key}
               className="new-node-btn"
               style={{
@@ -152,8 +174,8 @@ const Grid = (props: Props) => {
                 gridColumn: xy.x
               }}
             >
-              [new node]
-            </button>
+              [+ node]
+            </button >
           )
         })}
       </>
@@ -174,7 +196,7 @@ const Grid = (props: Props) => {
         onRequestClose={closeModal}
         ariaHideApp={false}
       >
-        <NodeModal selectedNode={nodeModalSelectedNode} closeModal={closeNodeModal} updateNode={updateNode} deleteNode={deleteNode} openConfirmModal={props.openConfirmModal} />
+        <NodeModal selectedNode={nodeModalSelectedNode} closeModal={closeNodeModal} updateNode={updateNode} deleteNode={deleteNode} openConfirmModal={props.openConfirmModal} mode={nodeModalMode} addNode={addNode} />
       </Modal>
       <div
         id="grid"

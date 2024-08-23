@@ -33,4 +33,5 @@
 
 .node-label {
   font-size: var(--header-font-size);
+  text-align: center;
 }

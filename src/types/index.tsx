@@ -50,3 +50,13 @@ export enum LinkModalMode {
   ADD = 'ADD',
   EDIT = 'EDIT'
 }
+
+export enum NodeModalMode {
+  ADD = 'ADD',
+  EDIT = 'EDIT'
+}
+
+export interface Validation {
+  valid: boolean;
+  error?: string
+}

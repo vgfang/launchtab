@@ -1,27 +1,43 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as T from '../types'
+import { v4 as uuidv4 } from 'uuid'
 
 interface Props {
-  selectedNode: T.Node;
+  selectedNode?: T.Node;
   closeModal: any;
+  addNode: any;
   updateNode: any;
   deleteNode: any;
   openConfirmModal: any;
+  mode: T.NodeModalMode;
 }
 
 const NodeModal = (props: Props) => {
-  const [label, setLabel] = useState(props.selectedNode.label)
-  const [keychord, setKeychord] = useState(props.selectedNode.keychord)
-  const [emoji, setEmoji] = useState(props.selectedNode.emoji)
-  const [posX, setPosX] = useState(props.selectedNode.posX)
-  const [posY, setPosY] = useState(props.selectedNode.posY)
-  const [width, setWidth] = useState(props.selectedNode.width)
-  const [height, setHeight] = useState(props.selectedNode.height)
+  const [label, setLabel] = useState('')
+  const [keychord, setKeychord] = useState('')
+  const [emoji, setEmoji] = useState('')
+  const [posX, setPosX] = useState(1)
+  const [posY, setPosY] = useState(1)
+  const [width, setWidth] = useState(1)
+  const [height, setHeight] = useState(1)
 
-  const updateSelectedNode = (event: React.MouseEvent<HTMLElement>) => {
+  useEffect(() => {
+    // if edit modal set values
+    if (props.mode === T.NodeModalMode.EDIT && props.selectedNode) {
+      setLabel(props.selectedNode.label)
+      setKeychord(props.selectedNode.keychord)
+      setEmoji(props.selectedNode.emoji)
+      setPosX(props.selectedNode.posX)
+      setPosY(props.selectedNode.posY)
+      setWidth(props.selectedNode.width)
+      setHeight(props.selectedNode.height)
+    }
+  }, [props.mode, props.selectedNode]);
+
+  const addNewNode = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
     const newNode: T.Node = {
-      uuid: props.selectedNode.uuid,
+      uuid: uuidv4(),
       label: label,
       keychord: keychord,
       emoji: emoji,
@@ -29,21 +45,52 @@ const NodeModal = (props: Props) => {
       posY: posY,
       width: width,
       height: height,
-      links: props.selectedNode.links
+      links: []
     }
-    props.updateNode(newNode)
+    // TODO: Node Specific Input Validation
+    props.addNode(newNode)
+    props.closeModal()
+  }
+
+  const updateSelectedNode = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault()
+    if (props.selectedNode) {
+      const newNode: T.Node = {
+        uuid: props.selectedNode.uuid,
+        label: label,
+        keychord: keychord,
+        emoji: emoji,
+        posX: posX,
+        posY: posY,
+        width: width,
+        height: height,
+        links: props.selectedNode.links
+      }
+      props.updateNode(newNode)
+    }
     props.closeModal()
   }
 
   const deleteSelectedNode = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    const desc = `confirm deletion of node ${props.selectedNode.label}`
-    props.openConfirmModal(() => { props.deleteNode(props.selectedNode.uuid); props.closeModal() }, desc)
+    if (props.selectedNode) {
+      const desc = `confirm deletion of node ${props.selectedNode.label}`
+      props.openConfirmModal(() => {
+        if (props.selectedNode) {
+          props.deleteNode(props.selectedNode.uuid);
+          props.closeModal()
+        }
+      }, desc)
+    }
   }
 
   return (
     <div>
-      <h2>Edit Node: {props.selectedNode.emoji} {props.selectedNode.label}</h2>
+      <h2>
+        {props.mode == T.NodeModalMode.EDIT && 'Edit '}
+        {props.mode == T.NodeModalMode.ADD && 'Add New '}
+        Node: {props.selectedNode && props.selectedNode.emoji} {props.selectedNode && props.selectedNode.label}
+      </h2>
       <form>
         <table>
           <tbody>
@@ -72,8 +119,9 @@ const NodeModal = (props: Props) => {
           </tbody>
         </table>
         <br />
-        <button onClick={updateSelectedNode}>[ save ]</button>
-        <button onClick={deleteSelectedNode}>[ delete ]</button>
+        {props.mode == T.NodeModalMode.ADD && <button onClick={addNewNode}>[ add ]</button>}
+        {props.mode == T.NodeModalMode.EDIT && <button onClick={updateSelectedNode}>[ save ]</button>}
+        {props.mode == T.NodeModalMode.EDIT && <button onClick={deleteSelectedNode}>[ delete ]</button>}
         <button onClick={(e) => { e.preventDefault(); props.closeModal() }}>[ cancel ]</button>
       </form>
     </div>

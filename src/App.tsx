@@ -21,7 +21,6 @@ function App() {
   // holds the currently most accurate link
   // const [targetedLink, setTargetedLink] = useState<T.Link | undefined>(undefined)
 
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openSettingsModal = () => {
     setIsModalOpen(true);
