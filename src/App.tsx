@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import "./App.css";
 import Clock from "./components/Clock.tsx";
 import Grid from "./components/Grid.tsx";
-import TestJSON from "./test/test.json";
+import TestJSON from "../test/test.json";
 import SettingsModal from "./components/SettingsModal"
 import * as T from './types'
 import { DefaultSettings } from "./defaults"
@@ -19,7 +19,7 @@ function App() {
   // holds current nodes information
   const [nodes, setNodes] = useState([] as T.Node[]);
   // holds the currently most accurate link
-  const [targetedLink, setTargetedLink] = useState<T.Link | undefined>(undefined)
+  // const [targetedLink, setTargetedLink] = useState<T.Link | undefined>(undefined)
 
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -140,7 +140,7 @@ function App() {
         </div>
         <Clock />
         <span className="user-input-span">{!editMode && '⌨'} {userInput} {editMode && '* edit mode active *'}</span>
-        <span className="link-preview-span">{targetedLink && `->${targetedLink.label}`}</span>
+        {/* <span className="link-preview-span">{targetedLink && `->${targetedLink.label}`}</span> */}
       </header>
       <main>
         <Modal
@@ -174,6 +174,7 @@ function App() {
           settings={settings}
           nodes={nodes}
           setNodes={setNodes}
+          size={{ x: settings.grid.sizeX, y: settings.grid.sizeY }}
           openConfirmModal={openConfirmModal}
         />
       </main >

@@ -2,8 +2,8 @@
   border: 2px solid var(--fg-color);
   border-radius: var(--node-radius);
   padding: var(--node-padding);
-  width: var(--node-width);
-  height: fit-content;
+  min-width: calc(var(--node-width));
+  /*height: fit-content;*/
 }
 
 .link-section {

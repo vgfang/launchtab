@@ -5,10 +5,12 @@ import LinkModal from "./LinkModal.tsx";
 import NodeModal from "./NodeModal.tsx";
 import { v4 as uuidv4 } from 'uuid'
 import * as T from '../types'
+import { GridUtils } from "../utils/GridUtils.tsx";
 import '../stylesheets/Grid.css';
 
 interface Props {
   nodes: T.Node[];
+  size: { x: number; y: number; }
   setNodes: any;
   editMode: boolean;
   settings: T.Settings;
@@ -17,6 +19,7 @@ interface Props {
 
 interface NodeListProps {
   nodes: T.Node[];
+  size: { x: number; y: number }
   openLinkModal: any;
   setNodes: any;
   editMode: boolean;
@@ -120,9 +123,12 @@ const Grid = (props: Props) => {
 
   const NodeList = (props: NodeListProps) => {
     const nodes = props?.nodes || [];
+    const emptyGridLocs = GridUtils.getEmptyGridLocations(nodes, props.size.x, props.size.y) || [];
+
     return (
       <>
         {nodes.map((node, key) => {
+          // node component handles grid locations
           return (
             <Node
               key={key}
@@ -135,6 +141,20 @@ const Grid = (props: Props) => {
               closeNodeModal={closeNodeModal}
             />
           );
+        })}
+        {props.editMode && emptyGridLocs.map((xy: { x: number, y: number }, key: number) => {
+          return (
+            <button
+              key={key}
+              className="new-node-btn"
+              style={{
+                gridRow: xy.y,
+                gridColumn: xy.x
+              }}
+            >
+              [new node]
+            </button>
+          )
         })}
       </>
     )
@@ -168,6 +188,7 @@ const Grid = (props: Props) => {
           openNodeModal={openNodeModal}
           closeNodeModal={closeNodeModal}
           deleteLinkForNode={deleteLinkForNode}
+          size={props.size}
         />
       </div>
     </>
