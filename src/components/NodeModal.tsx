@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import * as T from '../types'
 import { v4 as uuidv4 } from 'uuid'
+import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
+import '../stylesheets/Modal.css'
 
 interface Props {
   selectedNode?: T.Node;
@@ -74,7 +76,7 @@ const NodeModal = (props: Props) => {
   const deleteSelectedNode = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
     if (props.selectedNode) {
-      const desc = `confirm deletion of node ${props.selectedNode.label}`
+      const desc = `confirm deletion of node: ${props.selectedNode.emoji} ${props.selectedNode.label}`
       props.openConfirmModal(() => {
         if (props.selectedNode) {
           props.deleteNode(props.selectedNode.uuid);
@@ -86,9 +88,9 @@ const NodeModal = (props: Props) => {
 
   return (
     <div>
-      <h2>
-        {props.mode == T.NodeModalMode.EDIT && 'Edit '}
-        {props.mode == T.NodeModalMode.ADD && 'Add New '}
+      <h2 className="modal-title">
+        {props.mode == T.NodeModalMode.EDIT && '✏️  Edit '}
+        {props.mode == T.NodeModalMode.ADD && '➕ Add New '}
         Node: {props.selectedNode && props.selectedNode.emoji} {props.selectedNode && props.selectedNode.label}
       </h2>
       <form>
@@ -96,33 +98,39 @@ const NodeModal = (props: Props) => {
           <tbody>
             <tr>
               <td><label>label:</label></td>
-              <td colSpan={3}><input type='text' name='label' value={label} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setLabel(e.target.value))} /></td>
+              <td colSpan={3}><input type='text' className='fill-text-input' name='label' value={label} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setLabel(e.target.value))} /></td>
+              <td rowSpan={4}>
+              </td>
             </tr>
             <tr>
               <td><label>keychord:</label></td>
-              <td><input type='text' name='keychord' value={keychord} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))} /></td>
+              <td><input className='short-number-input' type='text' name='keychord' value={keychord} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))} /></td>
               <td><label>emoji:</label></td>
-              <td><input type='text' name='emoji' value={emoji} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setEmoji(e.target.value))} /></td>
+              <td><input className='short-number-input' type='text' name='emoji' value={emoji} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setEmoji(e.target.value))} /></td>
             </tr>
             <tr>
               <td><label>posX:</label></td>
-              <td><input type='text' name='posX' value={posX} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setPosX(parseInt(e.target.value)))} /></td>
+              <td><input className='short-number-input' type='text' name='posX' value={posX} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setPosX(parseInt(e.target.value)))} /></td>
               <td><label>posY:</label></td>
-              <td><input type='text' name='posY' value={posY} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setPosY(parseInt(e.target.value)))} /></td>
+              <td><input className='short-number-input' type='text' name='posY' value={posY} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setPosY(parseInt(e.target.value)))} /></td>
             </tr>
             <tr>
               <td><label>width:</label></td>
-              <td><input type='text' name='width' value={width} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setWidth(parseInt(e.target.value)))} /></td>
+              <td><input className='short-number-input' type='text' name='width' value={width} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setWidth(parseInt(e.target.value)))} /></td>
               <td><label>height:</label></td>
-              <td><input type='text' name='height' value={height} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setHeight(parseInt(e.target.value)))} /></td>
+              <td><input className='short-number-input' type='text' name='height' value={height} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setHeight(parseInt(e.target.value)))} /></td>
             </tr>
           </tbody>
         </table>
+        <EmojiPicker onEmojiClick={(emojiData: EmojiClickData) => { setEmoji(emojiData.emoji) }} />
         <br />
-        {props.mode == T.NodeModalMode.ADD && <button onClick={addNewNode}>[ add ]</button>}
-        {props.mode == T.NodeModalMode.EDIT && <button onClick={updateSelectedNode}>[ save ]</button>}
-        {props.mode == T.NodeModalMode.EDIT && <button onClick={deleteSelectedNode}>[ delete ]</button>}
-        <button onClick={(e) => { e.preventDefault(); props.closeModal() }}>[ cancel ]</button>
+
+        <div className="modal-button-container">
+          {props.mode == T.NodeModalMode.ADD && <button onClick={addNewNode}>[ add ]</button>}
+          {props.mode == T.NodeModalMode.EDIT && <button onClick={updateSelectedNode}>[ save ]</button>}
+          {props.mode == T.NodeModalMode.EDIT && <button onClick={deleteSelectedNode}>[ delete ]</button>}
+          <button onClick={(e) => { e.preventDefault(); props.closeModal() }}>[ cancel ]</button>
+        </div>
       </form>
     </div>
   )

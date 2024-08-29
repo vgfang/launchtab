@@ -1,3 +1,5 @@
+import '../stylesheets/Modal.css'
+
 interface Props {
   closeModal: any;
   confirmFunc: any;
@@ -21,11 +23,18 @@ const ConfirmModal = (props: Props) => {
   return (
     <div>
       <form>
+        <h2 className="modal-title">
+          ❓Confirm
+        </h2>
         <p>{props.description}</p>
-        <button onClick={props.closeModal}>[ cancel ]</button>
-        <button type="submit" form="confirm-modal-form" onClick={handleLinkFormSubmit}>
-          [ confirm ]
-        </button>
+
+        <div className="modal-button-container">
+          <button type="submit" form="confirm-modal-form" onClick={handleLinkFormSubmit}>
+            [ confirm ]
+          </button>
+          <button onClick={props.closeModal}>[ cancel ]</button>
+        </div>
+
       </form>
     </div >
   )

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import * as T from '../types'
-import { GridUtils } from "../utils/GridUtils.tsx"
+import '../stylesheets/Modal.css' // import { GridUtils } from "../utils/GridUtils.tsx"
 
 interface Props {
   closeModal: any;
@@ -59,7 +59,7 @@ const SettingsModal = (props: Props) => {
 
   return (
     <div>
-      <h2>settings:</h2>
+      <h2 className="modal-title">⚙️  settings:</h2>
 
       <form id="settings-modal-form">
 
@@ -191,10 +191,14 @@ const SettingsModal = (props: Props) => {
           </tbody>
         </table>
         <br />
-        <button type="submit" form="settings-modal-form" onClick={handleLinkFormSubmit}>
-          [ save ]
-        </button>
-        <button onClick={props.closeModal}>[ cancel ]</button>
+        <div className='modal-button-container'>
+
+          <button type="submit" form="settings-modal-form" onClick={handleLinkFormSubmit}>
+            [ save ]
+          </button>
+          <button onClick={props.closeModal}>[ cancel ]</button>
+
+        </div>
       </form>
     </div>
   );

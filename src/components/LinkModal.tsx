@@ -32,7 +32,8 @@ const LinkModal = (props: Props) => {
       setKeychord(props.editLink.keychord)
       setUrl(props.editLink.url)
     }
-  }, []);
+  }, [])
+
 
   // uses the node uuid to add the link to the link list
   const addLinkToNode = (nodeUuid: string, link: T.Link) => {
@@ -96,7 +97,7 @@ const LinkModal = (props: Props) => {
           nodes.map((node: T.Node, key: number) => {
             return (
               <option key={key} value={node.uuid}>
-                {node.label}
+                {node.emoji} {node.label}
               </option>
             )
           })
@@ -107,23 +108,56 @@ const LinkModal = (props: Props) => {
 
   return (
     <div>
-      {props.mode === T.LinkModalMode.ADD && <h2>add link:</h2>}
-      {props.mode === T.LinkModalMode.EDIT && <h2>edit link:</h2>}
+      <h2 className="modal-title">
+        {props.mode === T.LinkModalMode.ADD && "➕ add link:"}
+        {props.mode === T.LinkModalMode.EDIT && "✏️  edit link:"}
+      </h2>
       <form id="link-modal-form">
-        <label>node: </label>
-        <NodeSelectDropdown nodes={props.nodes} selectedNode={selectedNode} setSelectedNode={setSelectedNode} />
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <label>node: </label>
+              </td>
+              <td>
+                <NodeSelectDropdown nodes={props.nodes} selectedNode={selectedNode} setSelectedNode={setSelectedNode} />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>label: </label>
+              </td>
+              <td>
+                <input type="text" name="label" value={label} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setLabel(e.target.value))}></input><br />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>keychord: </label>
+              </td>
+              <td>
+                <input type="text" name="keychord" value={keychord} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))}></input><br />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>url: </label>
+              </td>
+              <td>
+                <input type="text" name="url" value={url} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value))}></input><br />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
         <br />
-        <label>label: </label>
-        <input type="text" name="label" value={label} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setLabel(e.target.value))}></input><br />
-        <label>keychord: </label>
-        <input type="text" name="keychord" value={keychord} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))}></input><br />
-        <label>url: </label>
-        <input type="text" name="url" value={url} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value))}></input><br />
-        <button type="submit" form="link-modal-form" onClick={handleLinkFormSubmit}>
-          {props.mode === T.LinkModalMode.ADD && '[ add ]'}
-          {props.mode === T.LinkModalMode.EDIT && '[ save ]'}
-        </button>
-        <button onClick={props.closeModal}>[ cancel ]</button>
+        <div className="modal-button-container">
+          <button type="submit" form="link-modal-form" onClick={handleLinkFormSubmit}>
+            {props.mode === T.LinkModalMode.ADD && '[ add ]'}
+            {props.mode === T.LinkModalMode.EDIT && '[ save ]'}
+          </button>
+          <button onClick={props.closeModal}>[ cancel ]</button>
+        </div >
       </form>
     </div >
   );

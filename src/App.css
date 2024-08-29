@@ -54,3 +54,7 @@
   margin-left: 1rem;
   font-size: var(--keychord-hint-size)
 }
+
+.fill-text-input {
+  width: 98%;
+}

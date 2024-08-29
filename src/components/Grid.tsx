@@ -193,7 +193,7 @@ const Grid = (props: Props) => {
       </Modal>
       <Modal
         isOpen={isNodeModalOpen}
-        onRequestClose={closeModal}
+        onRequestClose={closeNodeModal}
         ariaHideApp={false}
       >
         <NodeModal selectedNode={nodeModalSelectedNode} closeModal={closeNodeModal} updateNode={updateNode} deleteNode={deleteNode} openConfirmModal={props.openConfirmModal} mode={nodeModalMode} addNode={addNode} />

@@ -116,14 +116,27 @@ function App() {
       left: 0,
       right: 0,
       bottom: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',  // semi-transparent background
+      backdropFilter: 'blur(5px)',  // blur effect
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     content: {
+      position: 'relative',  // changed from 'absolute'
+      top: 'auto',
+      left: 'auto',
+      right: 'auto',
+      bottom: 'auto',
       border: '1px solid #ccc',
+      background: '#fff',
       overflow: 'auto',
       WebkitOverflowScrolling: 'touch',
       borderRadius: '4px',
       outline: 'none',
-      padding: '20px'
+      padding: '20px',
+      maxWidth: '80%',  // prevent modal from being too wide
+      maxHeight: '80%', // prevent modal from being too tall
     }
   }
 

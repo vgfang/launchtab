@@ -1,0 +1,10 @@
+.modal-title {
+  margin-bottom: 2rem;
+}
+
+.modal-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
