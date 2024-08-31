@@ -128,7 +128,7 @@ const LinkModal = (props: Props) => {
                 <label>label: </label>
               </td>
               <td>
-                <input type="text" name="label" value={label} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setLabel(e.target.value))}></input><br />
+                <input className='long-text-input' type="text" name="label" value={label} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setLabel(e.target.value))}></input><br />
               </td>
             </tr>
             <tr>
@@ -136,7 +136,7 @@ const LinkModal = (props: Props) => {
                 <label>keychord: </label>
               </td>
               <td>
-                <input type="text" name="keychord" value={keychord} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))}></input><br />
+                <input className='short-number-input' type="text" name="keychord" value={keychord} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))}></input><br />
               </td>
             </tr>
             <tr>
@@ -144,7 +144,7 @@ const LinkModal = (props: Props) => {
                 <label>url: </label>
               </td>
               <td>
-                <input type="text" name="url" value={url} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value))}></input><br />
+                <input className='long-text-input' type="text" name="url" value={url} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value))}></input><br />
               </td>
             </tr>
           </tbody>

@@ -89,9 +89,9 @@ const NodeModal = (props: Props) => {
   return (
     <div>
       <h2 className="modal-title">
-        {props.mode == T.NodeModalMode.EDIT && '✏️  Edit '}
-        {props.mode == T.NodeModalMode.ADD && '➕ Add New '}
-        Node: {props.selectedNode && props.selectedNode.emoji} {props.selectedNode && props.selectedNode.label}
+        {props.mode == T.NodeModalMode.EDIT && '✏️  edit node: '}
+        {props.mode == T.NodeModalMode.ADD && '➕ add new node: '}
+        {props.selectedNode && props.selectedNode.emoji} {props.selectedNode && props.selectedNode.label}
       </h2>
       <form>
         <table>
@@ -106,7 +106,7 @@ const NodeModal = (props: Props) => {
               <td><label>keychord:</label></td>
               <td><input className='short-number-input' type='text' name='keychord' value={keychord} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))} /></td>
               <td><label>emoji:</label></td>
-              <td><input className='short-number-input' type='text' name='emoji' value={emoji} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setEmoji(e.target.value))} /></td>
+              <td><input maxLength='1' className='short-number-input' type='text' name='emoji' value={emoji} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setEmoji(e.target.value))} /></td>
             </tr>
             <tr>
               <td><label>posX:</label></td>

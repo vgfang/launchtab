@@ -1,6 +1,7 @@
 import '../stylesheets/Node.css';
 import Link from './Link'
 import * as T from '../types'
+import { Droppable } from 'react-beautiful-dnd';
 
 interface Props {
   node: T.Node;
@@ -38,22 +39,26 @@ const Node = (props: Props) => {
 
   const LinkList = (props: LinkListProps) => {
     return (
-      <ul className="link-list">
-        {props.links.map((link: T.Link, key: number) => {
-          return (
-            <Link
-              key={key}
-              link={link}
-              editMode={props.editMode}
-              openEditLinkModal={props.openEditLinkModal}
-              nodeUuid={node.uuid}
-              openConfirmModal={props.openConfirmModal}
-              deleteLinkForNode={props.deleteLinkForNode}
-            />
-          )
-        })
-        }
-      </ul>
+      <Droppable droppableId={props.nodeUuid}>
+        {(provided) => (
+          <ul className="link-list" {...provided.droppableProps} ref={provided.innerRef}>
+            {props.links.map((link: T.Link, key: number) => {
+              return (
+                <Link
+                  key={key}
+                  link={link}
+                  editMode={props.editMode}
+                  openEditLinkModal={props.openEditLinkModal}
+                  nodeUuid={node.uuid}
+                  openConfirmModal={props.openConfirmModal}
+                  deleteLinkForNode={props.deleteLinkForNode}
+                />
+              )
+            })
+            }
+          </ul>
+        )}
+      </Droppable>
     )
   }
   return (

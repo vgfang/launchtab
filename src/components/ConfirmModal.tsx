@@ -26,8 +26,9 @@ const ConfirmModal = (props: Props) => {
         <h2 className="modal-title">
           ❓Confirm
         </h2>
-        <p>{props.description}</p>
-
+        <p>
+          {props.description}
+        </p>
         <div className="modal-button-container">
           <button type="submit" form="confirm-modal-form" onClick={handleLinkFormSubmit}>
             [ confirm ]

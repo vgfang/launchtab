@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid'
 import * as T from '../types'
 import { GridUtils } from "../utils/GridUtils.tsx";
 import '../stylesheets/Grid.css';
+import { DragDropContext, DropResult } from "react-beautiful-dnd"
 
 interface Props {
   nodes: T.Node[];
@@ -142,6 +143,10 @@ const Grid = (props: Props) => {
     })
   }
 
+  const moveLinkForToNode = (result: DropResult) => {
+
+  }
+
   const NodeList = (props: NodeListProps) => {
     const nodes = props?.nodes || [];
     const emptyGridLocs = GridUtils.getEmptyGridLocations(nodes, props.size.x, props.size.y) || [];
@@ -198,21 +203,25 @@ const Grid = (props: Props) => {
       >
         <NodeModal selectedNode={nodeModalSelectedNode} closeModal={closeNodeModal} updateNode={updateNode} deleteNode={deleteNode} openConfirmModal={props.openConfirmModal} mode={nodeModalMode} addNode={addNode} />
       </Modal>
-      <div
-        id="grid"
+      <DragDropContext
+        onDragEnd={moveLinkForToNode}
       >
-        <NodeList
-          nodes={props.nodes}
-          setNodes={props.setNodes}
-          editMode={props.editMode}
-          openLinkModal={openLinkModal}
-          openConfirmModal={props.openConfirmModal}
-          openNodeModal={openNodeModal}
-          closeNodeModal={closeNodeModal}
-          deleteLinkForNode={deleteLinkForNode}
-          size={props.size}
-        />
-      </div>
+        <div
+          id="grid"
+        >
+          <NodeList
+            nodes={props.nodes}
+            setNodes={props.setNodes}
+            editMode={props.editMode}
+            openLinkModal={openLinkModal}
+            openConfirmModal={props.openConfirmModal}
+            openNodeModal={openNodeModal}
+            closeNodeModal={closeNodeModal}
+            deleteLinkForNode={deleteLinkForNode}
+            size={props.size}
+          />
+        </div>
+      </DragDropContext>
     </>
   );
 };

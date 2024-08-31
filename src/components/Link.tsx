@@ -34,7 +34,8 @@ const Link = (props: Props) => {
   }
 
   return (
-    <li className="link-container">
+    <li className="link-container"
+      draggable={props.editMode}>
       <div className="link-label-keychord-container">
         <span>{!props.editMode && '> '}{props.editMode && '⋮ '}</span>
         <a
