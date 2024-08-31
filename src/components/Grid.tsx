@@ -43,9 +43,11 @@ const Grid = (props: Props) => {
   const [isNodeModalOpen, setIsNodeModalOpen] = useState(false);
   const [nodeModalSelectedNode, setNodeModalSelectedNode] = useState<T.Node | undefined>({} as T.Node);
   const [nodeModalMode, setNodeModalMode] = useState<T.NodeModalMode>(T.NodeModalMode.ADD)
+  const [defaultNodePos, setDefaultNodePos] = useState({ x: 1, y: 1 })
 
-  const openNodeModal = (selectedNode: T.Node | undefined, mode: T.NodeModalMode) => {
+  const openNodeModal = (selectedNode: T.Node | undefined, mode: T.NodeModalMode, defaultPos: { x: number, y: number } = { x: 1, y: 1 }) => {
     setNodeModalMode(mode)
+    setDefaultNodePos(defaultPos)
     if (selectedNode) {
       setNodeModalSelectedNode(selectedNode)
     } else {
@@ -191,7 +193,7 @@ const Grid = (props: Props) => {
         {props.editMode && emptyGridLocs.map((xy: { x: number, y: number }, key: number) => {
           return (
             <button
-              onClick={() => { openNodeModal(undefined, T.NodeModalMode.ADD) }}
+              onClick={() => { openNodeModal(undefined, T.NodeModalMode.ADD, xy) }}
               key={key}
               className="new-node-btn"
               style={{
@@ -221,7 +223,7 @@ const Grid = (props: Props) => {
         onRequestClose={closeNodeModal}
         ariaHideApp={false}
       >
-        <NodeModal selectedNode={nodeModalSelectedNode} closeModal={closeNodeModal} updateNode={updateNode} deleteNode={deleteNode} openConfirmModal={props.openConfirmModal} mode={nodeModalMode} addNode={addNode} />
+        <NodeModal selectedNode={nodeModalSelectedNode} defaultNodePos={defaultNodePos} closeModal={closeNodeModal} updateNode={updateNode} deleteNode={deleteNode} openConfirmModal={props.openConfirmModal} mode={nodeModalMode} addNode={addNode} />
       </Modal>
       <DragDropContext
         onDragEnd={moveLinkForToNode}

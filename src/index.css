@@ -1,8 +1,4 @@
 :root {
-  font-family:
-    Jetbrains Mono,
-    monospace;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -45,7 +41,8 @@ body {
 }
 
 * {
-  background-color: var(--bg-color)
+  background-color: var(--bg-color);
+  font-family: var(--font-family)
 }
 
 a {
@@ -59,9 +56,6 @@ a:hover {
 button {
   border-radius: var(--node-radius);
   border: 2px solid var(--fg-color);
-  font-family:
-    Jetbrains Mono,
-    monospace;
   font-size: var(--link-font-size)
 }
 

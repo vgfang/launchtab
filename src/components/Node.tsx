@@ -10,7 +10,7 @@ interface Props {
   openLinkModal: (node: T.Node, mode: T.LinkModalMode, link?: T.Link | undefined) => void;
   openConfirmModal: any;
   deleteLinkForNode: any;
-  openNodeModal: (selectedNode: T.Node | undefined, mode: T.NodeModalMode) => void;
+  openNodeModal: (selectedNode: T.Node | undefined, mode: T.NodeModalMode, defaultPos?: { x: number, y: number }) => void;
   closeNodeModal: any;
   userInput: string;
 }
@@ -29,7 +29,8 @@ interface LinkListProps {
 const Node = (props: Props) => {
   const node: T.Node = props.node
 
-  const kcMatch = KeychordUtils.getMatchingPrefix(node.keychord, "", props.userInput)
+  const fullKcMatch = KeychordUtils.getMatchingPrefix(node.keychord, "", props.userInput)
+  const kcMatch = fullKcMatch.slice(0, node.keychord.length)
   const kcRest = node.keychord.slice(kcMatch.length)
 
   const openAddLinkModal = () => {

@@ -12,6 +12,7 @@ interface Props {
   deleteNode: any;
   openConfirmModal: any;
   mode: T.NodeModalMode;
+  defaultNodePos: { x: number, y: number };
 }
 
 const NodeModal = (props: Props) => {
@@ -19,8 +20,8 @@ const NodeModal = (props: Props) => {
   const [label, setLabel] = useState(props.selectedNode?.label || '')
   const [keychord, setKeychord] = useState(props.selectedNode?.keychord || '')
   const [emoji, setEmoji] = useState(props.selectedNode?.emoji || '')
-  const [posX, setPosX] = useState(props.selectedNode?.posX || 0)
-  const [posY, setPosY] = useState(props.selectedNode?.posY || 0)
+  const [posX, setPosX] = useState(props.selectedNode?.posX || props.defaultNodePos.x)
+  const [posY, setPosY] = useState(props.selectedNode?.posY || props.defaultNodePos.y)
   const [width, setWidth] = useState(props.selectedNode?.width || 1)
   const [height, setHeight] = useState(props.selectedNode?.height || 1)
 

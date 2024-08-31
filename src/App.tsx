@@ -131,14 +131,14 @@ function App() {
       left: 0,
       right: 0,
       bottom: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',  // semi-transparent background
-      backdropFilter: 'blur(5px)',  // blur effect
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      backdropFilter: 'blur(5px)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
     },
     content: {
-      position: 'relative',  // changed from 'absolute'
+      position: 'relative',
       top: 'auto',
       left: 'auto',
       right: 'auto',
@@ -150,8 +150,8 @@ function App() {
       borderRadius: '4px',
       outline: 'none',
       padding: '20px',
-      maxWidth: '80%',  // prevent modal from being too wide
-      maxHeight: '80%', // prevent modal from being too tall
+      maxWidth: '80%',
+      maxHeight: '80%',
     }
   }
 
