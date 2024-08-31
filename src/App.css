@@ -29,7 +29,12 @@
 }
 
 .user-input-span {
-  margin: 2rem;
+  margin-top: 2rem;
+  min-height: 2rem;
+}
+
+.link-preview-span {
+  margin-bottom: 2rem;
   min-height: 2rem;
 }
 

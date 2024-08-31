@@ -8,18 +8,19 @@ import SettingsModal from "./components/SettingsModal"
 import * as T from './types'
 import { DefaultSettings } from "./defaults"
 import ConfirmModal from "./components/ConfirmModal.tsx";
+import { KeychordUtils } from "./utils/KeychordUtils.tsx";
 
 function App() {
   // holds current keychord input from user
   const [userInput, setUserInput] = useState("");
   // holds current edit mode state
-  const [editMode, setEditMode] = useState(true);
+  const [editMode, setEditMode] = useState(false);
   // holds current settings
   const [settings, setSettings] = useState<T.Settings>(DefaultSettings);
   // holds current nodes information
   const [nodes, setNodes] = useState([] as T.Node[]);
-  // holds the currently most accurate link
-  // const [targetedLink, setTargetedLink] = useState<T.Link | undefined>(undefined)
+  // holds the targetedLink 
+  const [targetedLink, setTargetedLink] = useState<T.Link | undefined>(undefined)
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openSettingsModal = () => {
@@ -46,40 +47,54 @@ function App() {
     setEditMode(editMode ? false : true)
   }
 
-  const attemptGoToLink = (keychord: string) => {
-    console.log(`going to ${keychord}`);
-  };
 
   const saveSettings = (newSettings: T.Settings) => {
     setSettings(newSettings)
   }
 
-  const recordUserKeys = (event: KeyboardEvent): void => {
-    setUserInput((prevInput: string): string => {
-      if (editMode) {
-        return prevInput;
-      }
-
-      if (event.key === "Backspace") {
-        return prevInput.length > 0 ? prevInput.slice(0, -1) : prevInput;
-      } else if (event.key === "Enter") {
-        attemptGoToLink(prevInput);
-        return "";
-      } else if (/^[a-z0-9]$/i.test(event.key)) {
-        return prevInput + event.key;
-      } else {
-        // ignore non alphanumeric
-        return prevInput;
-      }
-    });
-  };
-
+  // handle keychord 
   useEffect(() => {
+    const goToLink = (keychord: string) => {
+      const link: T.Link | undefined = KeychordUtils.getLinkMatchingKeychord(nodes, keychord)
+      if (link) {
+        window.location.assign(link.url);
+      }
+    };
+
+    const recordUserKeys = (event: KeyboardEvent): void => {
+      setUserInput((prevInput: string): string => {
+        if (editMode) {
+          return prevInput;
+        }
+        if (event.key === "Backspace") {
+          return prevInput.length > 0 ? prevInput.slice(0, -1) : prevInput;
+        } else if (event.key === "Enter") {
+          goToLink(prevInput);
+          return "";
+        } else if (/^[a-z0-9]$/i.test(event.key)) {
+          return prevInput + event.key;
+        } else {
+          // ignore non alphanumeric
+          return prevInput;
+        }
+      });
+    };
     document.addEventListener("keydown", recordUserKeys);
     return () => {
       document.removeEventListener("keydown", recordUserKeys);
     };
-  }, [recordUserKeys]);
+  }, [nodes, userInput, editMode]);
+
+  // update targetedLink
+  useEffect(() => {
+    const link: T.Link | undefined = KeychordUtils.getLinkMatchingKeychord(nodes, userInput)
+    if (link) {
+      setTargetedLink(link)
+    } else {
+      setTargetedLink(undefined)
+    }
+
+  }, [userInput, nodes])
 
   useEffect(() => {
     // testcode
@@ -152,7 +167,7 @@ function App() {
         </div>
         <Clock />
         <span className="user-input-span">{!editMode && '⌨'} {userInput} {editMode && '* edit mode active *'}</span>
-        {/* <span className="link-preview-span">{targetedLink && `->${targetedLink.label}`}</span> */}
+        <span className="link-preview-span">{targetedLink && `-> ${targetedLink.label} (${targetedLink.url})`}</span>
       </header>
       <main>
         <Modal

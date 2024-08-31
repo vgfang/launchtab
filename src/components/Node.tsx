@@ -44,7 +44,7 @@ const Node = (props: Props) => {
           <ul className="link-list" {...provided.droppableProps} ref={provided.innerRef}>
             {props.links.map((link: T.Link, key: number) => {
               return (
-                <Draggable key={link.uuid} draggableId={link.uuid || ""} index={key}>
+                <Draggable key={link.uuid} draggableId={link.uuid || ""} index={key} isDragDisabled={!props.editMode}>
                   {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
                     <Link
                       key={key}

@@ -3,7 +3,6 @@ import * as T from '../types'
 export interface GridUtilsInterface {
   getEmptyGridLocations: (node: T.Node[], gridX: number, gridY: number) => { x: number, y: number }[];
   validateGrid: (node: T.Node[], gridX: number, gridY: number) => { valid: boolean, error?: string };
-  getLinkMatchingKeychord: (nodes: T.Node[], keychord: string) => T.Link | undefined;
 }
 
 export const GridUtils: GridUtilsInterface = {
@@ -62,22 +61,6 @@ export const GridUtils: GridUtilsInterface = {
 
 
     return { valid: true }
-  },
-
-  // get the matching link for the keychord
-  getLinkMatchingKeychord: (nodes: T.Node[], keychord: string): T.Link | undefined => {
-    let matchingLink: T.Link | undefined = undefined;
-    if (keychord.length == 0)
-      return undefined
-    for (const node of nodes) {
-      for (const link of node.links) {
-        if (node.keychord + link.keychord === keychord) {
-          matchingLink = link
-        }
-      }
-    }
-    return matchingLink
   }
-
 }
 
