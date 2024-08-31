@@ -31,11 +31,13 @@
 .user-input-span {
   margin-top: 2rem;
   min-height: 2rem;
+  color: var(--accent-color)
 }
 
 .link-preview-span {
   margin-bottom: 2rem;
   min-height: 2rem;
+  color: var(--accent-color)
 }
 
 .time-text {
@@ -57,6 +59,10 @@
 .keychord-hint {
   color: var(--fg-color);
   font-size: var(--keychord-hint-size)
+}
+
+.keychord-hint-match {
+  color: var(--accent-color)
 }
 
 .fill-text-input {

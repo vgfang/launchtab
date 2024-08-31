@@ -1,6 +1,7 @@
 import * as T from '../types'
 import '../stylesheets/Link.css';
 import { DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd';
+import { KeychordUtils } from '../utils/KeychordUtils';
 
 interface Props {
   link: T.Link;
@@ -12,6 +13,7 @@ interface Props {
   deleteLinkForNode: any;
   provided: DraggableProvided;
   snapshot: DraggableStateSnapshot;
+  userInput: string;
 }
 
 const Link = (props: Props) => {
@@ -19,6 +21,9 @@ const Link = (props: Props) => {
     // need to set modal state
     props.openEditLinkModal(props.link)
   }
+
+  const kcMatch = KeychordUtils.getMatchingPrefix("", props.link.keychord, props.userInput)
+  const kcRest = props.link.keychord.slice(kcMatch.length)
 
   const parseUrlForUse = (url: string) => {
     const hasPrefix = /^(http:\/\/|https:\/\/)/i.test(url);

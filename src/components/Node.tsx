@@ -2,6 +2,7 @@ import '../stylesheets/Node.css';
 import Link from './Link'
 import * as T from '../types'
 import { Droppable, Draggable, DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd';
+import { KeychordUtils } from '../utils/KeychordUtils';
 
 interface Props {
   node: T.Node;
@@ -11,6 +12,7 @@ interface Props {
   deleteLinkForNode: any;
   openNodeModal: (selectedNode: T.Node | undefined, mode: T.NodeModalMode) => void;
   closeNodeModal: any;
+  userInput: string;
 }
 
 interface LinkListProps {
@@ -20,10 +22,14 @@ interface LinkListProps {
   openEditLinkModal: (link: T.Link | undefined) => void;
   openConfirmModal: any;
   deleteLinkForNode: any;
+  userInput: string;
 }
 
 const Node = (props: Props) => {
   const node: T.Node = props.node
+
+  const kcMatch = KeychordUtils.getMatchingPrefix(node.keychord, "", props.userInput)
+  const kcRest = node.keychord.slice(kcMatch.length)
 
   const openAddLinkModal = () => {
     props.openLinkModal(node, T.LinkModalMode.ADD)
@@ -56,6 +62,7 @@ const Node = (props: Props) => {
                       deleteLinkForNode={props.deleteLinkForNode}
                       provided={provided}
                       snapshot={snapshot}
+                      userInput={props.userInput}
                     />
                   )
                   }
@@ -81,7 +88,12 @@ const Node = (props: Props) => {
         <div className="node-header">
           <div className="node-label-keychord-container">
             <h2 className="node-label">{props.node.emoji}{props.node.label}</h2>
-            <span className="keychord-hint">{node.keychord}</span>
+            <span className="keychord-hint">
+              <span className="keychord-hint-match">
+                {kcMatch}
+              </span>
+              {kcRest}
+            </span>
           </div>
           {props.editMode &&
             <button className='edit-btn-square' onClick={openNodeModalForNode}>
@@ -95,6 +107,7 @@ const Node = (props: Props) => {
           openEditLinkModal={openEditLinkModal}
           openConfirmModal={props.openConfirmModal}
           deleteLinkForNode={props.deleteLinkForNode}
+          userInput={props.userInput}
         />
         <br />
         {props.editMode &&

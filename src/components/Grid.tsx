@@ -16,6 +16,7 @@ interface Props {
   editMode: boolean;
   settings: T.Settings;
   openConfirmModal: any;
+  userInput: string;
 }
 
 interface NodeListProps {
@@ -28,6 +29,7 @@ interface NodeListProps {
   deleteLinkForNode: any;
   openNodeModal: any;
   closeNodeModal: any;
+  userInput: string;
 }
 
 const Grid = (props: Props) => {
@@ -143,7 +145,6 @@ const Grid = (props: Props) => {
   }
 
   const moveLinkForToNode = (result: DropResult) => {
-    console.log(result)
     const { source, destination } = result;
     if (!destination) return;
 
@@ -183,6 +184,7 @@ const Grid = (props: Props) => {
               deleteLinkForNode={props.deleteLinkForNode}
               openNodeModal={openNodeModal}
               closeNodeModal={closeNodeModal}
+              userInput={props.userInput}
             />
           );
         })}
@@ -237,6 +239,7 @@ const Grid = (props: Props) => {
             closeNodeModal={closeNodeModal}
             deleteLinkForNode={deleteLinkForNode}
             size={props.size}
+            userInput={props.userInput}
           />
         </div>
       </DragDropContext>

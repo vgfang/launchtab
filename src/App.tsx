@@ -203,6 +203,7 @@ function App() {
           setNodes={setNodes}
           size={{ x: settings.grid.sizeX, y: settings.grid.sizeY }}
           openConfirmModal={openConfirmModal}
+          userInput={userInput}
         />
       </main >
     </>
