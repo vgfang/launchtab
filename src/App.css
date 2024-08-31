@@ -51,7 +51,6 @@
 
 .keychord-hint {
   color: var(--fg-color);
-  margin-left: 1rem;
   font-size: var(--keychord-hint-size)
 }
 

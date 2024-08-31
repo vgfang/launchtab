@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as T from '../types'
 import { v4 as uuidv4 } from 'uuid'
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
@@ -15,14 +15,26 @@ interface Props {
 }
 
 const NodeModal = (props: Props) => {
+  const [label, setLabel] = useState('')
+  const [keychord, setKeychord] = useState('')
+  const [emoji, setEmoji] = useState('')
+  const [posX, setPosX] = useState(1)
+  const [posY, setPosY] = useState(1)
+  const [width, setWidth] = useState(1)
+  const [height, setHeight] = useState(1)
 
-  const [label, setLabel] = useState(props.selectedNode?.label || '')
-  const [keychord, setKeychord] = useState(props.selectedNode?.keychord || '')
-  const [emoji, setEmoji] = useState(props.selectedNode?.emoji || '')
-  const [posX, setPosX] = useState(props.selectedNode?.posX || 0)
-  const [posY, setPosY] = useState(props.selectedNode?.posY || 0)
-  const [width, setWidth] = useState(props.selectedNode?.width || 1)
-  const [height, setHeight] = useState(props.selectedNode?.height || 1)
+  useEffect(() => {
+    // if edit modal set values
+    if (props.mode === T.NodeModalMode.EDIT && props.selectedNode) {
+      setLabel(props.selectedNode.label)
+      setKeychord(props.selectedNode.keychord)
+      setEmoji(props.selectedNode.emoji)
+      setPosX(props.selectedNode.posX)
+      setPosY(props.selectedNode.posY)
+      setWidth(props.selectedNode.width)
+      setHeight(props.selectedNode.height)
+    }
+  }, []);
 
   const addNewNode = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
@@ -96,7 +108,7 @@ const NodeModal = (props: Props) => {
               <td><label>keychord:</label></td>
               <td><input className='short-number-input' type='text' name='keychord' value={keychord} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))} /></td>
               <td><label>emoji:</label></td>
-              <td><input className='short-number-input' type='text' name='emoji' readOnly={true} value={emoji} /></td>
+              <td><input maxLength='1' className='short-number-input' type='text' name='emoji' value={emoji} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setEmoji(str(e.target.value))} /></td>
             </tr>
             <tr>
               <td><label>posX:</label></td>

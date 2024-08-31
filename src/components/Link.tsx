@@ -1,6 +1,6 @@
 import * as T from '../types'
 import '../stylesheets/Link.css';
-import { DraggableProvided } from '@hello-pangea/dnd';
+import { DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd';
 
 interface Props {
   link: T.Link;
@@ -11,6 +11,7 @@ interface Props {
   openConfirmModal: any;
   deleteLinkForNode: any;
   provided: DraggableProvided;
+  snapshot: DraggableStateSnapshot;
 }
 
 const Link = (props: Props) => {
@@ -36,11 +37,13 @@ const Link = (props: Props) => {
   }
 
   return (
-    <li className="link-container"
+    <li
       draggable={props.editMode}
       ref={props.provided.innerRef}
       {...props.provided.draggableProps}
       {...props.provided.dragHandleProps}
+      className={props.snapshot.isDragging ? 'link-container-dragging' : 'link-container'
+      }
     >
       <div className="link-label-keychord-container">
         <span>{!props.editMode && '> '}{props.editMode && '⋮ '}</span>
@@ -56,7 +59,7 @@ const Link = (props: Props) => {
         </span>
       </div>
       {
-        props.editMode &&
+        props.editMode && !props.snapshot.isDragging &&
         <div className="link-edit-buttons-container">
           <button onClick={openEditLinkModal} className="edit-btn-square">
             ✎

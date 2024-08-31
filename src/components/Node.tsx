@@ -1,7 +1,7 @@
 import '../stylesheets/Node.css';
 import Link from './Link'
 import * as T from '../types'
-import { Droppable, Draggable, DraggableProvided } from '@hello-pangea/dnd';
+import { Droppable, Draggable, DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd';
 
 interface Props {
   node: T.Node;
@@ -45,7 +45,7 @@ const Node = (props: Props) => {
             {props.links.map((link: T.Link, key: number) => {
               return (
                 <Draggable key={link.uuid} draggableId={link.uuid || ""} index={key}>
-                  {(provided: DraggableProvided) => (
+                  {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
                     <Link
                       key={key}
                       link={link}
@@ -55,6 +55,7 @@ const Node = (props: Props) => {
                       openConfirmModal={props.openConfirmModal}
                       deleteLinkForNode={props.deleteLinkForNode}
                       provided={provided}
+                      snapshot={snapshot}
                     />
                   )
                   }

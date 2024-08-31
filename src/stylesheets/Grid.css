@@ -3,4 +3,5 @@
   grid-template-columns: repeat(var(--grid-size-x), 1fr);
   grid-template-rows: repeat(var(--grid-size-y), 1fr);
   grid-gap: var(--grid-gap);
+  max-width: 100%;
 }

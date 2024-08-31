@@ -16,7 +16,6 @@
 - make ui not ugly
 
 ### bugs
-- edit node info loads too slowly bad UX
 - drag and drop from larger node to smaller one glitches out the node width 
 
 ### optional features

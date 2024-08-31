@@ -20,20 +20,10 @@ interface NodeSelectDropdownProps {
 
 const LinkModal = (props: Props) => {
   // form inputs
-  const [label, setLabel] = useState('')
-  const [keychord, setKeychord] = useState('')
-  const [url, setUrl] = useState('')
+  const [label, setLabel] = useState(props.editLink?.label || '')
+  const [keychord, setKeychord] = useState(props.editLink?.keychord || '')
+  const [url, setUrl] = useState(props.editLink?.keychord || '')
   const [selectedNode, setSelectedNode] = useState(props.defaultNode)
-
-  useEffect(() => {
-    // if edit modal set values
-    if (props.mode === T.LinkModalMode.EDIT && props.editLink) {
-      setLabel(props.editLink.label)
-      setKeychord(props.editLink.keychord)
-      setUrl(props.editLink.url)
-    }
-  }, [])
-
 
   // uses the node uuid to add the link to the link list
   const addLinkToNode = (nodeUuid: string, link: T.Link) => {
