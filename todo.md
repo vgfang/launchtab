@@ -8,15 +8,16 @@
   - if that link is to be activated and its in that node we need to type 'abc'
 
 ### todo list
-- node add functionality
 - data validation
-- drag and drop links
-- fix modal UX
 - keychord functionality (and fix ux with enter key and btns)
 - disable test loading and set up defaults properly
 - chrome extension
 - import/export json
 - make ui not ugly
+
+### bugs
+- edit node info loads too slowly bad UX
+- drag and drop from larger node to smaller one glitches out the node width 
 
 ### optional features
 - trash bin for recovering links

@@ -1,7 +1,7 @@
 import '../stylesheets/Node.css';
 import Link from './Link'
 import * as T from '../types'
-import { Droppable } from 'react-beautiful-dnd';
+import { Droppable, Draggable, DraggableProvided } from '@hello-pangea/dnd';
 
 interface Props {
   node: T.Node;
@@ -39,23 +39,30 @@ const Node = (props: Props) => {
 
   const LinkList = (props: LinkListProps) => {
     return (
-      <Droppable droppableId={props.nodeUuid}>
+      <Droppable droppableId={props.nodeUuid} type="LINK">
         {(provided) => (
           <ul className="link-list" {...provided.droppableProps} ref={provided.innerRef}>
             {props.links.map((link: T.Link, key: number) => {
               return (
-                <Link
-                  key={key}
-                  link={link}
-                  editMode={props.editMode}
-                  openEditLinkModal={props.openEditLinkModal}
-                  nodeUuid={node.uuid}
-                  openConfirmModal={props.openConfirmModal}
-                  deleteLinkForNode={props.deleteLinkForNode}
-                />
+                <Draggable key={link.uuid} draggableId={link.uuid || ""} index={key}>
+                  {(provided: DraggableProvided) => (
+                    <Link
+                      key={key}
+                      link={link}
+                      editMode={props.editMode}
+                      openEditLinkModal={props.openEditLinkModal}
+                      nodeUuid={node.uuid}
+                      openConfirmModal={props.openConfirmModal}
+                      deleteLinkForNode={props.deleteLinkForNode}
+                      provided={provided}
+                    />
+                  )
+                  }
+                </Draggable>
               )
             })
             }
+            {provided.placeholder}
           </ul>
         )}
       </Droppable>

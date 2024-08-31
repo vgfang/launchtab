@@ -1,5 +1,6 @@
 import * as T from '../types'
 import '../stylesheets/Link.css';
+import { DraggableProvided } from '@hello-pangea/dnd';
 
 interface Props {
   link: T.Link;
@@ -9,6 +10,7 @@ interface Props {
   nodeUuid: string;
   openConfirmModal: any;
   deleteLinkForNode: any;
+  provided: DraggableProvided;
 }
 
 const Link = (props: Props) => {
@@ -35,7 +37,11 @@ const Link = (props: Props) => {
 
   return (
     <li className="link-container"
-      draggable={props.editMode}>
+      draggable={props.editMode}
+      ref={props.provided.innerRef}
+      {...props.provided.draggableProps}
+      {...props.provided.dragHandleProps}
+    >
       <div className="link-label-keychord-container">
         <span>{!props.editMode && '> '}{props.editMode && '⋮ '}</span>
         <a

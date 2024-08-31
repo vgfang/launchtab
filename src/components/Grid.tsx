@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid'
 import * as T from '../types'
 import { GridUtils } from "../utils/GridUtils.tsx";
 import '../stylesheets/Grid.css';
-import { DragDropContext, DropResult } from "react-beautiful-dnd"
+import { DragDropContext, DropResult } from "@hello-pangea/dnd"
 
 interface Props {
   nodes: T.Node[];
@@ -130,7 +130,6 @@ const Grid = (props: Props) => {
   }
 
   const deleteLinkForNode = (nodeUuid: string, linkUuid: string) => {
-    console.log(`delete link for node ${nodeUuid} ${linkUuid}`)
     props.setNodes((prevNodes: T.Node[]) => {
       const nodeForLink: T.Node | undefined = prevNodes.find((node: T.Node) => node.uuid === nodeUuid)
       if (nodeForLink) {
@@ -144,7 +143,26 @@ const Grid = (props: Props) => {
   }
 
   const moveLinkForToNode = (result: DropResult) => {
+    console.log(result)
+    const { source, destination } = result;
+    if (!destination) return;
 
+    const srcId = source.droppableId;
+    const destId = destination.droppableId;
+
+    props.setNodes((prevNodes: T.Node[]): T.Node[] => {
+      const newNodes = [...prevNodes];
+      const srcNode = newNodes.find(node => node.uuid === srcId)
+      const destNode = newNodes.find(node => node.uuid === destId)
+
+      if (!srcNode || !destNode) return prevNodes;
+
+      const [movedLink] = srcNode.links.splice(source.index, 1);
+
+      destNode.links.splice(destination.index, 0, movedLink)
+
+      return prevNodes
+    })
   }
 
   const NodeList = (props: NodeListProps) => {
