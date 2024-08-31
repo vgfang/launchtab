@@ -167,8 +167,12 @@ function App() {
         </div>
         <Clock />
         <span className="user-input-span">{!editMode && '⌨'} {userInput} {editMode && '* edit mode active *'}</span>
-        <span className="link-preview-span">{targetedLink && `-> ${targetedLink.label} (${targetedLink.url})`}</span>
-      </header>
+        <span className="link-preview-span">
+          {targetedLink && (
+            <a href={targetedLink.url}>{targetedLink.label} ({targetedLink.url})</a>
+          )}
+        </span>
+      </header >
       <main>
         <Modal
           style={{

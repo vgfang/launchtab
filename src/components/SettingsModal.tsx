@@ -191,6 +191,9 @@ const SettingsModal = (props: Props) => {
           </tbody>
         </table>
         <br />
+
+
+
         <div className='modal-button-container'>
 
           <button type="submit" form="settings-modal-form" onClick={handleLinkFormSubmit}>
@@ -200,6 +203,13 @@ const SettingsModal = (props: Props) => {
 
         </div>
       </form>
+
+      <br />
+      <h2 className="modal-title">💾 data migration:</h2>
+      <div className='modal-button-container'>
+        <button onClick={() => { }}>[ import ]</button>
+        <button onClick={() => { }}>[ export ]</button>
+      </div>
     </div>
   );
 };

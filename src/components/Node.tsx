@@ -23,6 +23,7 @@ interface LinkListProps {
   openConfirmModal: any;
   deleteLinkForNode: any;
   userInput: string;
+  nodeKeychord: string;
 }
 
 const Node = (props: Props) => {
@@ -63,6 +64,7 @@ const Node = (props: Props) => {
                       provided={provided}
                       snapshot={snapshot}
                       userInput={props.userInput}
+                      nodeKeychord={props.nodeKeychord}
                     />
                   )
                   }
@@ -108,6 +110,7 @@ const Node = (props: Props) => {
           openConfirmModal={props.openConfirmModal}
           deleteLinkForNode={props.deleteLinkForNode}
           userInput={props.userInput}
+          nodeKeychord={props.node.keychord}
         />
         <br />
         {props.editMode &&

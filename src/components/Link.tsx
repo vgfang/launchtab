@@ -14,6 +14,7 @@ interface Props {
   provided: DraggableProvided;
   snapshot: DraggableStateSnapshot;
   userInput: string;
+  nodeKeychord: string;
 }
 
 const Link = (props: Props) => {
@@ -22,8 +23,9 @@ const Link = (props: Props) => {
     props.openEditLinkModal(props.link)
   }
 
-  const kcMatch = KeychordUtils.getMatchingPrefix("", props.link.keychord, props.userInput)
-  const kcRest = props.link.keychord.slice(kcMatch.length)
+  const fullKcMatch = KeychordUtils.getMatchingPrefix(props.nodeKeychord, props.link.keychord, props.userInput)
+  const kcMatch = fullKcMatch.slice(props.nodeKeychord.length)
+  const kcRest = fullKcMatch.length > props.nodeKeychord.length ? props.link.keychord.slice(kcMatch.length) : props.link.keychord
 
   const parseUrlForUse = (url: string) => {
     const hasPrefix = /^(http:\/\/|https:\/\/)/i.test(url);
@@ -60,7 +62,10 @@ const Link = (props: Props) => {
           {props.link.label}
         </a>
         <span className="keychord-hint">
-          {props.link.keychord}
+          <span className="keychord-hint-match">
+            {kcMatch}
+          </span>
+          {kcRest}
         </span>
       </div>
       {

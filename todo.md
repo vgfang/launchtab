@@ -8,17 +8,18 @@
   - if that link is to be activated and its in that node we need to type 'abc'
 
 ### todo list
-- data validation
-- keychord functionality (and fix ux with enter key and btns)
+- data validation for modal entries
 - disable test loading and set up defaults properly
 - chrome extension
 - import/export json
 - make ui not ugly
 
 ### bugs
+- keychord fn need to fix ux with enter key and btns overlap
 - drag and drop from larger node to smaller one glitches out the node width 
 
 ### optional features
 - trash bin for recovering links
 - background image option
+- better error messaging (not js alerts?)
 
