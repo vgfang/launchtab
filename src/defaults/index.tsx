@@ -15,8 +15,8 @@ export const DefaultSettings = {
   },
   "fonts": {
     "headerSize": 24,
-    "linkSize": 16,
-    "keychordHintSize": 12,
+    "linkSize": 18,
+    "keychordHintSize": 18,
     "clockSize": 64,
     "fontFamily": "Arial, sans-serif"
   }

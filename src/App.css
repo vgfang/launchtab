@@ -31,13 +31,15 @@
 .user-input-span {
   margin-top: 2rem;
   min-height: 2rem;
-  color: var(--accent-color)
+  color: var(--accent-color);
+  font-size: var(--link-font-size)
 }
 
 .link-preview-span {
   margin-bottom: 2rem;
   min-height: 2rem;
-  color: var(--accent-color)
+  color: var(--accent-color);
+  font-size: var(--link-font-size)
 }
 
 .time-text {

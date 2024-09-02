@@ -86,7 +86,8 @@ ul {
   list-style-type: none;
 }
 
-label {
+label,
+p {
   font-size: var(--link-font-size)
 }
 
@@ -96,7 +97,9 @@ li,
 td,
 label,
 button,
-span {
+span,
+p,
+hr {
   color: var(--text-color)
 }
 

@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import "./App.css";
 import Clock from "./components/Clock.tsx";
 import Grid from "./components/Grid.tsx";
-import TestJSON from "../test/test.json";
+// import TestJSON from "../test/test.json";
 import SettingsModal from "./components/SettingsModal"
 import * as T from './types'
 import { DefaultSettings } from "./defaults"
@@ -96,13 +96,14 @@ function App() {
 
   }, [userInput, nodes])
 
-  useEffect(() => {
-    // testcode
-    const userJSON: T.Data = TestJSON as T.Data;
-    setSettings(userJSON.settings);
-    setNodes(userJSON.nodes);
-  }, []);
+  // useEffect(() => {
+  //   // testcode
+  //   const userJSON: T.Data = TestJSON as T.Data;
+  //   setSettings(userJSON.settings);
+  //   setNodes(userJSON.nodes);
+  // }, []);
 
+  // load in settings
   useEffect(() => {
     document.documentElement.style.setProperty('--node-radius', `${settings.grid.radius}px`);
     document.documentElement.style.setProperty('--node-padding', `${settings.grid.padding}px`);
@@ -155,13 +156,12 @@ function App() {
     }
   }
 
-
   return (
     <>
       <header className="header">
         <div className="edit-btn-container">
           {editMode &&
-            <button className="edit-btn-big" onClick={openSettingsModal}>[settings ⚙]</button>
+            <button className="edit-btn-big" onClick={openSettingsModal}>[settings]</button>
           }
           <button className="edit-btn-big edit-btn-main" onClick={toggleEditMode}>✎</button>
         </div>

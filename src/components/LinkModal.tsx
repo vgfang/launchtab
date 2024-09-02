@@ -115,14 +115,14 @@ const LinkModal = (props: Props) => {
       <form id="link-modal-form">
         <table>
           <tbody>
-            <tr>
-              <td>
-                <label>node: </label>
-              </td>
-              <td>
-                <NodeSelectDropdown nodes={props.nodes} selectedNode={selectedNode} setSelectedNode={setSelectedNode} />
-              </td>
-            </tr>
+            {/* <tr> */}
+            {/*   <td> */}
+            {/*     <label>node: </label> */}
+            {/*   </td> */}
+            {/*   <td> */}
+            {/*     <NodeSelectDropdown nodes={props.nodes} selectedNode={selectedNode} setSelectedNode={setSelectedNode} /> */}
+            {/*   </td> */}
+            {/* </tr> */}
             <tr>
               <td>
                 <label>label: </label>
@@ -133,18 +133,18 @@ const LinkModal = (props: Props) => {
             </tr>
             <tr>
               <td>
-                <label>keychord: </label>
-              </td>
-              <td>
-                <input className='short-number-input' type="text" name="keychord" value={keychord} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))}></input><br />
-              </td>
-            </tr>
-            <tr>
-              <td>
                 <label>url: </label>
               </td>
               <td>
                 <input className='long-text-input' type="text" name="url" value={url} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value))}></input><br />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>keychord: </label>
+              </td>
+              <td>
+                <input className='short-number-input' type="text" name="keychord" value={keychord} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setKeychord(e.target.value))}></input><br />
               </td>
             </tr>
           </tbody>

@@ -203,9 +203,16 @@ const SettingsModal = (props: Props) => {
 
         </div>
       </form>
-
       <br />
+      <hr />
+
       <h2 className="modal-title">💾 data migration:</h2>
+      <p>
+        Data is in JSON format.
+      </p>
+      <p>
+        It includes both settings and node data.
+      </p>
       <div className='modal-button-container'>
         <button onClick={() => { }}>[ import ]</button>
         <button onClick={() => { }}>[ export ]</button>
