@@ -12,7 +12,6 @@ export const GridUtils: GridUtilsInterface = {
 
     // grid indices start at 0, positions we are given start at 1
     const grid = Array(y).fill(null).map(() => Array(x).fill(false));
-
     for (const node of nodes) {
       for (let i = 0; i < node.width; i++) {
         for (let j = 0; j < node.height; j++) {
@@ -36,10 +35,10 @@ export const GridUtils: GridUtilsInterface = {
     const x = gridX
     const y = gridY
 
-    const grid = Array(y).fill(null).map(() => Array(x).fill(false));
-
-    if (x < 0 || y < 0)
+    if (x <= 0 || y <= 0)
       return { valid: false, error: "settings grid size is invalid." }
+
+    const grid = Array(y).fill(null).map(() => Array(x).fill(false));
 
     for (const node of nodes) {
       for (let i = 0; i < node.width; i++) {

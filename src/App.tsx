@@ -9,6 +9,7 @@ import * as T from './types'
 import { DefaultSettings } from "./defaults"
 import ConfirmModal from "./components/ConfirmModal.tsx";
 import { KeychordUtils } from "./utils/KeychordUtils.tsx";
+import { GridUtils } from "./utils/GridUtils.tsx";
 
 function App() {
   // holds current keychord input from user
@@ -49,7 +50,14 @@ function App() {
 
 
   const saveSettings = (newSettings: T.Settings) => {
-    setSettings(newSettings)
+    const validation = GridUtils.validateGrid(nodes, newSettings.grid.sizeX, newSettings.grid.sizeY)
+    if (validation.valid) {
+      setSettings(newSettings)
+      return true
+    } else {
+      alert(validation.error)
+      return false
+    }
   }
 
   // handle keychord 

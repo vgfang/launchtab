@@ -52,9 +52,9 @@ const SettingsModal = (props: Props) => {
         fontFamily: "Arial, sans-serif"
       }
     }
-    // TODO: add validator
-    props.saveSettings(newSettings)
-    props.closeModal()
+    if (props.saveSettings(newSettings)) {
+      props.closeModal()
+    }
   }
 
   return (

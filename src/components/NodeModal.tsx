@@ -77,6 +77,10 @@ const NodeModal = (props: Props) => {
     }
   }
 
+  const sanatizeNumericInput = (inputValue: number) => {
+    return isNaN(inputValue) ? 1 : inputValue
+  }
+
   return (
     <div>
       <h2 className="modal-title">
@@ -101,15 +105,15 @@ const NodeModal = (props: Props) => {
             </tr>
             <tr>
               <td><label>posX:</label></td>
-              <td><input className='short-number-input' type='text' name='posX' value={posX} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setPosX(parseInt(e.target.value)))} /></td>
+              <td><input className='short-number-input' min='0' type='text' name='posX' value={posX} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setPosX(sanatizeNumericInput(parseInt(e.target.value))))} /></td>
               <td><label>posY:</label></td>
-              <td><input className='short-number-input' type='text' name='posY' value={posY} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setPosY(parseInt(e.target.value)))} /></td>
+              <td><input className='short-number-input' type='text' name='posY' value={posY} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setPosY(sanatizeNumericInput(parseInt(e.target.value))))} /></td>
             </tr>
             <tr>
               <td><label>width:</label></td>
-              <td><input className='short-number-input' type='text' name='width' value={width} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setWidth(parseInt(e.target.value)))} /></td>
+              <td><input className='short-number-input' type='text' name='width' value={width} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setWidth(sanatizeNumericInput(parseInt(e.target.value))))} /></td>
               <td><label>height:</label></td>
-              <td><input className='short-number-input' type='text' name='height' value={height} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setHeight(parseInt(e.target.value)))} /></td>
+              <td><input className='short-number-input' type='text' name='height' value={height} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setHeight(sanatizeNumericInput(parseInt(e.target.value))))} /></td>
             </tr>
           </tbody>
         </table>
