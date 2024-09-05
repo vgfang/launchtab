@@ -16,16 +16,18 @@
   position: absolute;
   right: 0;
   top: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .edit-btn-square {
   aspect-ratio: 1/1;
-  width: 2rem;
+  min-width: 2.5rem;
 }
 
 .edit-btn-big {
-  height: 2rem;
-  margin: 0.5rem;
+  height: 3rem;
 }
 
 .user-input-span {
@@ -60,13 +62,13 @@
 
 .keychord-hint {
   color: var(--fg-color);
-  font-size: var(--keychord-hint-size)
+  font-size: var(--keychord-hint-size);
 }
 
 .keychord-hint-match {
-  color: var(--accent-color)
+  color: var(--accent-color);
 }
 
 .fill-text-input {
-  width: 98%;
+  width: 95%;
 }

@@ -45,11 +45,11 @@ const SettingsModal = (props: Props) => {
         text: colorText
       },
       fonts: {
-        headerSize: 24,
-        linkSize: 16,
-        keychordHintSize: 12,
-        clockSize: 36,
-        fontFamily: "Arial, sans-serif"
+        headerSize: fontHeaderSize,
+        linkSize: fontLinkSize,
+        keychordHintSize: fontKeychordHintSize,
+        clockSize: fontClockSize,
+        fontFamily: fontFamily
       }
     }
     // TODO: add validator

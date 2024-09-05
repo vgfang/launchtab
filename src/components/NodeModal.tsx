@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import * as T from '../types'
 import { v4 as uuidv4 } from 'uuid'
-import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import '../stylesheets/Modal.css'
+import Picker from '@emoji-mart/react'
 
 interface Props {
   selectedNode?: T.Node;
@@ -20,10 +20,10 @@ const NodeModal = (props: Props) => {
   const [label, setLabel] = useState(props.selectedNode?.label || '')
   const [keychord, setKeychord] = useState(props.selectedNode?.keychord || '')
   const [emoji, setEmoji] = useState(props.selectedNode?.emoji || '')
-  const [posX, setPosX] = useState(props.selectedNode?.posX || props.defaultNodePos.x)
-  const [posY, setPosY] = useState(props.selectedNode?.posY || props.defaultNodePos.y)
-  const [width, setWidth] = useState(props.selectedNode?.width || 1)
-  const [height, setHeight] = useState(props.selectedNode?.height || 1)
+  const [posX, setPosX] = useState(props.selectedNode?.posX.toString() || props.defaultNodePos.x.toString())
+  const [posY, setPosY] = useState(props.selectedNode?.posY.toString() || props.defaultNodePos.y.toString())
+  const [width, setWidth] = useState(props.selectedNode?.width.toString() || '1')
+  const [height, setHeight] = useState(props.selectedNode?.height.toString() || '1')
 
   const addNewNode = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
@@ -32,10 +32,10 @@ const NodeModal = (props: Props) => {
       label: label,
       keychord: keychord,
       emoji: emoji,
-      posX: posX,
-      posY: posY,
-      width: width,
-      height: height,
+      posX: parseInt(posX),
+      posY: parseInt(posY),
+      width: parseInt(width),
+      height: parseInt(height),
       links: []
     }
     // TODO: Node Specific Input Validation
@@ -53,10 +53,10 @@ const NodeModal = (props: Props) => {
         label: label,
         keychord: keychord,
         emoji: emoji,
-        posX: posX,
-        posY: posY,
-        width: width,
-        height: height,
+        posX: parseInt(posX),
+        posY: parseInt(posY),
+        width: parseInt(width),
+        height: parseInt(height),
         links: props.selectedNode.links
       }
       props.updateNode(newNode)
@@ -101,19 +101,21 @@ const NodeModal = (props: Props) => {
             </tr>
             <tr>
               <td><label>posX:</label></td>
-              <td><input className='short-number-input' type='text' name='posX' value={posX} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setPosX(parseInt(e.target.value)))} /></td>
+              <td><input className='short-number-input' type='text' name='posX' value={posX} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setPosX((e.target.value)))} /></td>
               <td><label>posY:</label></td>
-              <td><input className='short-number-input' type='text' name='posY' value={posY} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setPosY(parseInt(e.target.value)))} /></td>
+              <td><input className='short-number-input' type='text' name='posY' value={posY} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setPosY((e.target.value)))} /></td>
             </tr>
             <tr>
               <td><label>width:</label></td>
-              <td><input className='short-number-input' type='text' name='width' value={width} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setWidth(parseInt(e.target.value)))} /></td>
+              <td><input className='short-number-input' type='text' name='width' value={width} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setWidth((e.target.value)))} /></td>
               <td><label>height:</label></td>
-              <td><input className='short-number-input' type='text' name='height' value={height} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setHeight(parseInt(e.target.value)))} /></td>
+              <td><input className='short-number-input' type='text' name='height' value={height} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setHeight((e.target.value)))} /></td>
             </tr>
           </tbody>
         </table>
-        <EmojiPicker onEmojiClick={(emojiData: EmojiClickData) => { setEmoji(emojiData.emoji) }} />
+        <br />
+        <Picker
+          onEmojiSelect={(data: any) => { setEmoji(data.native) }}></Picker>
         <br />
 
         <div className="modal-button-container">

@@ -12,18 +12,19 @@ interface Props {
   editLink?: T.Link | undefined;
 }
 
-interface NodeSelectDropdownProps {
-  nodes: T.Node[];
-  setSelectedNode: any;
-  selectedNode: T.Node;
-}
+// interface NodeSelectDropdownProps {
+//   nodes: T.Node[];
+//   setSelectedNode: any;
+//   selectedNode: T.Node;
+// }
 
 const LinkModal = (props: Props) => {
   // form inputs
   const [label, setLabel] = useState('')
   const [keychord, setKeychord] = useState('')
   const [url, setUrl] = useState('')
-  const [selectedNode, setSelectedNode] = useState(props.defaultNode)
+  // const [selectedNode, setSelectedNode] = useState(props.defaultNode)
+  const selectedNode = props.defaultNode
 
   useEffect(() => {
     // if edit modal set values
@@ -79,32 +80,32 @@ const LinkModal = (props: Props) => {
     }
   }
 
-  const NodeSelectDropdown = (props: NodeSelectDropdownProps) => {
-    const nodes = props?.nodes || [];
-    const selectOnChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => props.setSelectedNode(findNodeViaUUID(e.target.value))
-    const selectedNode = props.selectedNode
-    const findNodeViaUUID = (uuid: string): T.Node | undefined => {
-      return nodes.find((node: T.Node) => node.uuid == uuid)
-    }
-
-    let value = undefined;
-    if (selectedNode !== undefined) {
-      value = selectedNode.uuid;
-    }
-    return (
-      <select name="node-select" value={value} onChange={selectOnChangeHandler}>
-        {
-          nodes.map((node: T.Node, key: number) => {
-            return (
-              <option key={key} value={node.uuid}>
-                {node.emoji} {node.label}
-              </option>
-            )
-          })
-        }
-      </select>
-    )
-  }
+  // const NodeSelectDropdown = (props: NodeSelectDropdownProps) => {
+  //   const nodes = props?.nodes || [];
+  //   const selectOnChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => props.setSelectedNode(findNodeViaUUID(e.target.value))
+  //   const selectedNode = props.selectedNode
+  //   const findNodeViaUUID = (uuid: string): T.Node | undefined => {
+  //     return nodes.find((node: T.Node) => node.uuid == uuid)
+  //   }
+  //
+  //   let value = undefined;
+  //   if (selectedNode !== undefined) {
+  //     value = selectedNode.uuid;
+  //   }
+  //   return (
+  //     <select name="node-select" value={value} onChange={selectOnChangeHandler}>
+  //       {
+  //         nodes.map((node: T.Node, key: number) => {
+  //           return (
+  //             <option key={key} value={node.uuid}>
+  //               {node.emoji} {node.label}
+  //             </option>
+  //           )
+  //         })
+  //       }
+  //     </select>
+  //   )
+  // }
 
   return (
     <div>

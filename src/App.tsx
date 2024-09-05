@@ -47,6 +47,9 @@ function App() {
     setEditMode(editMode ? false : true)
   }
 
+  if (import.meta.hot) {
+    import.meta.hot.accept();
+  }
 
   const saveSettings = (newSettings: T.Settings) => {
     setSettings(newSettings)
@@ -96,12 +99,20 @@ function App() {
 
   }, [userInput, nodes])
 
+  // // Load settings and nodes from Chrome storage
   // useEffect(() => {
-  //   // testcode
-  //   const userJSON: T.Data = TestJSON as T.Data;
-  //   setSettings(userJSON.settings);
-  //   setNodes(userJSON.nodes);
+  //   chrome.storage.sync.get(['data'], (result: any) => {
+  //     if (result.data) {
+  //       setSettings(result.data.settings);
+  //       setNodes(result.data.nodes);
+  //     }
+  //   });
   // }, []);
+  //
+  // // Save settings to Chrome storage whenever they change
+  // useEffect(() => {
+  //   chrome.storage.sync.set({ data: { settings, nodes } });
+  // }, [settings, nodes]);
 
   // load in settings
   useEffect(() => {
@@ -122,39 +133,37 @@ function App() {
     document.documentElement.style.setProperty('--keychord-font-size', `${settings.fonts.keychordHintSize}px`);
     document.documentElement.style.setProperty('--clock-font-size', `${settings.fonts.clockSize}px`);
     document.documentElement.style.setProperty('--font-family', `${settings.fonts.fontFamily}`);
-  }, [settings]);
 
-
-  Modal.defaultStyles = {
-    overlay: {
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      backdropFilter: 'blur(5px)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    content: {
-      position: 'relative',
-      top: 'auto',
-      left: 'auto',
-      right: 'auto',
-      bottom: 'auto',
-      border: '1px solid #ccc',
-      background: '#fff',
-      overflow: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      borderRadius: '4px',
-      outline: 'none',
-      padding: '20px',
-      maxWidth: '80%',
-      maxHeight: '80%',
+    Modal.defaultStyles = {
+      overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backdropFilter: 'blur(5px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      },
+      content: {
+        position: 'relative',
+        top: 'auto',
+        left: 'auto',
+        right: 'auto',
+        bottom: 'auto',
+        overflow: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        borderRadius: '4px',
+        outline: 'none',
+        padding: '20px',
+        maxWidth: '80%',
+        maxHeight: '80%',
+        border: `2px solid ${settings.colors.fg}`,
+      }
     }
-  }
+  }, [settings]);
 
   return (
     <>
@@ -163,7 +172,7 @@ function App() {
           {editMode &&
             <button className="edit-btn-big" onClick={openSettingsModal}>[settings]</button>
           }
-          <button className="edit-btn-big edit-btn-main" onClick={toggleEditMode}>✎</button>
+          <button className="edit-btn-big edit-btn-square" onClick={toggleEditMode}>✎</button>
         </div>
         <Clock />
         <span className="user-input-span">{!editMode && '⌨'} {userInput} {editMode && '* edit mode active *'}</span>

@@ -5,3 +5,7 @@
   grid-gap: var(--grid-gap);
   max-width: 100%;
 }
+
+.new-node-btn {
+  padding: 1em;
+}
