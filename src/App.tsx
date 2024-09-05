@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import Modal from 'react-modal'
+import Modal from "react-modal";
 import "./App.css";
 import Clock from "./components/Clock.tsx";
 import Grid from "./components/Grid.tsx";
 // import TestJSON from "../test/test.json";
-import SettingsModal from "./components/SettingsModal"
-import * as T from './types'
-import { DefaultSettings } from "./defaults"
+import SettingsModal from "./components/SettingsModal";
+import * as T from "./types";
+import { DefaultSettings } from "./defaults";
 import ConfirmModal from "./components/ConfirmModal.tsx";
 import { KeychordUtils } from "./utils/KeychordUtils.tsx";
 import { GridUtils } from "./utils/GridUtils.tsx";
@@ -20,8 +20,10 @@ function App() {
   const [settings, setSettings] = useState<T.Settings>(DefaultSettings);
   // holds current nodes information
   const [nodes, setNodes] = useState([] as T.Node[]);
-  // holds the targetedLink 
-  const [targetedLink, setTargetedLink] = useState<T.Link | undefined>(undefined)
+  // holds the targetedLink
+  const [targetedLink, setTargetedLink] = useState<T.Link | undefined>(
+    undefined,
+  );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openSettingsModal = () => {
@@ -31,42 +33,49 @@ function App() {
     setIsModalOpen(false);
   };
 
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
-  const [confirmFunc, setConfirmFunc] = useState(() => { })
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [confirmFunc, setConfirmFunc] = useState(() => {});
   const openConfirmModal = (func: any, desc: string) => {
-    setConfirmFunc(() => func)
-    setConfirmDescription(desc)
-    setIsConfirmModalOpen(true)
-  }
+    setConfirmFunc(() => func);
+    setConfirmDescription(desc);
+    setIsConfirmModalOpen(true);
+  };
   const closeConfirmModal = () => {
-    setIsConfirmModalOpen(false)
-  }
-  const [confirmDescription, setConfirmDescription] = useState('')
+    setIsConfirmModalOpen(false);
+  };
+  const [confirmDescription, setConfirmDescription] = useState("");
 
   const toggleEditMode = () => {
-    setUserInput("")
-    setEditMode(editMode ? false : true)
-  }
+    setUserInput("");
+    setEditMode(editMode ? false : true);
+  };
 
   if (import.meta.hot) {
     import.meta.hot.accept();
   }
 
   const saveSettings = (newSettings: T.Settings) => {
-    const validation = GridUtils.validateGrid(nodes, newSettings.grid.sizeX, newSettings.grid.sizeY)
+    const validation = GridUtils.validateGrid(
+      nodes,
+      newSettings.grid.sizeX,
+      newSettings.grid.sizeY,
+    );
     if (validation.valid) {
-      setSettings(newSettings)
-      return true
+      setSettings(newSettings);
+      return true;
     } else {
-      alert(validation.error)
-      return false
+      alert(validation.error);
+      return false;
     }
-  }
+  };
 
-  // handle keychord 
+  // handle keychord
   useEffect(() => {
     const goToLink = (keychord: string) => {
-      const link: T.Link | undefined = KeychordUtils.getLinkMatchingKeychord(nodes, keychord)
+      const link: T.Link | undefined = KeychordUtils.getLinkMatchingKeychord(
+        nodes,
+        keychord,
+      );
       if (link) {
         window.location.assign(link.url);
       }
@@ -98,14 +107,16 @@ function App() {
 
   // update targetedLink
   useEffect(() => {
-    const link: T.Link | undefined = KeychordUtils.getLinkMatchingKeychord(nodes, userInput)
+    const link: T.Link | undefined = KeychordUtils.getLinkMatchingKeychord(
+      nodes,
+      userInput,
+    );
     if (link) {
-      setTargetedLink(link)
+      setTargetedLink(link);
     } else {
-      setTargetedLink(undefined)
+      setTargetedLink(undefined);
     }
-
-  }, [userInput, nodes])
+  }, [userInput, nodes]);
 
   // // Load settings and nodes from Chrome storage
   // useEffect(() => {
@@ -124,83 +135,143 @@ function App() {
 
   // load in settings
   useEffect(() => {
-    document.documentElement.style.setProperty('--node-radius', `${settings.grid.radius}px`);
-    document.documentElement.style.setProperty('--node-padding', `${settings.grid.padding}px`);
-    document.documentElement.style.setProperty('--grid-gap', `${settings.grid.gap}px`);
-    document.documentElement.style.setProperty('--node-width', `${settings.grid.width}px`);
-    document.documentElement.style.setProperty('--grid-size-x', `${settings.grid.sizeX}`);
-    document.documentElement.style.setProperty('--grid-size-y', `${settings.grid.sizeY}`);
+    document.documentElement.style.setProperty(
+      "--node-radius",
+      `${settings.grid.radius}px`,
+    );
+    document.documentElement.style.setProperty(
+      "--node-padding",
+      `${settings.grid.padding}px`,
+    );
+    document.documentElement.style.setProperty(
+      "--grid-gap",
+      `${settings.grid.gap}px`,
+    );
+    document.documentElement.style.setProperty(
+      "--node-width",
+      `${settings.grid.width}px`,
+    );
+    document.documentElement.style.setProperty(
+      "--grid-size-x",
+      `${settings.grid.sizeX}`,
+    );
+    document.documentElement.style.setProperty(
+      "--grid-size-y",
+      `${settings.grid.sizeY}`,
+    );
 
-    document.documentElement.style.setProperty('--bg-color', settings.colors.bg);
-    document.documentElement.style.setProperty('--fg-color', settings.colors.fg);
-    document.documentElement.style.setProperty('--text-color', settings.colors.text);
-    document.documentElement.style.setProperty('--accent-color', settings.colors.accent);
+    document.documentElement.style.setProperty(
+      "--bg-color",
+      settings.colors.bg,
+    );
+    document.documentElement.style.setProperty(
+      "--fg-color",
+      settings.colors.fg,
+    );
+    document.documentElement.style.setProperty(
+      "--text-color",
+      settings.colors.text,
+    );
+    document.documentElement.style.setProperty(
+      "--accent-color",
+      settings.colors.accent,
+    );
 
-    document.documentElement.style.setProperty('--header-font-size', `${settings.fonts.headerSize}px`);
-    document.documentElement.style.setProperty('--link-font-size', `${settings.fonts.linkSize}px`);
-    document.documentElement.style.setProperty('--keychord-font-size', `${settings.fonts.keychordHintSize}px`);
-    document.documentElement.style.setProperty('--clock-font-size', `${settings.fonts.clockSize}px`);
-    document.documentElement.style.setProperty('--font-family', `${settings.fonts.fontFamily}`);
+    document.documentElement.style.setProperty(
+      "--header-font-size",
+      `${settings.fonts.headerSize}px`,
+    );
+    document.documentElement.style.setProperty(
+      "--link-font-size",
+      `${settings.fonts.linkSize}px`,
+    );
+    document.documentElement.style.setProperty(
+      "--keychord-font-size",
+      `${settings.fonts.keychordHintSize}px`,
+    );
+    document.documentElement.style.setProperty(
+      "--clock-font-size",
+      `${settings.fonts.clockSize}px`,
+    );
+    document.documentElement.style.setProperty(
+      "--font-family",
+      `${settings.fonts.fontFamily}`,
+    );
 
     Modal.defaultStyles = {
       overlay: {
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        backdropFilter: 'blur(5px)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backdropFilter: "blur(5px)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
       },
       content: {
-        position: 'relative',
-        top: 'auto',
-        left: 'auto',
-        right: 'auto',
-        bottom: 'auto',
-        overflow: 'auto',
-        WebkitOverflowScrolling: 'touch',
-        borderRadius: '4px',
-        outline: 'none',
-        padding: '20px',
-        maxWidth: '80%',
-        maxHeight: '80%',
+        position: "relative",
+        top: "auto",
+        left: "auto",
+        right: "auto",
+        bottom: "auto",
+        overflow: "auto",
+        WebkitOverflowScrolling: "touch",
+        borderRadius: "4px",
+        outline: "none",
+        padding: "20px",
+        maxWidth: "80%",
+        maxHeight: "80%",
         border: `2px solid ${settings.colors.fg}`,
-      }
-    }
+      },
+    };
   }, [settings]);
 
   return (
     <>
       <header className="header">
         <div className="edit-btn-container">
-          {editMode &&
-            <button className="edit-btn-big" onClick={openSettingsModal}>[settings]</button>
-          }
-          <button className="edit-btn-big edit-btn-square" onClick={toggleEditMode}>✎</button>
+          {editMode && (
+            <button className="edit-btn-big" onClick={openSettingsModal}>
+              [settings]
+            </button>
+          )}
+          <button
+            className="edit-btn-big edit-btn-square"
+            onClick={toggleEditMode}
+          >
+            ✎
+          </button>
         </div>
         <Clock />
-        <span className="user-input-span">{!editMode && '⌨'} {userInput} {editMode && '* edit mode active *'}</span>
+        <span className="user-input-span">
+          {!editMode && "⌨"} {userInput} {editMode && "* edit mode active *"}
+        </span>
         <span className="link-preview-span">
           {targetedLink && (
-            <a href={targetedLink.url}>{targetedLink.label} ({targetedLink.url})</a>
+            <a href={targetedLink.url}>
+              {targetedLink.label} ({targetedLink.url})
+            </a>
           )}
         </span>
-      </header >
+      </header>
       <main>
         <Modal
           style={{
             overlay: { zIndex: 10 },
-            content: { zIndex: 11 }
+            content: { zIndex: 11 },
           }}
           isOpen={isModalOpen}
           onRequestClose={closeModal}
           ariaHideApp={false}
         >
-          <SettingsModal oldSettings={settings} saveSettings={saveSettings} closeModal={closeModal} />
+          <SettingsModal
+            oldSettings={settings}
+            saveSettings={saveSettings}
+            closeModal={closeModal}
+          />
         </Modal>
         <Modal
           isOpen={isConfirmModalOpen}
@@ -208,7 +279,7 @@ function App() {
           ariaHideApp={false}
           style={{
             overlay: { zIndex: 20 },
-            content: { zIndex: 21 }
+            content: { zIndex: 21 },
           }}
         >
           <ConfirmModal
@@ -226,7 +297,7 @@ function App() {
           openConfirmModal={openConfirmModal}
           userInput={userInput}
         />
-      </main >
+      </main>
     </>
   );
 }

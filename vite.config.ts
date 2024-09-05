@@ -5,18 +5,18 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'dist',
+    outDir: "dist",
     rollupOptions: {
       input: {
-        main: 'index.html'
-      }
-    }
+        main: "index.html",
+      },
+    },
   },
   server: {
     port: 3000,
     strictPort: true,
     hmr: {
-      port: 3000
-    }
-  }
+      port: 3000,
+    },
+  },
 });

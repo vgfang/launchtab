@@ -5,8 +5,8 @@
   -moz-osx-font-smoothing: grayscale;
 
   --bg-color: #015234;
-  --fg-color: #CA63A8;
-  --accent-color: #FFFFFF;
+  --fg-color: #ca63a8;
+  --accent-color: #ffffff;
   --text-color: #222222;
 
   --grid-size-x: 3;
@@ -21,7 +21,7 @@
   --link-font-size: 16px;
   --clock-font-size: 64px;
   --keychord-hint-size: 10px;
-  --font-family: "Jetbrains Mono, monospace"
+  --font-family: "Jetbrains Mono, monospace";
 }
 
 a {
@@ -42,26 +42,26 @@ body {
 
 * {
   background-color: var(--bg-color);
-  font-family: var(--font-family)
+  font-family: var(--font-family);
 }
 
 a {
-  color: var(--text-color)
+  color: var(--text-color);
 }
 
 a:hover {
-  color: var(--accent-color)
+  color: var(--accent-color);
 }
 
 button {
   border: 2px solid var(--fg-color);
   font-size: var(--link-font-size);
-  border-radius: var(--node-radius)
+  border-radius: var(--node-radius);
 }
 
 button:hover {
   border-color: var(--accent-color);
-  color: var(--accent-color)
+  color: var(--accent-color);
 }
 
 button:focus,
@@ -89,7 +89,7 @@ ul {
 
 label,
 p {
-  font-size: var(--link-font-size)
+  font-size: var(--link-font-size);
 }
 
 h1,
@@ -101,7 +101,7 @@ button,
 span,
 p,
 hr {
-  color: var(--text-color)
+  color: var(--text-color);
 }
 
 input,
@@ -112,7 +112,7 @@ select {
   margin: 4px;
 }
 
-input[type=color] {
+input[type="color"] {
   padding: 0px;
 }
 
