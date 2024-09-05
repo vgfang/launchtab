@@ -34,7 +34,7 @@ function App() {
   };
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [confirmFunc, setConfirmFunc] = useState(() => {});
+  const [confirmFunc, setConfirmFunc] = useState(() => { });
   const openConfirmModal = (func: any, desc: string) => {
     setConfirmFunc(() => func);
     setConfirmDescription(desc);
@@ -77,7 +77,14 @@ function App() {
         keychord,
       );
       if (link) {
-        window.location.assign(link.url);
+        const parseUrlForUse = (url: string) => {
+          const hasPrefix = /^(http:\/\/|https:\/\/)/i.test(url);
+          if (hasPrefix) {
+            return url;
+          }
+          return `https://${url}`;
+        };
+        window.location.assign(parseUrlForUse(link.url));
       }
     };
 
@@ -118,20 +125,25 @@ function App() {
     }
   }, [userInput, nodes]);
 
-  // // Load settings and nodes from Chrome storage
-  // useEffect(() => {
-  //   chrome.storage.sync.get(['data'], (result: any) => {
-  //     if (result.data) {
-  //       setSettings(result.data.settings);
-  //       setNodes(result.data.nodes);
-  //     }
-  //   });
-  // }, []);
-  //
-  // // Save settings to Chrome storage whenever they change
-  // useEffect(() => {
-  //   chrome.storage.sync.set({ data: { settings, nodes } });
-  // }, [settings, nodes]);
+  // Load settings and nodes from Chrome storage
+  useEffect(() => {
+    if (chrome?.storage) {
+      chrome.storage.sync.get(['data'], (result: any) => {
+        if (result.data) {
+          setSettings(result.data.settings);
+          setNodes(result.data.nodes);
+        }
+      });
+    }
+  }, []);
+
+  // Save settings to Chrome storage whenever they change
+  useEffect(() => {
+    if (chrome?.storage) {
+      console.log("chrome save")
+      chrome.storage.sync.set({ data: { settings, nodes } });
+    }
+  }, [settings, nodes]);
 
   // load in settings
   useEffect(() => {

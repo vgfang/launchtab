@@ -118,7 +118,7 @@ const Grid = (props: Props) => {
       if (nodeForEditIndex > -1) {
         prevNodes[nodeForEditIndex] = newNode;
       }
-      return prevNodes;
+      return [...prevNodes];
     });
   };
 
@@ -130,7 +130,7 @@ const Grid = (props: Props) => {
       if (nodeForDelIndex > -1) {
         prevNodes.splice(nodeForDelIndex, 1);
       }
-      return prevNodes;
+      return [...prevNodes];
     });
   };
 
@@ -143,7 +143,8 @@ const Grid = (props: Props) => {
       if (nodeForLink) {
         nodeForLink.links.push(link);
       }
-      return prevNodes;
+
+      return [...prevNodes];
     });
   };
 
@@ -160,7 +161,7 @@ const Grid = (props: Props) => {
           nodeForLink.links[linkIndex] = link;
         }
       }
-      return prevNodes;
+      return [...prevNodes];
     });
   };
 
@@ -177,7 +178,7 @@ const Grid = (props: Props) => {
           nodeForLink.links.splice(linkIndex, 1);
         }
       }
-      return prevNodes;
+      return [...prevNodes];
     });
   };
 
@@ -199,7 +200,7 @@ const Grid = (props: Props) => {
 
       destNode.links.splice(destination.index, 0, movedLink);
 
-      return prevNodes;
+      return [...prevNodes];
     });
   };
 
