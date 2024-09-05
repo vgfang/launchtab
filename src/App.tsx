@@ -69,6 +69,50 @@ function App() {
     }
   };
 
+
+  // handle data migration
+  const exportData = () => {
+    const data = JSON.stringify({ settings, nodes }, null, 2);
+    const blob = new Blob([data], { type: 'application/json' });
+
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(blob);
+    link.download = 'launchtab_data.json'
+    link.click();
+  }
+  const importData = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+
+    // Trigger the file input
+    input.click();
+
+    // Handle the file upload once a file is selected
+    input.onchange = (event: any) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.readAsText(file); // Read the file
+        reader.onload = (e: any) => {
+          try {
+            const importedData = JSON.parse(e.target.result);
+            // Validate that the data contains the expected structure
+            if (importedData.settings && importedData.nodes) {
+              setSettings(importedData.settings);
+              setNodes(importedData.nodes);
+              alert('Data imported successfully');
+            } else {
+              alert('Invalid data format');
+            }
+          } catch (error) {
+            alert('Error parsing JSON file');
+          }
+        };
+      }
+    };
+  }
+
   // handle keychord
   useEffect(() => {
     const goToLink = (keychord: string) => {
@@ -112,7 +156,7 @@ function App() {
     };
   }, [nodes, userInput, editMode]);
 
-  // update targetedLink
+  // Update targetedLink
   useEffect(() => {
     const link: T.Link | undefined = KeychordUtils.getLinkMatchingKeychord(
       nodes,
@@ -283,6 +327,8 @@ function App() {
             oldSettings={settings}
             saveSettings={saveSettings}
             closeModal={closeModal}
+            importData={importData}
+            exportData={exportData}
           />
         </Modal>
         <Modal

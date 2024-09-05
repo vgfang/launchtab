@@ -22,7 +22,7 @@
   display: flex;
   flex-wrap: nowrap;
   gap: 1rem;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .link-edit-buttons-container {

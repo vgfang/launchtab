@@ -6,6 +6,8 @@ interface Props {
   closeModal: any;
   saveSettings: any;
   oldSettings: T.Settings;
+  importData: any;
+  exportData: any;
 }
 
 const SettingsModal = (props: Props) => {
@@ -321,13 +323,13 @@ const SettingsModal = (props: Props) => {
       </form>
       <br />
       <hr />
-
+      <br />
       <h2 className="modal-title">💾 data migration:</h2>
       <p>Data is in JSON format.</p>
       <p>It includes both settings and node data.</p>
       <div className="modal-button-container">
-        <button onClick={() => {}}>[ import ]</button>
-        <button onClick={() => {}}>[ export ]</button>
+        <button onClick={() => { props.importData() }}>[ import ]</button>
+        <button onClick={() => { props.exportData() }}>[ export ]</button>
       </div>
     </div>
   );
