@@ -23,11 +23,11 @@
 
 .edit-btn-square {
   aspect-ratio: 1/1;
-  min-width: 2.5rem;
+  min-width: 2rem;
 }
 
 .edit-btn-big {
-  height: 3rem;
+  height: 2rem;
 }
 
 .user-input-span {

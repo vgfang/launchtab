@@ -125,7 +125,7 @@ const NodeModal = (props: Props) => {
           <button onClick={(e) => { e.preventDefault(); props.closeModal() }}>[ cancel ]</button>
         </div>
       </form>
-    </div>
+    </div >
   )
 }
 

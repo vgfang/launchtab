@@ -3,7 +3,7 @@ export const DefaultSettings = {
     "sizeX": 3,
     "sizeY": 3,
     "width": 200,
-    "padding": 50,
+    "padding": 10,
     "gap": 10,
     "radius": 10
   },
