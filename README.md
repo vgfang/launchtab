@@ -3,6 +3,7 @@
 CURRENTLY IN TESTING PHASE, RELEASE SOON
 
 **New tab replacement for quick link navigation using VIM-style keychords.**
+
 _Quickly go to links by matching user input to key combinations or press links directly._
 
 For Chromium-based browsers.
