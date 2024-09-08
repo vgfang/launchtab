@@ -78,7 +78,6 @@ const SettingsModal = (props: Props) => {
   return (
     <div>
       <h2 className="modal-title">⚙️ settings:</h2>
-
       <form id="settings-modal-form">
         <label>Grid:</label>
         <table>
@@ -328,8 +327,20 @@ const SettingsModal = (props: Props) => {
       <p>Data is in JSON format.</p>
       <p>It includes both settings and node data.</p>
       <div className="modal-button-container">
-        <button onClick={() => { props.importData() }}>[ import ]</button>
-        <button onClick={() => { props.exportData() }}>[ export ]</button>
+        <button
+          onClick={() => {
+            props.importData();
+          }}
+        >
+          [ import ]
+        </button>
+        <button
+          onClick={() => {
+            props.exportData();
+          }}
+        >
+          [ export ]
+        </button>
       </div>
     </div>
   );

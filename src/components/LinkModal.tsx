@@ -57,7 +57,7 @@ const LinkModal = (props: Props) => {
   const editLinkBtnClick = (event: React.MouseEvent<HTMLElement>): void => {
     event.preventDefault();
     if (!props.editLink) {
-      alert("problem with link passing");
+      alert("Error: problem with link passing");
       return;
     }
     editLinkForNode(selectedNode.uuid, {
@@ -75,36 +75,9 @@ const LinkModal = (props: Props) => {
     } else if (props.mode === T.LinkModalMode.EDIT) {
       editLinkBtnClick(event);
     } else {
-      alert("link modal mode error");
+      alert("Error: link modal mode error");
     }
   };
-
-  // const NodeSelectDropdown = (props: NodeSelectDropdownProps) => {
-  //   const nodes = props?.nodes || [];
-  //   const selectOnChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => props.setSelectedNode(findNodeViaUUID(e.target.value))
-  //   const selectedNode = props.selectedNode
-  //   const findNodeViaUUID = (uuid: string): T.Node | undefined => {
-  //     return nodes.find((node: T.Node) => node.uuid == uuid)
-  //   }
-  //
-  //   let value = undefined;
-  //   if (selectedNode !== undefined) {
-  //     value = selectedNode.uuid;
-  //   }
-  //   return (
-  //     <select name="node-select" value={value} onChange={selectOnChangeHandler}>
-  //       {
-  //         nodes.map((node: T.Node, key: number) => {
-  //           return (
-  //             <option key={key} value={node.uuid}>
-  //               {node.emoji} {node.label}
-  //             </option>
-  //           )
-  //         })
-  //       }
-  //     </select>
-  //   )
-  // }
 
   return (
     <div>
@@ -115,14 +88,6 @@ const LinkModal = (props: Props) => {
       <form id="link-modal-form">
         <table>
           <tbody>
-            {/* <tr> */}
-            {/*   <td> */}
-            {/*     <label>node: </label> */}
-            {/*   </td> */}
-            {/*   <td> */}
-            {/*     <NodeSelectDropdown nodes={props.nodes} selectedNode={selectedNode} setSelectedNode={setSelectedNode} /> */}
-            {/*   </td> */}
-            {/* </tr> */}
             <tr>
               <td>
                 <label>label: </label>

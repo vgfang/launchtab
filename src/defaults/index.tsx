@@ -8,10 +8,10 @@ export const DefaultSettings = {
     radius: 10,
   },
   colors: {
-    fg: "#abaca1",
-    bg: "#24283b",
-    accent: "#f7768e",
-    text: "#73daca",
+    fg: "#ffffff",
+    bg: "#000000",
+    accent: "#ffffff",
+    text: "#ffffff",
   },
   fonts: {
     headerSize: 24,

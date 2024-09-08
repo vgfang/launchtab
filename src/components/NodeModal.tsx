@@ -45,7 +45,6 @@ const NodeModal = (props: Props) => {
       height: parseInt(height),
       links: [],
     };
-    // TODO: Node Specific Input Validation
     const validation: T.Validation = props.addNode(newNode);
     if (validation.valid) {
       props.closeModal();

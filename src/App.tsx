@@ -3,7 +3,6 @@ import Modal from "react-modal";
 import "./App.css";
 import Clock from "./components/Clock.tsx";
 import Grid from "./components/Grid.tsx";
-// import TestJSON from "../test/test.json";
 import SettingsModal from "./components/SettingsModal";
 import * as T from "./types";
 import { DefaultSettings } from "./defaults";
@@ -34,7 +33,7 @@ function App() {
   };
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [confirmFunc, setConfirmFunc] = useState(() => { });
+  const [confirmFunc, setConfirmFunc] = useState(() => {});
   const openConfirmModal = (func: any, desc: string) => {
     setConfirmFunc(() => func);
     setConfirmDescription(desc);
@@ -69,21 +68,20 @@ function App() {
     }
   };
 
-
   // handle data migration
   const exportData = () => {
     const data = JSON.stringify({ settings, nodes }, null, 2);
-    const blob = new Blob([data], { type: 'application/json' });
+    const blob = new Blob([data], { type: "application/json" });
 
-    const link = document.createElement('a')
+    const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = 'launchtab_data.json'
+    link.download = "launchtab_data.json";
     link.click();
-  }
+  };
   const importData = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'application/json';
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "application/json";
 
     // Trigger the file input
     input.click();
@@ -101,17 +99,17 @@ function App() {
             if (importedData.settings && importedData.nodes) {
               setSettings(importedData.settings);
               setNodes(importedData.nodes);
-              alert('Data imported successfully');
+              alert("Data imported successfully.");
             } else {
-              alert('Invalid data format');
+              alert("Error: Invalid data format.");
             }
           } catch (error) {
-            alert('Error parsing JSON file');
+            alert("Error: Failed to parse JSON file.");
           }
         };
       }
     };
-  }
+  };
 
   // handle keychord
   useEffect(() => {
@@ -172,7 +170,7 @@ function App() {
   // Load settings and nodes from Chrome storage
   useEffect(() => {
     if (chrome?.storage) {
-      chrome.storage.sync.get(['data'], (result: any) => {
+      chrome.storage.sync.get(["data"], (result: any) => {
         if (result.data) {
           setSettings(result.data.settings);
           setNodes(result.data.nodes);
@@ -184,7 +182,6 @@ function App() {
   // Save settings to Chrome storage whenever they change
   useEffect(() => {
     if (chrome?.storage) {
-      console.log("chrome save")
       chrome.storage.sync.set({ data: { settings, nodes } });
     }
   }, [settings, nodes]);
