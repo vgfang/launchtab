@@ -2,16 +2,16 @@ export const DefaultSettings = {
   grid: {
     sizeX: 3,
     sizeY: 3,
-    width: 200,
-    padding: 10,
+    width: 250,
+    padding: 50,
     gap: 10,
     radius: 10,
   },
   colors: {
-    fg: "#ffffff",
-    bg: "#000000",
-    accent: "#ffffff",
-    text: "#ffffff",
+    fg: "#abaca1",
+    bg: "#24283b",
+    accent: "#f7768e",
+    text: "#73daca",
   },
   fonts: {
     headerSize: 24,

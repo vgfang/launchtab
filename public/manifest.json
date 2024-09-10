@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "launchtab",
-  "version": "0.1",
-  "description": "",
+  "version": "1.0",
+  "description": "New tab replacement for quick link navigation using VIM-style keychords.",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },

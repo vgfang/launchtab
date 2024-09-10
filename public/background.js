@@ -4,8 +4,8 @@ chrome.runtime.onInstalled.addListener(() => {
       grid: {
         sizeX: 3,
         sizeY: 3,
-        width: 250,
-        padding: 50,
+        width: 280,
+        padding: 15,
         gap: 10,
         radius: 10,
       },
