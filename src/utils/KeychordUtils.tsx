@@ -22,6 +22,9 @@ export const KeychordUtils: KeychordUtilsInterface = {
     if (keychord.length == 0) return undefined;
     for (const node of nodes) {
       for (const link of node.links) {
+        if (link.keychord.length == 0) {
+          continue;
+        }
         if (node.keychord + link.keychord === keychord) {
           matchingLink = link;
         }

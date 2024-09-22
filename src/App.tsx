@@ -33,7 +33,7 @@ function App() {
   };
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [confirmFunc, setConfirmFunc] = useState(() => {});
+  const [confirmFunc, setConfirmFunc] = useState(() => { });
   const openConfirmModal = (func: any, desc: string) => {
     setConfirmFunc(() => func);
     setConfirmDescription(desc);
