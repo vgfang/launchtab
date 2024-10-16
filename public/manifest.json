@@ -9,5 +9,11 @@
   "permissions": ["storage"],
   "content_security_policy": {
     "extension_pages": "script-src 'self' http://localhost:3000; object-src 'self'"
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "32": "icon.png",
+    "128": "icon.png"
   }
 }
