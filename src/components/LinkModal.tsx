@@ -12,12 +12,6 @@ interface Props {
   editLink?: T.Link | undefined;
 }
 
-// interface NodeSelectDropdownProps {
-//   nodes: T.Node[];
-//   setSelectedNode: any;
-//   selectedNode: T.Node;
-// }
-
 const LinkModal = (props: Props) => {
   // form inputs
   const [label, setLabel] = useState("");

@@ -21,7 +21,7 @@
   display: flex;
   flex-wrap: nowrap;
   gap: 1rem;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .link-edit-buttons-container {
@@ -32,4 +32,8 @@
 
 .link-a {
   font-size: var(--link-font-size);
+}
+
+.link-indicator {
+  align-self: center;
 }

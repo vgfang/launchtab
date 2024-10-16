@@ -61,9 +61,9 @@ const Link = (props: Props) => {
       }
     >
       <div className="link-label-keychord-container">
-        <span>
+        <span className="link-indicator">
           {!props.editMode && "> "}
-          {props.editMode && "⋮ "}
+          {props.editMode && "⋮⋮ "}
         </span>
         <a
           className="link-a"
