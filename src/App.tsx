@@ -5,7 +5,7 @@ import Clock from "./components/Clock.tsx";
 import Grid from "./components/Grid.tsx";
 import SettingsModal from "./components/SettingsModal";
 import * as T from "./types";
-import { DefaultSettings } from "./defaults";
+import { DefaultSettings } from "./defaults/index.js";
 import ConfirmModal from "./components/ConfirmModal.tsx";
 import { KeychordUtils } from "./utils/KeychordUtils.tsx";
 import { GridUtils } from "./utils/GridUtils.tsx";
@@ -33,7 +33,7 @@ function App() {
   };
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [confirmFunc, setConfirmFunc] = useState(() => { });
+  const [confirmFunc, setConfirmFunc] = useState(() => {});
   const openConfirmModal = (func: any, desc: string) => {
     setConfirmFunc(() => func);
     setConfirmDescription(desc);
@@ -172,8 +172,14 @@ function App() {
     if (chrome?.storage) {
       chrome.storage.sync.get(["data"], (result: any) => {
         if (result.data) {
-          setSettings(result.data.settings);
-          setNodes(result.data.nodes);
+          setSettings(result.data.settings || DefaultSettings);
+          setNodes(result.data.nodes || []);
+          console.log("Data found. Loading saved data.");
+        } else {
+          // If no data is found, set default values
+          console.log("No data found. Loading defaults.");
+          setSettings(DefaultSettings);
+          setNodes([]);
         }
       });
     }
@@ -182,11 +188,18 @@ function App() {
   // Save settings to Chrome storage whenever they change
   useEffect(() => {
     if (chrome?.storage) {
-      chrome.storage.sync.set({ data: { settings, nodes } });
+      const dataToSave = { settings, nodes };
+      chrome.storage.sync.set({ data: dataToSave }, () => {
+        if (chrome.runtime.lastError) {
+          console.error("Error saving data:", chrome.runtime.lastError);
+        } else {
+          console.log("Data saved successfully");
+        }
+      });
     }
   }, [settings, nodes]);
 
-  // load in settings
+  // load in style settings
   useEffect(() => {
     document.documentElement.style.setProperty(
       "--node-radius",
@@ -300,7 +313,7 @@ function App() {
         </div>
         <Clock />
         <span className="user-input-span">
-          {!editMode && "⌨"} {userInput} {editMode && "* edit mode active *"}
+          {userInput} {editMode && "* edit mode active *"}
         </span>
         <span className="link-preview-span">
           {targetedLink && (

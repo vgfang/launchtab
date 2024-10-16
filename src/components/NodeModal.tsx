@@ -45,6 +45,7 @@ const NodeModal = (props: Props) => {
       height: parseInt(height),
       links: [],
     };
+
     const validation: T.Validation = props.addNode(newNode);
     if (validation.valid) {
       props.closeModal();
@@ -65,9 +66,12 @@ const NodeModal = (props: Props) => {
         height: parseInt(height),
         links: props.selectedNode.links,
       };
-      props.updateNode(newNode);
+
+      const validation: T.Validation = props.updateNode(newNode);
+      if (validation.valid) {
+        props.closeModal();
+      }
     }
-    props.closeModal();
   };
 
   const deleteSelectedNode = (event: React.MouseEvent<HTMLElement>) => {

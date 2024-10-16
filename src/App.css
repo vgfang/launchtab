@@ -63,6 +63,7 @@
 .keychord-hint {
   color: var(--fg-color);
   font-size: var(--keychord-font-size);
+  align-self: flex-end;
 }
 
 .keychord-hint-match {

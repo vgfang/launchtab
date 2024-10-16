@@ -102,7 +102,7 @@ const Grid = (props: Props) => {
     if (validationCheck.valid) {
       props.setNodes((prevNodes: T.Node[]) => {
         prevNodes.push(newNode);
-        return prevNodes;
+        return [...prevNodes];
       });
     } else {
       alert(validationCheck.error);
@@ -111,15 +111,26 @@ const Grid = (props: Props) => {
   };
 
   const updateNode = (newNode: T.Node) => {
-    props.setNodes((prevNodes: T.Node[]) => {
-      const nodeForEditIndex: number = prevNodes.findIndex(
-        (node: T.Node) => node.uuid === newNode.uuid,
-      );
-      if (nodeForEditIndex > -1) {
-        prevNodes[nodeForEditIndex] = newNode;
-      }
-      return [...prevNodes];
-    });
+    const editedNodes = [...props.nodes];
+    const nodeForEditIndex: number = editedNodes.findIndex(
+      (node: T.Node) => node.uuid === newNode.uuid,
+    );
+    if (nodeForEditIndex > -1) {
+      editedNodes[nodeForEditIndex] = newNode;
+    }
+
+    const validationCheck = GridUtils.validateGrid(
+      editedNodes,
+      props.size.x,
+      props.size.y,
+    );
+
+    if (validationCheck.valid) {
+      props.setNodes(editedNodes);
+    } else {
+      alert(validationCheck.error);
+    }
+    return validationCheck;
   };
 
   const deleteNode = (delNodeUuid: string) => {
