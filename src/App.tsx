@@ -9,6 +9,7 @@ import { DefaultSettings } from "./defaults/index.js";
 import ConfirmModal from "./components/ConfirmModal.tsx";
 import { KeychordUtils } from "./utils/KeychordUtils.tsx";
 import { GridUtils } from "./utils/GridUtils.tsx";
+import { StorageUtils } from "./utils/StorageUtils.tsx";
 
 function App() {
   // holds current keychord input from user
@@ -21,7 +22,7 @@ function App() {
   const [nodes, setNodes] = useState([] as T.Node[]);
   // holds the targetedLink
   const [targetedLink, setTargetedLink] = useState<T.Link | undefined>(
-    undefined,
+    undefined
   );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,7 +58,7 @@ function App() {
     const validation = GridUtils.validateGrid(
       nodes,
       newSettings.grid.sizeX,
-      newSettings.grid.sizeY,
+      newSettings.grid.sizeY
     );
     if (validation.valid) {
       setSettings(newSettings);
@@ -116,7 +117,7 @@ function App() {
     const goToLink = (keychord: string) => {
       const link: T.Link | undefined = KeychordUtils.getLinkMatchingKeychord(
         nodes,
-        keychord,
+        keychord
       );
       if (link) {
         const parseUrlForUse = (url: string) => {
@@ -158,7 +159,7 @@ function App() {
   useEffect(() => {
     const link: T.Link | undefined = KeychordUtils.getLinkMatchingKeychord(
       nodes,
-      userInput,
+      userInput
     );
     if (link) {
       setTargetedLink(link);
@@ -170,30 +171,62 @@ function App() {
   // Load settings and nodes from Chrome storage
   useEffect(() => {
     if (chrome?.storage) {
-      chrome.storage.sync.get(["data"], (result: any) => {
-        if (result.data) {
-          setSettings(result.data.settings || DefaultSettings);
-          setNodes(result.data.nodes || []);
-          console.log("Data found. Loading saved data.");
-        } else {
-          // If no data is found, set default values
-          console.log("No data found. Loading defaults.");
-          setSettings(DefaultSettings);
-          setNodes([]);
+      // Load settings
+      chrome.storage.sync.get(["data", "settings"], (result: any) => {
+        let loadedSettings = DefaultSettings;
+
+        // Check for new format first
+        if (result.settings) {
+          console.log("Loading settings from new storage format");
+          loadedSettings = result.settings;
         }
+        // Fallback to legacy data format
+        else if (result.data) {
+          console.log("Loading settings from legacy storage format");
+          loadedSettings = result.data.settings || DefaultSettings;
+        }
+        // No settings found
+        else {
+          console.log("No settings found. Loading defaults.");
+        }
+
+        setSettings(loadedSettings);
+      });
+
+      // Load nodes using distributed storage
+      StorageUtils.loadDistributedNodes(true).then((loadedNodes) => {
+        setNodes(loadedNodes);
+
+        // Log storage stats for debugging
+        StorageUtils.getStorageStats().then((stats) => {
+          console.log("Storage stats:", stats);
+        });
       });
     }
   }, []);
 
-  // Save settings to Chrome storage whenever they change
+  // Save settings and nodes to Chrome storage whenever they change
   useEffect(() => {
     if (chrome?.storage) {
-      const dataToSave = { settings, nodes };
-      chrome.storage.sync.set({ data: dataToSave }, () => {
+      // Save settings (small, keep separate)
+      chrome.storage.sync.set({ settings: settings }, () => {
         if (chrome.runtime.lastError) {
-          console.error("Error saving data:", chrome.runtime.lastError);
+          console.error("Error saving settings:", chrome.runtime.lastError);
         } else {
-          console.log("Data saved successfully");
+          console.log("Settings saved successfully");
+        }
+      });
+
+      // Save nodes using distributed storage
+      StorageUtils.saveDistributedNodes(nodes, true).then((success) => {
+        if (success) {
+          // Log updated storage stats
+          StorageUtils.getStorageStats().then((stats) => {
+            console.log("After save - Storage stats:", stats);
+          });
+        } else {
+          console.error("Failed to save distributed nodes");
+          alert("Failed to save your data. Please try exporting as backup.");
         }
       });
     }
@@ -203,65 +236,65 @@ function App() {
   useEffect(() => {
     document.documentElement.style.setProperty(
       "--node-radius",
-      `${settings.grid.radius}px`,
+      `${settings.grid.radius}px`
     );
     document.documentElement.style.setProperty(
       "--node-padding",
-      `${settings.grid.padding}px`,
+      `${settings.grid.padding}px`
     );
     document.documentElement.style.setProperty(
       "--grid-gap",
-      `${settings.grid.gap}px`,
+      `${settings.grid.gap}px`
     );
     document.documentElement.style.setProperty(
       "--node-width",
-      `${settings.grid.width}px`,
+      `${settings.grid.width}px`
     );
     document.documentElement.style.setProperty(
       "--grid-size-x",
-      `${settings.grid.sizeX}`,
+      `${settings.grid.sizeX}`
     );
     document.documentElement.style.setProperty(
       "--grid-size-y",
-      `${settings.grid.sizeY}`,
+      `${settings.grid.sizeY}`
     );
 
     document.documentElement.style.setProperty(
       "--bg-color",
-      settings.colors.bg,
+      settings.colors.bg
     );
     document.documentElement.style.setProperty(
       "--fg-color",
-      settings.colors.fg,
+      settings.colors.fg
     );
     document.documentElement.style.setProperty(
       "--text-color",
-      settings.colors.text,
+      settings.colors.text
     );
     document.documentElement.style.setProperty(
       "--accent-color",
-      settings.colors.accent,
+      settings.colors.accent
     );
 
     document.documentElement.style.setProperty(
       "--header-font-size",
-      `${settings.fonts.headerSize}px`,
+      `${settings.fonts.headerSize}px`
     );
     document.documentElement.style.setProperty(
       "--link-font-size",
-      `${settings.fonts.linkSize}px`,
+      `${settings.fonts.linkSize}px`
     );
     document.documentElement.style.setProperty(
       "--keychord-font-size",
-      `${settings.fonts.keychordHintSize}px`,
+      `${settings.fonts.keychordHintSize}px`
     );
     document.documentElement.style.setProperty(
       "--clock-font-size",
-      `${settings.fonts.clockSize}px`,
+      `${settings.fonts.clockSize}px`
     );
     document.documentElement.style.setProperty(
       "--font-family",
-      `${settings.fonts.fontFamily}`,
+      `${settings.fonts.fontFamily}`
     );
 
     Modal.defaultStyles = {

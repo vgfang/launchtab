@@ -1,7 +1,7 @@
 {
   "name": "launchtab",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,6 +17,7 @@
     "@hello-pangea/dnd": "^16.6.0",
     "@types/emoji-mart": "^3.0.14",
     "emoji-mart": "^5.6.0",
+    "lz-string": "^1.5.0",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -27,6 +28,7 @@
     "@eslint/js": "^9.8.0",
     "@types/chai": "^4.3.17",
     "@types/chrome": "^0.0.270",
+    "@types/lz-string": "^1.5.0",
     "@types/mocha": "^10.0.7",
     "@types/node": "^22.5.0",
     "@types/react": "^18.3.3",
