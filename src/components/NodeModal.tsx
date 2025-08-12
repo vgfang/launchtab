@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as T from "../types";
-import { v4 as uuidv4 } from "uuid";
+// Using Date.now().toString(36) for shorter, unique IDs
 import "../stylesheets/Modal.css";
 import Picker from "@emoji-mart/react";
 
@@ -20,22 +20,22 @@ const NodeModal = (props: Props) => {
   const [keychord, setKeychord] = useState(props.selectedNode?.keychord || "");
   const [emoji, setEmoji] = useState(props.selectedNode?.emoji || "");
   const [posX, setPosX] = useState(
-    props.selectedNode?.posX.toString() || props.defaultNodePos.x.toString(),
+    props.selectedNode?.posX.toString() || props.defaultNodePos.x.toString()
   );
   const [posY, setPosY] = useState(
-    props.selectedNode?.posY.toString() || props.defaultNodePos.y.toString(),
+    props.selectedNode?.posY.toString() || props.defaultNodePos.y.toString()
   );
   const [width, setWidth] = useState(
-    props.selectedNode?.width.toString() || "1",
+    props.selectedNode?.width.toString() || "1"
   );
   const [height, setHeight] = useState(
-    props.selectedNode?.height.toString() || "1",
+    props.selectedNode?.height.toString() || "1"
   );
 
   const addNewNode = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     const newNode: T.Node = {
-      uuid: uuidv4(),
+      uuid: Date.now().toString(36),
       label: label,
       keychord: keychord,
       emoji: emoji,

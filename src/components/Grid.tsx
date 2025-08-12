@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import Node from "./Node.tsx";
 import LinkModal from "./LinkModal.tsx";
 import NodeModal from "./NodeModal.tsx";
-import { v4 as uuidv4 } from "uuid";
+// Using Date.now().toString(36) for shorter, unique IDs
 import * as T from "../types";
 import { GridUtils } from "../utils/GridUtils.tsx";
 import "../stylesheets/Grid.css";
@@ -36,13 +36,13 @@ const Grid = (props: Props) => {
   // link modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDefaultNode, setModalDefaultNode] = useState<T.Node>(
-    {} as T.Node,
+    {} as T.Node
   );
   const [modalMode, setModalMode] = useState<T.LinkModalMode>(
-    T.LinkModalMode.ADD,
+    T.LinkModalMode.ADD
   );
   const [modalEditLink, setModalEditLink] = useState<T.Link | undefined>(
-    undefined,
+    undefined
   );
 
   // node modal
@@ -51,14 +51,14 @@ const Grid = (props: Props) => {
     T.Node | undefined
   >({} as T.Node);
   const [nodeModalMode, setNodeModalMode] = useState<T.NodeModalMode>(
-    T.NodeModalMode.ADD,
+    T.NodeModalMode.ADD
   );
   const [defaultNodePos, setDefaultNodePos] = useState({ x: 1, y: 1 });
 
   const openNodeModal = (
     selectedNode: T.Node | undefined,
     mode: T.NodeModalMode,
-    defaultPos: { x: number; y: number } = { x: 1, y: 1 },
+    defaultPos: { x: number; y: number } = { x: 1, y: 1 }
   ) => {
     setNodeModalMode(mode);
     setDefaultNodePos(defaultPos);
@@ -77,7 +77,7 @@ const Grid = (props: Props) => {
   const openLinkModal = (
     defaultNode: T.Node,
     mode: T.LinkModalMode,
-    editLink: T.Link | undefined = undefined,
+    editLink: T.Link | undefined = undefined
   ) => {
     if (defaultNode) {
       setModalDefaultNode(defaultNode);
@@ -97,7 +97,7 @@ const Grid = (props: Props) => {
     const validationCheck = GridUtils.validateGrid(
       [...props.nodes, newNode],
       props.size.x,
-      props.size.y,
+      props.size.y
     );
     if (validationCheck.valid) {
       props.setNodes((prevNodes: T.Node[]) => {
@@ -113,7 +113,7 @@ const Grid = (props: Props) => {
   const updateNode = (newNode: T.Node) => {
     const editedNodes = [...props.nodes];
     const nodeForEditIndex: number = editedNodes.findIndex(
-      (node: T.Node) => node.uuid === newNode.uuid,
+      (node: T.Node) => node.uuid === newNode.uuid
     );
     if (nodeForEditIndex > -1) {
       editedNodes[nodeForEditIndex] = newNode;
@@ -122,7 +122,7 @@ const Grid = (props: Props) => {
     const validationCheck = GridUtils.validateGrid(
       editedNodes,
       props.size.x,
-      props.size.y,
+      props.size.y
     );
 
     if (validationCheck.valid) {
@@ -136,7 +136,7 @@ const Grid = (props: Props) => {
   const deleteNode = (delNodeUuid: string) => {
     props.setNodes((prevNodes: T.Node[]) => {
       const nodeForDelIndex: number = prevNodes.findIndex(
-        (node: T.Node) => node.uuid === delNodeUuid,
+        (node: T.Node) => node.uuid === delNodeUuid
       );
       if (nodeForDelIndex > -1) {
         prevNodes.splice(nodeForDelIndex, 1);
@@ -146,10 +146,10 @@ const Grid = (props: Props) => {
   };
 
   const addLinkToNode = (nodeUuid: string, link: T.Link) => {
-    link.uuid = uuidv4();
+    link.uuid = Date.now().toString(36);
     props.setNodes((prevNodes: T.Node[]) => {
       const nodeForLink: T.Node | undefined = prevNodes.find(
-        (node: T.Node) => node.uuid === nodeUuid,
+        (node: T.Node) => node.uuid === nodeUuid
       );
       if (nodeForLink) {
         nodeForLink.links.push(link);
@@ -162,11 +162,11 @@ const Grid = (props: Props) => {
   const editLinkForNode = (nodeUuid: string, link: T.Link) => {
     props.setNodes((prevNodes: T.Node[]) => {
       const nodeForLink: T.Node | undefined = prevNodes.find(
-        (node: T.Node) => node.uuid === nodeUuid,
+        (node: T.Node) => node.uuid === nodeUuid
       );
       if (nodeForLink) {
         const linkIndex: number = nodeForLink.links.findIndex(
-          (oldLink: T.Link) => oldLink.uuid === link.uuid,
+          (oldLink: T.Link) => oldLink.uuid === link.uuid
         );
         if (linkIndex > -1) {
           nodeForLink.links[linkIndex] = link;
@@ -179,11 +179,11 @@ const Grid = (props: Props) => {
   const deleteLinkForNode = (nodeUuid: string, linkUuid: string) => {
     props.setNodes((prevNodes: T.Node[]) => {
       const nodeForLink: T.Node | undefined = prevNodes.find(
-        (node: T.Node) => node.uuid === nodeUuid,
+        (node: T.Node) => node.uuid === nodeUuid
       );
       if (nodeForLink) {
         const linkIndex: number = nodeForLink.links.findIndex(
-          (oldLink: T.Link) => oldLink.uuid === linkUuid,
+          (oldLink: T.Link) => oldLink.uuid === linkUuid
         );
         if (linkIndex > -1) {
           nodeForLink.links.splice(linkIndex, 1);
