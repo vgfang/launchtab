@@ -13,7 +13,7 @@ export class StorageUtil {
   private static readonly VERSION_KEY = "launchtab_version";
 
   // Current version for data migration
-  private static readonly CURRENT_VERSION = "1.0.0";
+  private static readonly CURRENT_VERSION = "1.0.2";
 
   /**
    * Compress data using LZString with UTF16 encoding for Chrome storage compatibility
